@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const date = new Date();
 const currentYear = date.getFullYear();
 
@@ -14,24 +16,24 @@ function Footer() {
           </p>
         </div>
         <div className="flex gap-8">
-          <a
+          <Link
             className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
-            href="#"
+            to="#"
           >
             Politica de privacidad
-          </a>
-          <a
+          </Link>
+          <Link
             className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
-            href="#"
+            to="#"
           >
             Terminos de Servicio
-          </a>
-          <a
+          </Link>
+          <Link
             className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
-            href="#"
+            to="#"
           >
             RSS Feed
-          </a>
+          </Link>
         </div>
         <div className="flex gap-4">
           <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group cursor-pointer">
