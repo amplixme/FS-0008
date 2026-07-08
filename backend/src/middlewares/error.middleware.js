@@ -1,6 +1,6 @@
 const { error } = require("../utils/response");
 
-function errorHandler(err, req, res,) {
+function errorHandler(err, req, res, next) {
 	console.error(err);
 
 	// Validando errores de Prisma para conflictos
