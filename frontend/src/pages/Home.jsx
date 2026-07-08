@@ -1,5 +1,5 @@
 function Home() {
-  return <div className="h-screen">Home</div>;
+  return <div>Home</div>;
 }
 
 export default Home;
