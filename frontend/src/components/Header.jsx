@@ -1,16 +1,10 @@
 import { Link } from "react-router";
 import Drawer from "./Drawer";
 import { useState } from "react";
+import { USER } from "../data/data";
 
 function Header() {
   const [showDrawer, setShowDrawer] = useState(false);
-
-  const USER = {
-    name: "Alex Rivera",
-    avatarUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuB62b7yMm1NQoaVoxOLJVYpdgjgjS7ldvZHJ_awq6AzaUJ1Gr_D7HExHtqBdHan9pACW90EZl5G1_8SKAQ7oUN2m7CkbCQGunYi_3tjAwWcwHL4lQRnFuuupJBY2xeWoaE6_mn4UJ8q1jhq9Mlehw31qmBiZRZlJJF2WaXPNOE7jttKozVj3EjvSXL3OXY95A2gGTbuiHBGfmgcwbMhrfrdz4EMyx-He1th5I7xHM3dmJ-eVYzbbCHsvW06f18V3ux0U3Yi3abBKAN8",
-    email: "alex@ejemplo.com",
-  };
 
   return (
     <>
@@ -39,7 +33,7 @@ function Header() {
             >
               TheCanvas
             </Link>
-            <nav className="hidden md:flex gap-6">
+            <nav className="hidden md:flex gap-6" aria-label="Menú principal">
               <Link className="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight">
                 Recientes
               </Link>

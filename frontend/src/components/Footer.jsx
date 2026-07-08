@@ -15,37 +15,51 @@ function Footer() {
             © {currentYear} TheCanvas.
           </p>
         </div>
-        <div className="flex gap-8">
-          <Link
-            className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
-            to="#"
-          >
-            Politica de privacidad
-          </Link>
-          <Link
-            className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
-            to="#"
-          >
-            Terminos de Servicio
-          </Link>
-          <Link
-            className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
-            to="#"
-          >
-            RSS Feed
-          </Link>
-        </div>
+        <nav aria-label="Menú secundario">
+          <ul className="flex gap-8">
+            <li>
+              <Link
+                className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
+                to="#"
+              >
+                Politica de privacidad
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
+                to="#"
+              >
+                Terminos de Servicio
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-slate-500 hover:text-blue-600 transition-colors text-label-md font-inter"
+                to="#"
+              >
+                RSS Feed
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <div className="flex gap-4">
-          <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group cursor-pointer">
+          <button
+            className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group"
+            aria-label="Cambiar idioma"
+          >
             <span className="material-symbols-outlined text-sm group-hover:text-white">
               language
             </span>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group cursor-pointer">
+          </button>
+          <button
+            className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group"
+            aria-label="Compartir enlace"
+          >
             <span className="material-symbols-outlined text-sm group-hover:text-white">
               share
             </span>
-          </div>
+          </button>
         </div>
       </div>
     </footer>
