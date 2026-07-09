@@ -16,3 +16,5 @@ export const login = async (req, res, next) => {
 
   return success(res, { token, user }, 200);
 };
+
+export default { register, login };
