@@ -1,13 +1,17 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const errorHandler = require("../src/middlewares/error.middleware");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import errorHandler from "./middlewares/error.middleware.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// ROUTES
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
