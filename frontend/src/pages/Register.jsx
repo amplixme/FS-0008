@@ -2,37 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link } from "react-router";
-import { z } from "zod";
 import { registerUser } from "../services/auth";
-
-const registerSchema = z
-  .object({
-    name: z
-      .string()
-      .trim()
-      .min(1, "El nombre es obligatorio"),
-
-    email: z
-      .string()
-      .trim()
-      .min(1, "El email es obligatorio")
-      .email("Ingresa un email válido"),
-
-    password: z
-      .string()
-      .min(8, "La contraseña debe tener al menos 8 caracteres"),
-
-    confirmPassword: z
-      .string()
-      .min(1, "Confirma tu contraseña"),
-  })
-  .refine(
-    ({ password, confirmPassword }) => password === confirmPassword,
-    {
-      path: ["confirmPassword"],
-      message: "Las contraseñas no coinciden",
-    }
-  );
+import { registerSchema } from "../schemas/registerSchema";
 
 function Register() {
   const navigate = useNavigate();
