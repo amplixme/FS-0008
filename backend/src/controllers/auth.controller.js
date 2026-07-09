@@ -8,3 +8,11 @@ export const register = async (req, res, next) => {
 
   return success(res, { message: "Usuario registrado exitosamente" }, 201);
 };
+
+export const login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const { token, user } = await authService.loginUser({ email, password });
+
+  return success(res, { token, user }, 200);
+};
