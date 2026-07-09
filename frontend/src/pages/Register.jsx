@@ -34,9 +34,11 @@ function Register() {
 
   return (
     <div className="min-h-full flex flex-col items-center justify-center px-4 py-10 bg-surface">
-      <h1 className="text-2xl font-bold tracking-tight text-on-surface mt-20">TuProyecto</h1>
+    <h1 className="text-2xl font-bold tracking-tight text-on-surface mt-20">
+      TuProyecto
+    </h1>
 
-    <section className="w-full max-w-[420px] mx-auto my-12 bg-white md:rounded-xl shadow-xl overflow-hidden flex flex-col">
+    <section className="w-full max-w-[420px] mx-auto mt-12 mb-0 bg-white md:rounded-xl shadow-xl overflow-hidden flex flex-col">
       <header className="px-8 pt-10 pb-6 text-center">
         <h1 className="text-2xl font-bold tracking-tight text-on-surface">Crear cuenta</h1>
         <p className="text-on-surface-variant mt-2 text-sm">Únete a la comunidad</p>
