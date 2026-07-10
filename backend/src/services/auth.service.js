@@ -22,7 +22,13 @@ const createUser = async (userData) => {
 
   // Crear usuario
   const newUser = await prisma.user.create({
-    data: { name, email, password: hashedPassword },
+    data: { 
+      name, 
+      email, 
+      password: 
+      hashedPassword, 
+      role: "USER" // Se define por defecto "USER" en el role
+    },
     select: {
       id: true,
       name: true,
@@ -47,14 +53,14 @@ const loginUser = async ({ email, password }) => {
   }
 
   const token = jwt.sign(
-    { userId: user.id, email: user.email, name: user.name },
+    { userId: user.id, email: user.email, name: user.name, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: "24h" }
   );
 
   return {
     token,
-    user: { id: user.id, email: user.email, name: user.name },
+    user: { id: user.id, email: user.email, name: user.name, role: user.role },
   };
 };
 

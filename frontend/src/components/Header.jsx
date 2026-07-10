@@ -2,9 +2,11 @@ import { Link } from "react-router";
 import Drawer from "./Drawer";
 import { useState } from "react";
 import { USER } from "../data/data";
+import useAuth from "../hooks/useAuth";
 
 function Header() {
   const [showDrawer, setShowDrawer] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
 
   return (
     <>
@@ -46,25 +48,41 @@ function Header() {
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            <Link
-              className="hidden md:block px-5 py-2 text-slate-600 font-medium hover:bg-slate-50 transition-colors duration-200 rounded-full"
-              to="/login"
-            >
-              Iniciar sesión
-            </Link>
-            <Link
-              className="px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
-              to="/register"
-            >
-              Suscribirse
-            </Link>
-            <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden border-2 border-primary/10 hidden md:block">
-              <img
-                alt={USER.alt}
-                className="w-full h-full object-cover"
-                src={USER.avatarUrl}
-              />
-            </div>
+            {isAuthenticated ? (
+              <>
+                <p className="hidden md:block text-slate-700 dark:text-slate-200 font-medium font-inter tracking-tight">
+                  Hola, {user?.name || "Usuario"}
+                </p>
+                <button
+                  onClick={logout}
+                  className="px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
+                >
+                  Cerrar sesión
+                </button>
+                <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden border-2 border-primary/10 hidden md:block">
+                  <img
+                    alt={USER.alt}
+                    className="w-full h-full object-cover"
+                    src={USER.avatarUrl}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  className="hidden md:block px-5 py-2 text-slate-600 font-medium hover:bg-slate-50 transition-colors duration-200 rounded-full"
+                  to="/login"
+                >
+                  Iniciar sesión
+                </Link>
+                <Link
+                  className="px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
+                  to="/register"
+                >
+                  Suscribirse
+                </Link>
+              </>
+            )}
             <button className="active:scale-95 transition-transform text-primary block md:hidden">
               <span
                 className="material-symbols-outlined text-2xl"
