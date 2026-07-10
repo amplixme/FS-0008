@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
+import { error } from '../utils/response.js'; // Importamos el helper centralizado
 
 export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: { message: 'No autorizado' } });
+    return error(res, 'No autorizado', 401);
   }
 
   const token = authHeader.split(' ')[1];
@@ -12,18 +13,21 @@ export const authMiddleware = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
-    // Ajustamos para que coincida con lo que el servicio envía:
+  
     req.user = {
-      id: decoded.userId, // <--- Aquí está el ajuste crucial
+      id: decoded.userId, 
       email: decoded.email,
       name: decoded.name,
     };
-    
+
     next();
-  } catch (error) {
-    if (error.name === 'TokenExpiredError') {
-      return res.status(401).json({ error: { message: 'Token expirado' } });
+  } catch (err) {
+    // Corrección 2: Usar el helper centralizado en lugar de res.status()
+    if (err.name === 'TokenExpiredError') {
+      return error(res, 'Token expirado', 401);
     }
-    return res.status(401).json({ error: { message: 'No autorizado' } });
+    return error(res, 'No autorizado', 401);
   }
+
+
 };
