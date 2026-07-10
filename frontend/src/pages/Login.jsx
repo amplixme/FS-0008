@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, Link } from "react-router";
+import { useNavigate, Link, useLocation } from "react-router";
 import { loginSchema } from "../schemas/loginSchema";
 import { loginUser } from "../services/auth";
+import Alert from "../components/Alert";
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [serverError, setServerError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
+  // acceder al mensaje de exito del registro
+  const successMessage = location.state?.successMessage;
   const {
     register,
     handleSubmit,
@@ -54,6 +58,11 @@ export default function Login() {
             Ingresa a tu cuenta para continuar
           </p>
         </header>
+
+        <div className="px-8 pb-10 flex flex-col gap-5">
+          {/* Alerta de éxito */}
+          {successMessage && <Alert type="success" message={successMessage} />}
+        </div>
 
         <form
           className="px-8 flex flex-col gap-5"
