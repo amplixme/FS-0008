@@ -5,10 +5,13 @@ import { useNavigate, Link, useLocation } from "react-router";
 import { loginSchema } from "../schemas/loginSchema";
 import { loginUser } from "../services/auth";
 import Alert from "../components/Alert";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { login } = useAuth();
+
   const [serverError, setServerError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,8 +31,7 @@ export default function Login() {
       const response = await loginUser(formData);
       const token = response.data.token;
       const userData = response.data.user;
-      localStorage.setItem("token", token);
-      localStorage.setItem("userData", JSON.stringify(userData));
+      login(token, userData);
       navigate("/", {
         state: {
           successMessage: "Sesion iniciada correctamente.",
