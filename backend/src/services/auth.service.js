@@ -22,7 +22,13 @@ const createUser = async (userData) => {
 
   // Crear usuario
   const newUser = await prisma.user.create({
-    data: { name, email, password: hashedPassword },
+    data: { 
+      name, 
+      email, 
+      password: 
+      hashedPassword, 
+      role: "USER" // Se define por defecto "USER" en el role
+    },
     select: {
       id: true,
       name: true,
