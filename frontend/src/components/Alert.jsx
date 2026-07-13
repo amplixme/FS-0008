@@ -27,9 +27,11 @@ function Alert({ type = "info", message }) {
     <div
       role="alert"
       aria-live="polite"
-      className={`text-sm border rounded-xl px-3 py-2.5 flex items-start gap-2 ${config.container}`}
+      className={`text-sm border rounded-xl px-3 py-2.5 flex items-center gap-1.5 ${config.container}`}
     >
-      <span className={`material-symbols-outlined text-lg ${config.iconColor}`}>
+      <span
+        className={`material-symbols-outlined text-lg shrink-0 mt-0.5 ${config.iconColor}`}
+      >
         {config.icon}
       </span>
       <span className="flex-1">{message}</span>
