@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link, useLocation } from "react-router";
 import { loginSchema } from "../schemas/loginSchema";
-import { loginUser } from "../services/auth";
+import { loginUser } from "../services/auth.service";
 import Alert from "../components/Alert";
 import useAuth from "../hooks/useAuth";
 
@@ -29,18 +29,14 @@ export default function Login() {
     setServerError(null);
     try {
       const response = await loginUser(formData);
-      const token = response.data.token;
-      const userData = response.data.user;
-      login(token, userData);
+      login(response.token, response.user);
       navigate("/", {
         state: {
           successMessage: "Sesion iniciada correctamente.",
         },
       });
     } catch (err) {
-      const message =
-        err.response?.data?.error?.message ??
-        "Ocurrio un error al iniciar sesion. Intenta nuevamente.";
+      const message = err.message;
       setServerError(message);
     }
   };
@@ -61,10 +57,12 @@ export default function Login() {
           </p>
         </header>
 
-        <div className="px-8 pb-10 flex flex-col gap-5">
-          {/* Alerta de éxito */}
-          {successMessage && <Alert type="success" message={successMessage} />}
-        </div>
+        {/* Alerta de éxito */}
+        {successMessage && (
+          <div className="px-8 pb-10 flex flex-col gap-5">
+            <Alert type="success" message={successMessage} />
+          </div>
+        )}
 
         <form
           className="px-8 flex flex-col gap-5"
@@ -156,14 +154,11 @@ export default function Login() {
           </div>
 
           {serverError && (
-            <p
-              role="alert"
-              aria-live="polite"
-              className="text-sm text-error bg-error-container/50 rounded-xl px-3 py-2"
-            >
-              {serverError}
-            </p>
+            <div className="mt-5">
+              <Alert message={serverError} type="error" />
+            </div>
           )}
+
           <button
             type="submit"
             disabled={isSubmitting}
