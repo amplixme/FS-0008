@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import Drawer from "../Drawer";
+import Drawer from "../ui/Drawer";
 import { useState } from "react";
 import { USER } from "../../data/data";
 import useAuth from "../../hooks/useAuth";

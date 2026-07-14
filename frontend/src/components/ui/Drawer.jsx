@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router";
-import { CATEGORIAS, USER } from "../data/data";
+import { CATEGORIAS, USER } from "../../data/data";
 
 function Drawer({ onClose }) {
   // para que se cierre con "ESC"

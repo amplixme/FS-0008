@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link, useLocation } from "react-router";
 import { loginSchema } from "../schemas/loginSchema";
 import { loginUser } from "../services/auth.service";
-import Alert from "../components/shared/Alert";
+import Alert from "../components/ui/Alert";
 import useAuth from "../hooks/useAuth";
 
 export default function Login() {

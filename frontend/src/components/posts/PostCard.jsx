@@ -1,19 +1,11 @@
 import { Link } from "react-router";
 import { truncateText } from "../../utils/utils";
-
-const CATEGORY_COLOR_MAP = {
-  Ingeniería: "bg-secondary-container text-on-secondary-container",
-  Diseño: "bg-tertiary-fixed text-on-tertiary-fixed",
-  DevOps: "bg-secondary-container text-on-secondary-container",
-  Opinión: "bg-tertiary-fixed text-on-tertiary-fixed",
-  default: "bg-secondary-container text-on-secondary-container",
-};
+import { CATEGORY_STYLES } from "../../constants/categories";
 
 function PostCard({
   post: { id, thumbnail, title, excerpt, author, date, comments, category },
 }) {
-  const badgeClasses =
-    CATEGORY_COLOR_MAP[category] || CATEGORY_COLOR_MAP.default;
+  const badgeClasses = CATEGORY_STYLES[category] || CATEGORY_STYLES.default;
 
   return (
     <Link to={`/posts/${id}`}>
