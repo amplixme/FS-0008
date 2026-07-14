@@ -3,7 +3,7 @@ export const validate = (schema) => (req, res, next) => {
         schema.parse(req.body); // Si esto falla, salta al catch
         next(); // Si pasa, continúa al controlador
     } catch (error) {
-        // AQUÍ ES DONDE DEBE ENTRAR SI LOS DATOS SON MALOS
+        // AQUÍ ES DONDE DEBE ENTRAR SI LOS DATOS ESTÁN MAL
         const validationError = new Error("Validation failed");
         validationError.status = 400;
         validationError.details = error.errors;
