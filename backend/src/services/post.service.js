@@ -18,3 +18,4 @@ export const createPost = async (title, content, authorId) => {
 
   return newPost;
 };
+
