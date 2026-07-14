@@ -84,6 +84,15 @@ function CreatePost() {
             )}
           </div>
 
+          {/*
+            El backend aun no persiste este campo.
+            createPostSchema (backend) solo valida title y content, por lo que
+            "published" se descarta silenciosamente al llegar al servidor.
+            El toggle ya funciona correctamente del lado del frontend (el valor
+            viaja bien en el payload) - falta que el schema del backend lo declare
+            y que el service lo guarde en la base.
+          */}
+
           <ToggleSwitch
             label="Publicar ahora"
             description="Si lo dejas desactivado, el artículo se guarda como borrador."
