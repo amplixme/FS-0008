@@ -10,6 +10,7 @@ import User from "./pages/User.jsx";
 import ProtectedRoute from "./components/hoc/ProtectedRoute.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 import PostDetails from "./pages/posts/PostDetails.jsx";
+import CreatePost from "./pages/posts/CreatePost.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -21,6 +22,8 @@ createRoot(document.getElementById("root")).render(
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/posts/:id" element={<PostDetails />} />
+            <Route path="/posts/create-post" element={<CreatePost />} />
+            
             {/* ruta de ejemplo de como se utiliza ProtectedRoute */}
             <Route
               path="/user"
