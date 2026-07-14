@@ -54,3 +54,29 @@ export const getPostById = async (id) => {
   
   return post;
 };
+
+// 3. NUEVA FUNCIÓN: Actualizar un post
+export const updatePost = async (id, title, content) => {
+  const updatedPost = await prisma.post.update({
+    where: {
+      id: Number(id), // Prisma necesita el ID como número
+    },
+    data: {
+      title,
+      content,
+    },
+  });
+  
+  return updatedPost;
+};
+
+// 4. NUEVA FUNCIÓN: Eliminar un post
+export const deletePost = async (id) => {
+  const deletedPost = await prisma.post.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+  
+  return deletedPost;
+};

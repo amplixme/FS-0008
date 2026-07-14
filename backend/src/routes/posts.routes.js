@@ -12,7 +12,6 @@ router.get('/', postController.getAll);
 // GET /api/posts/:id - Ruta PÚBLICA para ver un post específico
 router.get('/:id', postController.getById);
 
-
 // POST /api/posts - Ruta protegida y validada
 router.post(
   '/', 
@@ -21,4 +20,11 @@ router.post(
   postController.create         // 3. El controlador guarda el post
 );
 
+// PUT /api/posts/:id - Ruta protegida (Actualizar: solo autor o ADMIN)
+router.put('/:id', authMiddleware, postController.update);
+
+// DELETE /api/posts/:id - Ruta protegida (Eliminar: solo autor o ADMIN)
+router.delete('/:id', authMiddleware, postController.remove);
+
 export default router;
+
