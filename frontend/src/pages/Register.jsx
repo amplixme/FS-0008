@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link } from "react-router";
 import { registerUser } from "../services/auth.service";
 import { registerSchema } from "../schemas/registerSchema";
-import Alert from "../components/Alert";
+import Alert from "../components/shared/Alert";
 
 function Register() {
   const navigate = useNavigate();

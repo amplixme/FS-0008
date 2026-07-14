@@ -9,6 +9,7 @@ import Layout from "./components/Layout.jsx";
 import User from "./pages/User.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
+import PostDetails from "./pages/Posts/PostDetails.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/posts/:id" element={<PostDetails />} />
             {/* ruta de ejemplo de como se utiliza ProtectedRoute */}
             <Route
               path="/user"
