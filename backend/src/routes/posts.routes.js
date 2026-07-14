@@ -6,6 +6,13 @@ import { createPostSchema } from '../schemas/post.schema.js';
 
 const router = Router();
 
+// GET /api/posts - Ruta PÚBLICA para listar todos los posts
+router.get('/', postController.getAll);
+
+// GET /api/posts/:id - Ruta PÚBLICA para ver un post específico
+router.get('/:id', postController.getById);
+
+
 // POST /api/posts - Ruta protegida y validada
 router.post(
   '/', 
