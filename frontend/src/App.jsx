@@ -22,14 +22,13 @@ createRoot(document.getElementById("root")).render(
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/posts/:id" element={<PostDetails />} />
-            <Route path="/posts/create-post" element={<CreatePost />} />
             
-            {/* ruta de ejemplo de como se utiliza ProtectedRoute */}
+            {/* Rutas protegidas */}
             <Route
-              path="/user"
+              path="/posts/create-post"
               element={
                 <ProtectedRoute>
-                  <User />
+                  <CreatePost />
                 </ProtectedRoute>
               }
             />
