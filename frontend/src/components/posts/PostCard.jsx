@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { truncateText } from "../utils/utils";
+import { truncateText } from "../../utils/utils";
 
 const CATEGORY_COLOR_MAP = {
   Ingeniería: "bg-secondary-container text-on-secondary-container",
