@@ -4,11 +4,12 @@ import { CATEGORY_STYLES } from "../../constants/categories";
 
 function PostCard({
   post: { id, thumbnail, title, excerpt, author, date, comments, category },
+  basePath = "/posts",
 }) {
   const badgeClasses = CATEGORY_STYLES[category] || CATEGORY_STYLES.default;
 
   return (
-    <Link to={`/posts/${id}`}>
+    <Link to={`${basePath}/${id}`}>
       <article className="group bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
         <div className="aspect-video overflow-hidden">
           <img
