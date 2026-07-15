@@ -22,14 +22,6 @@ function PostCard({
     year: "numeric",
   });
 
-  // const formattedDate = post
-  // ? new Date(post.createdAt).toLocaleDateString("es-AR", {
-  //     day: "numeric",
-  //     month: "long",
-  //     year: "numeric",
-  //   })
-  // : null;
-
   return (
     <Link to={`posts/${id}`}>
       <article className="group bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
