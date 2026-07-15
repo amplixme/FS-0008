@@ -45,3 +45,67 @@ export const getById = async (req, res, next) => {
     next(error);
   }
 };
+
+// 3. NUEVA FUNCIÓN: Actualizar un post (Solo autor o ADMIN)
+export const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const userId = req.user.id;
+    const userRole = req.user.role; // El middleware de auth debería dejarnos el rol acá
+
+    // 1. Verificamos si el post existe
+    const post = await postService.getPostById(id);
+    if (!post) {
+      const error = new Error('Post no encontrado');
+      error.status = 404;
+      return next(error);
+    }
+
+    // 2. Verificamos si es el dueño o es ADMIN
+    if (post.authorId !== userId && userRole !== 'ADMIN') {
+      const error = new Error('No tienes permiso para modificar este post');
+      error.status = 403;
+      return next(error);
+    }
+
+    // 3. Si pasó los filtros, lo actualizamos
+    const updatedPost = await postService.updatePost(id, title, content);
+    return success(res, updatedPost, 200);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 4. NUEVA FUNCIÓN: Eliminar un post (Solo autor o ADMIN)
+export const remove = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+    const userRole = req.user.role;
+
+    // 1. Verificamos si el post existe
+    const post = await postService.getPostById(id);
+    if (!post) {
+      const error = new Error('Post no encontrado');
+      error.status = 404;
+      return next(error);
+    }
+
+    // 2. Verificamos si es el dueño o es ADMIN
+    if (post.authorId !== userId && userRole !== 'ADMIN') {
+      const error = new Error('No tienes permiso para modificar este post');
+      error.status = 403;
+      return next(error);
+    }
+
+    // 3. Si pasó los filtros, lo eliminamos
+    await postService.deletePost(id);
+    return success(res, { message: 'Post eliminado con éxito' }, 200);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
