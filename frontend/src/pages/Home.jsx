@@ -66,7 +66,11 @@ function Home() {
             <>
               <div className="grid md:grid-cols-2 gap-8">
                 {posts.map((post) => (
-                  <PostCard key={post.id} post={post} />
+                  // TEMPORAL: basePath="/preview" evita colisionar con IDs reales de la DB.
+                  // Sacar esta prop (o dejar que use el default "/posts") cuando este
+                  // componente reemplace la linea de arriba ("placeholder llamada a api aca")
+                  // por una llamada real a getAll().
+                    <PostCard key={post.id} post={post} basePath="/preview" />
                 ))}
               </div>
               {posts.length > 4 && <Pagination />}
