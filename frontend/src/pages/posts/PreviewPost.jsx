@@ -16,8 +16,8 @@ function PreviewPost() {
   }
 
   return (
-    <div className="min-h-screen bg-surface">
-      <header className="sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant/10">
+    <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
+      <header>
         <div className="flex items-center h-16 px-6 max-w-3xl mx-auto">
           <Link
             to="/"
