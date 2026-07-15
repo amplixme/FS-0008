@@ -7,6 +7,7 @@ import LoadingSpinner from "../components/ui/LoadingSpinner";
 import ErrorState from "../components/ui/ErrorState";
 import EmptyState from "../components/ui/EmptyState";
 import HeroSearch from "../components/home/HeroSearch";
+import { getAll } from "../services/post.service";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -18,9 +19,9 @@ function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // placeholder llamada a api aca
+        const posts = await getAll();
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        setPosts(POSTS);
+        setPosts(posts);
         setError(false);
       } catch (error) {
         setError(true);
@@ -66,11 +67,7 @@ function Home() {
             <>
               <div className="grid md:grid-cols-2 gap-8">
                 {posts.map((post) => (
-                  // TEMPORAL: basePath="/preview" evita colisionar con IDs reales de la DB.
-                  // Sacar esta prop (o dejar que use el default "/posts") cuando este
-                  // componente reemplace la linea de arriba ("placeholder llamada a api aca")
-                  // por una llamada real a getAll().
-                    <PostCard key={post.id} post={post} basePath="/preview" />
+                  <PostCard key={post.id} post={post} />
                 ))}
               </div>
               {posts.length > 4 && <Pagination />}
