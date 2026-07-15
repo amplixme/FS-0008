@@ -17,7 +17,11 @@ function CreatePost() {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(postSchema),
-    defaultValues: { title: "", content: "", published: false },
+    defaultValues: { 
+      title: "", 
+      content: "", 
+      // published: false 
+    },
   });
 
   const onSubmit = async (formData) => {
