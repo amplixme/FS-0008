@@ -11,6 +11,7 @@ import { AuthProvider } from "./context/AuthProvider.jsx";
 import PostDetails from "./pages/posts/PostDetails.jsx";
 import CreatePost from "./pages/posts/CreatePost.jsx";
 import PreviewPost from "./pages/posts/PreviewPost.jsx";
+import EditPost from "./pages/posts/EditPost.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -32,6 +33,14 @@ createRoot(document.getElementById("root")).render(
               element={
                 <ProtectedRoute>
                   <CreatePost />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/posts/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <EditPost />
                 </ProtectedRoute>
               }
             />
