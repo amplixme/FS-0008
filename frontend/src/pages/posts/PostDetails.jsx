@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";// 1. Agregué useNavigate
 import useAuth from "../../hooks/useAuth";
-import { getById } from "../../services/post.service";
+import { getById, delete as deletePost } from "../../services/post.service"; // 2. Agregué delete
 import PostAuthorMeta from "../../components/posts/PostAuthorMeta";
 import PostActions from "../../components/posts/PostActions";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import Alert from "../../components/ui/Alert";
+import ConfirmModal from "../../components/common/ConfirmModal"; // 3. Agregué ConfirmModal
+
 
 function PostDetails() {
   const { id } = useParams();
   const { user } = useAuth();
-
+  const navigate = useNavigate(); // 3. Inicializamos useNavigate
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -47,6 +51,20 @@ function PostDetails() {
         year: "numeric",
       })
     : null;
+
+    const handleDelete = async () => {
+    setIsProcessing(true);
+    try {
+      await deletePost(id);
+      alert("Artículo eliminado con éxito"); 
+      navigate("/");
+    } catch (error) {
+      console.error(error); // <--- Esto elimina la línea roja
+      setError("Error al eliminar el artículo");
+      setIsProcessing(false);
+      setIsDeleteModalOpen(false);
+    }
+  };
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
@@ -83,18 +101,25 @@ function PostDetails() {
                 // Los botones se ven, pero la funcionalidad real de editar/eliminar
                 // se implementa en tickets futuros. El Link a /edit hoy no tiene
                 // ruta destino todavia, y onDelete es un stub sin efecto.
-                <PostActions postId={post.id} onDelete={() => {}} />
+                <PostActions postId={post.id} onDelete={() => setIsDeleteModalOpen(true)} />
               )}
             </div>
-
             <div className="prose-content text-lg leading-[1.75] text-on-surface-variant whitespace-pre-line">
               {post.content}
             </div>
+            {/* --- TU MODIFICACIÓN --- */}
+            <ConfirmModal
+              isOpen={isDeleteModalOpen}
+              onClose={() => setIsDeleteModalOpen(false)}
+              onConfirm={handleDelete}
+              isProcessing={isProcessing}
+              title="Eliminar artículo"
+              message="¿Estás seguro de que deseas eliminar este artículo? Esta acción no se puede deshacer."
+            />
           </article>
         )}
       </div>
     </div>
   );
 }
-
 export default PostDetails;

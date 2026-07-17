@@ -1,5 +1,5 @@
 import PostCard from "../components/posts/PostCard";
-import { POSTS } from "../data/data";
+// 1. Borramos el import de { POSTS } que ya no se usa
 import { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import Pagination from "../components/ui/Pagination";
@@ -19,11 +19,16 @@ function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const posts = await getAll();
+        const data = await getAll(); // Cambiamos el nombre para no confundir
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        setPosts(posts);
+        
+        // 2. Nos aseguramos de que siempre guarde un Array. 
+        // Si data es undefined, guarda un array vacío [] para que no explote el .length
+        setPosts(data?.data || data || []); 
         setError(false);
-      } catch (error) {
+      } catch (err) {
+        // 3. Solucionamos el error del linter cambiando "error" por "err"
+        console.error(err); 
         setError(true);
       } finally {
         setIsLoading(false);
@@ -58,7 +63,8 @@ function Home() {
               message="Ha ocurrido un error al cargar los datos"
               onRetry={handleRetry}
             />
-          ) : posts.length === 0 ? (
+          // 4. Agregamos una protección extra (?.) por si acaso
+          ) : !posts || posts.length === 0 ? (
             <EmptyState
               icon="inbox"
               message="No hay publicaciones disponibles"
