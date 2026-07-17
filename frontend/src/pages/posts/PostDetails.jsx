@@ -4,8 +4,8 @@ import useAuth from "../../hooks/useAuth";
 import { getById } from "../../services/post.service";
 import PostAuthorMeta from "../../components/posts/PostAuthorMeta";
 import PostActions from "../../components/posts/PostActions";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import Alert from "../../components/ui/Alert";
+import Spinner from "../../components/common/Spinner";
 
 function PostDetails() {
   const { id } = useParams();
@@ -65,7 +65,7 @@ function PostDetails() {
 
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <LoadingSpinner icon="progress_activity" message="Cargando artículo..." />
+            <Spinner icon="progress_activity" message="Cargando artículo..." />
           </div>
         )}
 

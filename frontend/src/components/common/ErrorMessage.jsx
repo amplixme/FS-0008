@@ -1,4 +1,4 @@
-function ErrorState({ icon, message, onRetry }) {
+function ErrorMessage({ icon, message, onRetry }) {
   return (
     <div className="flex flex-col items-center justify-center p-12 text-center rounded-2xl border-2 border-dashed border-surface-container-high bg-surface-container-lowest min-h-75 w-full">
       <span className="material-symbols-outlined text-5xl mb-4 text-red-500 dark:text-red-400">
@@ -18,4 +18,4 @@ function ErrorState({ icon, message, onRetry }) {
   );
 }
 
-export default ErrorState;
+export default ErrorMessage;
