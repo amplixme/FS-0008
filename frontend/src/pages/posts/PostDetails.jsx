@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router";// 1. Agregué useNavigate
+import { Link, useParams, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { getById, delete as deletePost } from "../../services/post.service"; // 2. Agregué delete
+import { getById, delete as deletePost } from "../../services/post.service"; 
 import PostAuthorMeta from "../../components/posts/PostAuthorMeta";
 import PostActions from "../../components/posts/PostActions";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import Alert from "../../components/ui/Alert";
-import ConfirmModal from "../../components/common/ConfirmModal"; // 3. Agregué ConfirmModal
+import ConfirmModal from "../../components/common/ConfirmModal"; 
 
+import Spinner from "../../components/common/Spinner";
 
 function PostDetails() {
   const { id } = useParams();
   const { user } = useAuth();
-  const navigate = useNavigate(); // 3. Inicializamos useNavigate
+  const navigate = useNavigate(); 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -59,7 +59,7 @@ function PostDetails() {
       alert("Artículo eliminado con éxito"); 
       navigate("/");
     } catch (error) {
-      console.error(error); // <--- Esto elimina la línea roja
+      console.error(error); 
       setError("Error al eliminar el artículo");
       setIsProcessing(false);
       setIsDeleteModalOpen(false);
@@ -83,7 +83,7 @@ function PostDetails() {
 
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <LoadingSpinner icon="progress_activity" message="Cargando artículo..." />
+            <Spinner icon="progress_activity" message="Cargando artículo..." />
           </div>
         )}
 
@@ -98,16 +98,14 @@ function PostDetails() {
             <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
               <PostAuthorMeta authorName={post.author.name} date={formattedDate} />
               {isOwner && (
-                // Los botones se ven, pero la funcionalidad real de editar/eliminar
-                // se implementa en tickets futuros. El Link a /edit hoy no tiene
-                // ruta destino todavia, y onDelete es un stub sin efecto.
+             
                 <PostActions postId={post.id} onDelete={() => setIsDeleteModalOpen(true)} />
               )}
             </div>
             <div className="prose-content text-lg leading-[1.75] text-on-surface-variant whitespace-pre-line">
               {post.content}
             </div>
-            {/* --- TU MODIFICACIÓN --- */}
+        
             <ConfirmModal
               isOpen={isDeleteModalOpen}
               onClose={() => setIsDeleteModalOpen(false)}
