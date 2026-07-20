@@ -26,6 +26,7 @@ export const getAllPosts = async (categorySlug) => {
     : undefined;
 
   const posts = await prisma.post.findMany({
+    where,
     orderBy: {
       createdAt: 'desc', // Criterio de la tarjeta: Los más recientes primero
     },
