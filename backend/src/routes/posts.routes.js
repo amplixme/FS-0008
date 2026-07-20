@@ -2,7 +2,7 @@ import { Router } from 'express';
 import * as postController from '../controllers/post.controller.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
 import { validate } from '../middlewares/validate.middleware.js';
-import { createPostSchema } from '../schemas/post.schema.js';
+import { createPostSchema, updatePostSchema } from '../schemas/post.schema.js';
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.post(
 );
 
 // PUT /api/posts/:id - Ruta protegida (Actualizar: solo autor o ADMIN)
-router.put('/:id', authMiddleware, postController.update);
+router.put('/:id', authMiddleware, validate(updatePostSchema), postController.update);
 
 // DELETE /api/posts/:id - Ruta protegida (Eliminar: solo autor o ADMIN)
 router.delete('/:id', authMiddleware, postController.remove);
