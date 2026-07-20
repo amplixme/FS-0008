@@ -14,7 +14,7 @@ export async function create(data) {
   const response = await api.post("/posts", data);
   return response;
 }
-
+  
 export async function update(id, data) {
   const response = await api.put(`/posts/${id}`, data);
   return response;

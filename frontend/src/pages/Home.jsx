@@ -15,14 +15,16 @@ function Home() {
 
   const [retryCount, setRetryCount] = useState(0);
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const posts = await getAll();
+        const data = await getAll(); 
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        setPosts(posts);
+        
+        setPosts(data); 
         setError(false);
-      } catch (error) {
+      } catch (err) {
+        console.error(err); 
         setError(true);
       } finally {
         setIsLoading(false);
@@ -57,6 +59,7 @@ function Home() {
               message="Ha ocurrido un error al cargar los datos"
               onRetry={handleRetry}
             />
+  
           ) : posts.length === 0 ? (
             <EmptyState
               icon="inbox"
