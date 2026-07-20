@@ -20,9 +20,14 @@ export const createPost = async (title, content, authorId, coverImage) => {
   return newPost;
 };
 
-// Traer todos los posts
-export const getAllPosts = async () => {
+// 1. NUEVA FUNCIÓN: Traer todos los posts
+export const getAllPosts = async (categorySlug) => {
+  const where = categorySlug
+    ? { categories: { some: { slug: categorySlug } } }
+    : undefined;
+
   const posts = await prisma.post.findMany({
+    where,
     orderBy: {
       createdAt: "desc", // Criterio de la tarjeta: Los más recientes primero
     },
@@ -30,6 +35,13 @@ export const getAllPosts = async () => {
       author: {
         select: {
           name: true, // Criterio de la tarjeta: Incluir datos del autor
+        },
+      },
+      categories: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
         },
       },
     },

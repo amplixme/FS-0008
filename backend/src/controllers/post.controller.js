@@ -22,7 +22,8 @@ export const create = async (req, res, next) => {
 // Obtener todos los posts (público)
 export const getAll = async (req, res, next) => {
   try {
-    const posts = await postService.getAllPosts();
+    const { category } = req.query;
+    const posts = await postService.getAllPosts(category);
     return success(res, posts, 200);
   } catch (error) {
     next(error);
