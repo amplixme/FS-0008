@@ -32,4 +32,13 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id]) // Relación con User
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  categories Category[] @relation("PostCategories")
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String @unique
+  slug String @unique
+  posts Post[] @relation("PostCategories")
+
 }
