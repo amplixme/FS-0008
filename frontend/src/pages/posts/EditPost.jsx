@@ -3,9 +3,9 @@ import { Navigate, useNavigate, useParams } from "react-router";
 import { getById, update } from "../../services/post.service";
 import Alert from "../../components/ui/Alert";
 import useAuth from "../../hooks/useAuth";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import ErrorState from "../../components/ui/ErrorState";
 import PostForm from "../../components/posts/PostForm";
+import Spinner from "../../components/common/Spinner";
+import ErrorMessage from "../../components/common/ErrorMessage";
 
 function EditPost() {
   const navigate = useNavigate();
@@ -66,12 +66,12 @@ function EditPost() {
         )}
 
         {isLoading ? (
-          <LoadingSpinner
+          <Spinner
             icon="progress_activity"
             message="Cargando publicación..."
           />
         ) : error ? (
-          <ErrorState
+          <ErrorMessage
             icon="error"
             message="Ha ocurrido un error al cargar los datos"
             onRetry={handleRetry}
