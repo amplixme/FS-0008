@@ -1,16 +1,17 @@
 import prisma from "../prisma.client.js";
 
-export const createPost = async (title, content, authorId) => {
+export const createPost = async (title, content, authorId, coverImage) => {
   const newPost = await prisma.post.create({
     data: {
       title,
       content,
-      authorId, 
+      authorId,
+      coverImage,
     },
     include: {
       author: {
         select: {
-          name: true, 
+          name: true,
         },
       },
     },
@@ -19,11 +20,11 @@ export const createPost = async (title, content, authorId) => {
   return newPost;
 };
 
-// 1. NUEVA FUNCIÓN: Traer todos los posts
+// Traer todos los posts
 export const getAllPosts = async () => {
   const posts = await prisma.post.findMany({
     orderBy: {
-      createdAt: 'desc', // Criterio de la tarjeta: Los más recientes primero
+      createdAt: "desc", // Criterio de la tarjeta: Los más recientes primero
     },
     include: {
       author: {
@@ -33,11 +34,11 @@ export const getAllPosts = async () => {
       },
     },
   });
-  
+
   return posts;
 };
 
-// 2. NUEVA FUNCIÓN: Traer un post por su ID
+// Traer un post por su ID
 export const getPostById = async (id) => {
   const post = await prisma.post.findUnique({
     where: {
@@ -51,12 +52,12 @@ export const getPostById = async (id) => {
       },
     },
   });
-  
+
   return post;
 };
 
-// 3. NUEVA FUNCIÓN: Actualizar un post
-export const updatePost = async (id, title, content) => {
+// Actualizar un post
+export const updatePost = async (id, title, content, coverImage) => {
   const updatedPost = await prisma.post.update({
     where: {
       id: Number(id), // Prisma necesita el ID como número
@@ -64,19 +65,20 @@ export const updatePost = async (id, title, content) => {
     data: {
       title,
       content,
+      coverImage,
     },
   });
-  
+
   return updatedPost;
 };
 
-// 4. NUEVA FUNCIÓN: Eliminar un post
+// Eliminar un post
 export const deletePost = async (id) => {
   const deletedPost = await prisma.post.delete({
     where: {
       id: Number(id),
     },
   });
-  
+
   return deletedPost;
 };
