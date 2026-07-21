@@ -1,6 +1,7 @@
 import { Router } from "express";
 import authRoutes from "./auth.routes.js";
 import postRoutes from "./posts.routes.js";
+import uploadRoutes from "./upload.routes.js";
 import requireRole from "../middlewares/role.middleware.js";
 
 const router = Router();
@@ -13,5 +14,6 @@ router.get("/health", (req, res) => {
 // Agregador de rutas principales
 router.use("/auth", authRoutes);
 router.use("/posts", postRoutes);
+router.use("/upload", uploadRoutes);
 
 export default router;
