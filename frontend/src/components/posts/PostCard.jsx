@@ -37,7 +37,7 @@ function PostCard({
           <span
             className={`inline-block px-3 py-1 ${badgeClasses} text-[10px] font-extrabold uppercase tracking-widest rounded-full mb-4`}
           >
-            {category || "Sin categoria"}
+            {category.name || "Sin categoria"}
           </span>
           <h2 className="text-2xl font-bold text-on-surface mb-3 tight-tracking line-clamp-2 leading-tight group-hover:text-primary transition-colors">
             {title}

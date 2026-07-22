@@ -1,23 +1,34 @@
 export const CATEGORIAS = [
   {
+    id: "1",
     name: "Tecnología",
-    numberOfPosts: 24,
+    slug: "tecnologia",
+    description:
+      "Noticias, tendencias y artículos sobre desarrollo y tecnología.",
   },
   {
-    name: "Diseño",
-    numberOfPosts: 18,
-  },
-  {
+    id: "2",
     name: "Programación",
-    numberOfPosts: 42,
+    slug: "programacion",
+    description: "Tutoriales, guías y buenas prácticas de código.",
   },
   {
+    id: "3",
+    name: "Diseño UI/UX",
+    slug: "diseno-ui-ux",
+    description: "Principios de diseño, experiencia de usuario e interfaces.",
+  },
+  {
+    id: "4",
+    name: "Inteligencia Artificial",
+    slug: "inteligencia-artificial",
+    description: "Avances en IA, Machine Learning y herramientas modernas.",
+  },
+  {
+    id: "5",
     name: "DevOps",
-    numberOfPosts: 12,
-  },
-  {
-    name: "Opinión",
-    numberOfPosts: 7,
+    slug: "devops",
+    description: "Despliegue, arquitectura cloud y CI/CD.",
   },
 ];
 
@@ -30,67 +41,81 @@ export const USER = {
 
 export const POSTS = [
   {
-    id: 1,
-    thumbnail:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuD2yhCgGZgV8OCo-ExNttlVt8QArc3_O1B5A1vYDbhJz0Oq4fVnbAOFTbym6tXaZKCmOr1f49okZ5Cq2yavKJmGAwnzEYTBGNQZ_LnkpBWiYYxJE1futY2XqlKCK5-8SKVL_Xo-DJHhUxRyMW2XPx2OY51TSE3g3xeEeRHjEPh4VakvWwFw3KiNPCxQGU_mR25TaJ5Os40is1WHlmwqiytbaYLpx0gPjAKvdNtjckPW0bdNlRrNP29DelhzA-3uWZ2kLZWAgjSZp5GB",
-    category: "Ingeniería",
-    title: "Arquitectura Limpia en Aplicaciones Modernas",
-    excerpt:
-      "Exploramos cómo los principios de Clean Architecture pueden salvar tu proyecto del caos técnico mientras escalas rápidamente en entornos ágiles.",
+    id: "1",
+    title: "Introducción a React 19 y sus nuevas funcionalidades",
+    slug: "introduccion-a-react-19",
+    content:
+      "React 19 introduce cambios significativos en el ecosistema del desarrollo web...",
+    coverImage:
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800",
+    createdAt: "2026-07-15T10:00:00.000Z",
     author: {
-      name: "Alex Rivera",
-      avatar:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuCWFnbWLCR5qcTlygWuVQ0jVdcznNUGu4czDeJQ2o0geBKkN2Y8vcbMgkqLqP65hjYMoOkPhBZkFbidcrf_clvcBTSORfxlPAyVxk8dVQy0ZIwkr0MG2T7tFb4vyuWqmvdRWqEx8Ta0Z_P88d9OXxP6OwKyN_SspyNHE4NOBkX6LVFla6bEDRPU_3XaQQNuhjalNhUx4C_78vXL2omATKwL8ZexvLNNlE4stAAozSezQ1UBs9SATSNboUc_fCSAsHpdyJgUOCX9EPcO",
+      name: "Alex Dev",
+      avatar: "https://i.pravatar.cc/150?u=alex",
     },
-    date: "Oct 12, 2023",
-    comments: 14,
+    category: {
+      name: "Programación",
+      slug: "programacion",
+    },
   },
   {
-    id: 2,
-    thumbnail:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAC0H4Jwn1lhV6_rGgvKz_2TYN03oe4sI0uO_bjyMXDdr6FXOfNiwX-twpt5N-tvTbFfp1xgfb8HMCEcm1AibxHHUjsVgzDHE2M3HhJAq8QqHV9v3E9T6xJpOSXDdbGHtQR09Fc2uaR2XQB-VPkopseNV9SP6WdLcIOcHussiEiYX8rrRI8IWSJT5J_Kow2fzKWesOFH8ncAADrw7hB8IeVxEo6lFUMIf2Xg3og7Ue4wdjrrBZX0sQn_vZlijNSxuIWIqQGam1M4FTC",
-    category: "Diseño",
-    title: "El futuro de la UI: Más allá de las pantallas",
+    id: "2",
+    title: "Principios clave de UI/UX para desarrolladores Frontend",
+    slug: "principios-ui-ux-frontend",
     excerpt:
-      "¿Cómo diseñamos para interfaces que no existen físicamente? Una mirada a la computación espacial y su impacto en la experiencia del usuario.",
+      "Aprende a diseñar interfaces atractivas y accesibles sin necesidad de ser un experto en diseño.",
+    content:
+      "La experiencia de usuario es fundamental para el éxito de cualquier aplicación web...",
+    coverImage:
+      "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800",
+    createdAt: "2026-07-18T14:30:00.000Z",
     author: {
-      name: "Sofia Chen",
-      avatar:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuCxfJ7jX1JeifoJSEDRlUgWY4EG3Oy8QYun6HYH4D2nTuvs82HNMnFI7QjaYEfGbC-TPGTNsriNT9w7CsE6SSyhT9sPeX_yYa1Gk8jXkBAdjKYncivpfdbjIC69pW2HLJgGN3jAJD4I2zq7qZqeUcieNUblltJouIHJhnF-B6ntJi6Dg4jwuTMiDBKFCjcULPynm-XlI0KETN92Y4qL0-ojDewsLIguLPGv7j_Ju_ARqT0gK0ZZOHvASKXPog-r4g3oq1zDJJp5xLeq",
+      name: "Maria Ruiz",
+      avatar: "https://i.pravatar.cc/150?u=maria",
     },
-    date: "Oct 10, 2023",
-    comments: 8,
+    category: {
+      name: "Diseño UI/UX",
+      slug: "diseno-ui-ux",
+    },
   },
   {
-    id: 3,
-    thumbnail:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDhhle9B4FbehWuo8DuLxlz6ZTNMXpPZLf8CNrDSZFlflduWqtIp0uFm5-fKdMtzRWaNA_zXvDVGw24WmMIaWf7gCF5DA_dpZDiM17gMMNZx2g6WItdihntWIdH9FmPsccCyzObGVBex46SzQXmzhejTGvC_oMDLGD7eL0LaGoAdMEfYRqXTfp1X8EwlR1mbaeKgH7lSPjrn7oqjCDPDRsuoF3vvUrTYTKAn3IF16JbFTOfG3D-_LddTk0DIevTVlH6_-BFnOSSKeAk",
-    category: "DevOps",
-    title: "Kubernetes para Mortales: Guía Definitiva",
+    id: "3",
+    title: "Cómo la IA está transformando el flujo de trabajo en desarrollo",
+    slug: "ia-transformando-desarrollo-web",
     excerpt:
-      "Desmitificamos la orquestación de contenedores con analogías del mundo real y ejemplos prácticos para equipos pequeños.",
+      "Análisis sobre herramientas de Inteligencia Artificial generativa y su impacto en la productividad.",
+    content:
+      "La IA ha dejado de ser una promesa para convertirse en una herramienta cotidiana...",
+    coverImage:
+      "https://images.unsplash.com/photo-1677442136019-21780efad99a?w=800",
+    createdAt: "2026-07-20T09:15:00.000Z",
     author: {
-      name: "Marc Serra",
-      avatar:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuC4CXX481xM5hla6sPJlDxxN2IlpSg9B09gwCEODxCDcOh6b-G4ZuZpKUXz_74BqDhHVkmk52HXZRP7Wz8U70dipJ3siUsef_DrWtpEDRbv9Xk11UgYggbRys8-rmR9yiDtzMVvL_aOWrTMMhO-gpUvNPozUaQIdOyv2uX8ui87QC-wPNBEQMH5SimUgrJzzEsfP2VEsfmqXhu7KzPUr2Bt5QYnaqhqDqpKIPfhFyLarDV8ulvnEpPN5iw4JnoV-UsQ1vHftlEBOues",
+      name: "Alex Dev",
+      avatar: "https://i.pravatar.cc/150?u=alex",
     },
-    date: "Oct 05, 2023",
-    comments: 32,
+    category: {
+      name: "Inteligencia Artificial",
+      slug: "inteligencia-artificial",
+    },
   },
   {
-    id: 4,
-    thumbnail:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBhXo74ZJzrxdp8s02anQ-RrEKoaqFDUfFrelRCteQLtk9BVIXXM5PfMsU3k0KA20G4-TPcSe4ohio_2YHs-2n3B_gSKA0A1zh0WSS7HL1M_5EMOsKjSxq5HNXdTPWzvUcHTCiwGnIOjU-fiE_-D5gcgr0PAPg1M6ElSFWpvRqDbpGSJYH5cSCgtbP2OgOpp5hqafBsYklW3i6kcbetWMjBgqtdsX8VAeSO0zM4oGUU7RvNUGkQmZRe6wDI0rXeXSdGroA0Hlkuq0M3",
-    category: "Opinión",
-    title: "¿Estamos ante el fin del desarrollo No-Code?",
+    id: "4",
+    title: "Configuración de pipelines CI/CD simples con GitHub Actions",
+    slug: "configuracion-cicd-github-actions",
     excerpt:
-      "Analizamos el auge de la IA generativa de código y cómo está desplazando las herramientas visuales tradicionales de creación.",
+      "Guía paso a paso para automatizar pruebas y despliegues en proyectos Node y React.",
+    content:
+      "Automatizar la integración y despliegue continuo garantiza código estable en producción...",
+    coverImage:
+      "https://images.unsplash.com/photo-1618401471353-b98aedd04e11?w=800",
+    createdAt: "2026-07-21T11:45:00.000Z",
     author: {
-      name: "Elena Ruiz",
-      avatar:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuA2UCFOjf8bgqHmOVWaaPkABptF_Yg00hHQFDPJ09hfPPk4-El5UP-Rm72Vrtcm1m_6l9NOSAzmIAtzwpC1NUeuo_8a3vUE8bOaGLOweapDZbi4TGtU28iSHT6orAx6bUXfbVJPK7r-vKRZ0YIVhZfEqIhsVIsc6lBtj0RDerivdEZtgpAc3KC6ZHcZADGRpHTtFLc-aaaL6Vch2CqDZF_O_PlmsqgwAhq5q_XPfr_4mkxMn8eGYTufUM1DgxIVunuq2Bvqx1AwXxx7",
+      name: "Carlos Ops",
+      avatar: "https://i.pravatar.cc/150?u=carlos",
     },
-    date: "Oct 01, 2023",
-    comments: 56,
+    category: {
+      name: "DevOps",
+      slug: "devops",
+    },
   },
 ];

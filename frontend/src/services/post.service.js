@@ -1,7 +1,7 @@
 import api from "./api";
 
-export async function getAll() {
-  const response = await api.get("/posts");
+export async function getAll(params = {}, config = {}) {
+  const response = await api.get(`/posts${params}`, { ...config }); // Agregar configuracion para manejar la señal de cancelación
   return response;
 }
 
@@ -14,7 +14,7 @@ export async function create(data) {
   const response = await api.post("/posts", data);
   return response;
 }
-  
+
 export async function update(id, data) {
   const response = await api.put(`/posts/${id}`, data);
   return response;
