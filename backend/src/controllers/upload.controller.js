@@ -1,4 +1,4 @@
-import { uploadImageToCloudinary } from "../services/upload.service.js";
+import * as uploadService from "../services/upload.service.js";
 import { success } from "../utils/response.js";
 
 export const uploadImage = async (req, res, next) => {
@@ -9,7 +9,7 @@ export const uploadImage = async (req, res, next) => {
       return next(error);
     }
 
-    const result = await uploadImageToCloudinary(req.file.buffer);
+    const result = await uploadService.uploadImageToCloudinary(req.file.buffer);
 
     return success(res, { url: result.secure_url }, 201);
   } catch (error) {
