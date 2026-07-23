@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { getById, delete as deletePost } from "../../services/post.service"; 
+import { getById, delete as deletePost } from "../../services/post.service";
 import PostAuthorMeta from "../../components/posts/PostAuthorMeta";
 import PostActions from "../../components/posts/PostActions";
 import Alert from "../../components/ui/Alert";
-import ConfirmModal from "../../components/common/ConfirmModal"; 
+import ConfirmModal from "../../components/common/ConfirmModal";
 
 import Spinner from "../../components/common/Spinner";
 
 function PostDetails() {
   const { id } = useParams();
   const { user } = useAuth();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -52,14 +52,14 @@ function PostDetails() {
       })
     : null;
 
-    const handleDelete = async () => {
+  const handleDelete = async () => {
     setIsProcessing(true);
     try {
       await deletePost(id);
-      alert("Artículo eliminado con éxito"); 
+      alert("Artículo eliminado con éxito");
       navigate("/");
     } catch (error) {
-      console.error(error); 
+      console.error(error);
       setError("Error al eliminar el artículo");
       setIsProcessing(false);
       setIsDeleteModalOpen(false);
@@ -75,7 +75,9 @@ function PostDetails() {
               to="/"
               className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
             >
-              <span className="material-symbols-outlined text-xl">arrow_back</span>
+              <span className="material-symbols-outlined text-xl">
+                arrow_back
+              </span>
               Volver a inicio
             </Link>
           </div>
@@ -94,18 +96,33 @@ function PostDetails() {
             <h1 className="text-3xl md:text-[2.75rem] font-extrabold leading-tight tracking-tight text-on-surface mb-6">
               {post.title}
             </h1>
-
+            <div className="aspect-[16/9] overflow-hidden relative rounded-xl">
+              <span className="absolute top-4 left-4 z-10 bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full text-sm font-bold shadow-sm">
+                {post.categories?.[0]?.name || "Sin categoria"}
+              </span>
+              <img
+                alt="Post cover image"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                data-alt=""
+                src={post.coverImage || "https://placehold.co/600x400"}
+              />
+            </div>
             <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
-              <PostAuthorMeta authorName={post.author.name} date={formattedDate} />
+              <PostAuthorMeta
+                authorName={post.author.name}
+                date={formattedDate}
+              />
               {isOwner && (
-             
-                <PostActions postId={post.id} onDelete={() => setIsDeleteModalOpen(true)} />
+                <PostActions
+                  postId={post.id}
+                  onDelete={() => setIsDeleteModalOpen(true)}
+                />
               )}
             </div>
             <div className="prose-content text-lg leading-[1.75] text-on-surface-variant whitespace-pre-line">
               {post.content}
             </div>
-        
+
             <ConfirmModal
               isOpen={isDeleteModalOpen}
               onClose={() => setIsDeleteModalOpen(false)}
