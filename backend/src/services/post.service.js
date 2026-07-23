@@ -29,12 +29,12 @@ export const getAllPosts = async (categorySlug) => {
   const posts = await prisma.post.findMany({
     where,
     orderBy: {
-      createdAt: "desc", // Criterio de la tarjeta: Los más recientes primero
+      createdAt: "desc", 
     },
     include: {
       author: {
         select: {
-          name: true, // Criterio de la tarjeta: Incluir datos del autor
+          name: true, 
         },
       },
       categories: {
@@ -54,7 +54,7 @@ export const getAllPosts = async (categorySlug) => {
 export const getPostById = async (id) => {
   const post = await prisma.post.findUnique({
     where: {
-      id: Number(id), // Prisma pide que el ID sea número
+      id: Number(id), 
     },
     include: {
       author: {
@@ -72,7 +72,7 @@ export const getPostById = async (id) => {
 export const updatePost = async (id, title, content, coverImage) => {
   const updatedPost = await prisma.post.update({
     where: {
-      id: Number(id), // Prisma necesita el ID como número
+      id: Number(id), 
     },
     data: {
       title,

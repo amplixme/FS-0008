@@ -1,8 +1,7 @@
 import { categoryService } from "../services/category.service.js";
-import { success } from "../utils/response.js"; // Importación requerida por Mati
+import { success } from "../utils/response.js"; 
 
 export const categoryController = {
-  // GET /api/categories - Listar todas (Pública)
   async getAll(req, res, next) {
     try {
       const categories = await categoryService.getAll();
@@ -12,13 +11,10 @@ export const categoryController = {
     }
   },
 
-  // POST /api/categories - Crear (Admin)
   async create(req, res, next) {
     try {
       const { name, slug } = req.body;
       if (!name || !slug) {
-        // Nota: Si prefieres que las validaciones de campos vacíos también pasen por el middleware, 
-        // puedes lanzar un error con status 400. De momento se mantiene el res.status(400) directo si así lo deseas.
         return res.status(400).json({ error: "El nombre y el slug son obligatorios" });
       }
 
@@ -29,7 +25,7 @@ export const categoryController = {
     }
   },
 
-  // PUT /api/categories/:id - Actualizar (Admin)
+ 
   async update(req, res, next) {
     try {
       const { id } = req.params;
@@ -42,15 +38,13 @@ export const categoryController = {
     }
   },
 
-  // DELETE /api/categories/:id - Eliminar (Admin)
+ 
   async delete(req, res, next) {
     try {
       const { id } = req.params;
       await categoryService.delete(id);
       return success(res, { message: "Categoría eliminada correctamente" }, 200);
     } catch (error) {
-      // El middleware lee err.status o err.statusCode gracias a la última línea de tu errorHandler:
-      // const status = err.status || 500;
       next(error); 
     }
   }
