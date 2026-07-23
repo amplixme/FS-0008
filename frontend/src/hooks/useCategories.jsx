@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { getAll } from "../services/category.service";
 
 export function useCategories() {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
   const handleRetry = () => {
@@ -13,31 +12,25 @@ export function useCategories() {
   };
 
   useEffect(() => {
-    // AbortController para cancelar la solicitud si el componente se desmonta
-    const controller = new AbortController();
-
+    let isMounted = true;
     async function fetchCategories() {
       setIsLoading(true);
-      setError(null);
+      setError(false);
 
       try {
-        const data = await getAll({ signal: controller.signal });
-        setCategories(data);
+        const data = await getAll();
+        if (isMounted) setCategories(data);
       } catch (err) {
-        // Si Axios cancela la solicitud, no se establece el error
-        if (axios.isCancel(err)) return;
-        setError(err.message || "Error al obtener categorías.");
+        if (isMounted) setError(err.message || "Error al obtener categorías.");
       } finally {
-        if (!controller.signal.aborted) {
-          setIsLoading(false);
-        }
+        if (isMounted) setIsLoading(false);
       }
     }
 
     fetchCategories();
 
     return () => {
-      controller.abort();
+      isMounted = false;
     };
   }, [retryCount]);
 

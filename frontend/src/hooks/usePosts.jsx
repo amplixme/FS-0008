@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { getAll } from "../services/post.service";
 
 export function usePosts(selectedCategory) {
@@ -13,33 +12,29 @@ export function usePosts(selectedCategory) {
   };
 
   useEffect(() => {
-    // AbortController para cancelar la solicitud si el componente se desmonta
-    const controller = new AbortController();
+    let isMounted = true;
 
     async function fetchPosts() {
       setIsLoading(true);
       setError(null);
 
       try {
-        const params = selectedCategory;
-        const data = await getAll(params, { signal: controller.signal });
+        const params = selectedCategory || "";
+        const data = await getAll(`?category=${params}`);
 
-        setPosts(data);
+        if (isMounted) setPosts(data);
       } catch (err) {
-        // Si Axios cancela la solicitud, no se establece el error
-        if (axios.isCancel(err)) return;
-        setError(err.message || "Error al obtener publicaciones.");
+        if (isMounted)
+          setError(err.message || "Error al obtener publicaciones.");
       } finally {
-        if (!controller.signal.aborted) {
-          setIsLoading(false);
-        }
+        if (isMounted) setIsLoading(false);
       }
     }
 
     fetchPosts();
 
     return () => {
-      controller.abort();
+      isMounted = false;
     };
   }, [selectedCategory, retryCount]);
 
