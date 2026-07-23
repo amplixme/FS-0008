@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { create } from "../../services/post.service";
 import Alert from "../../components/ui/Alert";
 import PostForm from "../../components/posts/PostForm";
+import ImageUpload from "../../components/common/ImageUpload";
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -26,6 +27,9 @@ function CreatePost() {
             <Alert type="error" message={serverError} />
           </div>
         )}
+
+        <ImageUpload onChange={(url) => console.log(url)} />
+
         <PostForm onSubmit={onSubmit} />
       </main>
     </div>
