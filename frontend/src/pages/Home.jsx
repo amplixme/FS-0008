@@ -7,6 +7,8 @@ import { getAll } from "../services/post.service";
 import Spinner from "../components/common/Spinner";
 import ErrorMessage from "../components/common/ErrorMessage";
 import EmptyState from "../components/common/EmptyState";
+import { Link } from "react-router";
+import CreatePost from "./posts/CreatePost";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -42,6 +44,12 @@ function Home() {
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
+      <Link 
+        className="px-6 py-2 w-fit hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
+      to='/posts/create-post'>
+        Crear Post
+      </Link>
+
       <HeroSearch />
 
       <div className="flex gap-12">
