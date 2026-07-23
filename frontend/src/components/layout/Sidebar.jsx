@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
+import { CATEGORY_ICONS } from "../../constants/categories";
 
 function Sidebar({ categories, isLoading, error, onRetry }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -46,28 +47,34 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
       <div className="flex md:hidden overflow-x-auto no-scrollbar gap-2 py-2 mb-4">
         <button
           onClick={() => handleSelectCategory(null)}
-          className={`shrink-0 px-5 py-2 rounded-full text-sm transition-all ${
+          className={`flex items-center gap-2 shrink-0 px-5 py-2 rounded-full text-sm transition-all ${
             !selectedCategory
               ? "bg-[#024ce2] text-white font-semibold"
               : "bg-gray-100 text-slate-600 font-medium hover:bg-gray-200"
           }`}
         >
+          <span className="material-symbols-outlined text-sm">grid_view</span>
           Todas las categorías
         </button>
 
         {categories.map((category) => {
           const isSelected = selectedCategory === category.slug;
+          const iconName =
+            CATEGORY_ICONS[category.slug] || CATEGORY_ICONS.default;
 
           return (
             <button
               key={category.id || category.slug}
               onClick={() => handleSelectCategory(category.slug)}
-              className={`shrink-0 px-5 py-2 rounded-full text-sm transition-all ${
+              className={`flex items-center gap-2 shrink-0 px-5 py-2 rounded-full text-sm transition-all ${
                 isSelected
                   ? "bg-[#024ce2] text-white font-semibold"
                   : "bg-gray-100 text-slate-600 font-medium hover:bg-gray-200"
               }`}
             >
+              <span className="material-symbols-outlined text-sm">
+                {iconName}
+              </span>
               {category.name}
             </button>
           );
@@ -79,29 +86,40 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
         <li>
           <button
             onClick={() => handleSelectCategory(null)}
-            className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               !selectedCategory
                 ? "bg-indigo-50 text-indigo-600"
                 : "text-gray-600 hover:bg-gray-100"
             }`}
           >
+            <span className="material-symbols-outlined text-base">
+              grid_view
+            </span>
             Todas las categorías
           </button>
         </li>
-        {categories.map((category) => (
-          <li key={category.id || category.slug}>
-            <button
-              onClick={() => handleSelectCategory(category.slug)}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                selectedCategory === category.slug
-                  ? "bg-indigo-50 text-indigo-600"
-                  : "text-gray-600 hover:bg-gray-100"
-              }`}
-            >
-              {category.name}
-            </button>
-          </li>
-        ))}
+        {categories.map((category) => {
+          const iconName =
+            CATEGORY_ICONS[category.slug] || CATEGORY_ICONS.default;
+
+          return (
+            <li key={category.id || category.slug}>
+              <button
+                onClick={() => handleSelectCategory(category.slug)}
+                className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  selectedCategory === category.slug
+                    ? "bg-indigo-50 text-indigo-600"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                <span className="material-symbols-outlined text-base">
+                  {iconName}
+                </span>
+                {category.name}
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </aside>
   );
