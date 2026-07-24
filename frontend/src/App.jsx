@@ -11,7 +11,7 @@ import { AuthProvider } from "./context/AuthProvider.jsx";
 import PostDetails from "./pages/posts/PostDetails.jsx";
 import CreatePost from "./pages/posts/CreatePost.jsx";
 import EditPost from "./pages/posts/EditPost.jsx";
-import CategoriesPage from "./pages/admin/CategoriesPage.jsx";
+import { Categories } from "./pages/admin/Categories.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -45,7 +45,7 @@ createRoot(document.getElementById("root")).render(
               path="/categorias/"
               element={
                 <ProtectedRoute>
-                  <CategoriesPage />
+                  <Categories />
                 </ProtectedRoute>
               }
             />
