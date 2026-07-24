@@ -15,9 +15,9 @@ router.get('/:id', postController.getById);
 // POST /api/posts - Ruta protegida y validada
 router.post(
   '/', 
-  authMiddleware,               // 1. El middleware verifica el token
-  validate(createPostSchema),   // 2. El validate verifica título y contenido
-  postController.create         // 3. El controlador guarda el post
+  authMiddleware,               
+  validate(createPostSchema),   
+  postController.create        
 );
 
 // PUT /api/posts/:id - Ruta protegida (Actualizar: solo autor o ADMIN)
