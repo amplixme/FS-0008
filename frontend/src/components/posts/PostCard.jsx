@@ -11,9 +11,13 @@ function PostCard({
     author,
     createdAt,
     comments,
-    categories = [],
+    categories,
   },
 }) {
+  const badgeClasses =
+    CATEGORY_STYLES[categories?.[0]?.name] || CATEGORY_STYLES.default;
+
+  console.log(categories);
   const formattedDate = new Date(createdAt).toLocaleDateString("es-AR", {
     day: "numeric",
     month: "long",
@@ -23,37 +27,21 @@ function PostCard({
   return (
     <Link to={`posts/${id}`}>
       <article className="group bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-        <div className="aspect-video overflow-hidden">
+        <div className="aspect-[16/9] overflow-hidden">
           <img
             alt="Post cover image"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            data-alt="clean workspace with a modern laptop showing code, aesthetic desk setup with plants and soft morning light"
+            className="w-full h-full object-cover"
+            data-alt=""
             src={coverImage || "https://placehold.co/600x400"}
+            loading="lazy"
           />
         </div>
         <div className="p-8">
-          <div className="flex flex-wrap gap-2 mb-4">
-            {categories.length > 0 ? (
-              categories.map((cat) => {
-                const badgeClasses =
-                  CATEGORY_STYLES[cat.slug] || CATEGORY_STYLES.default;
-                return (
-                  <span
-                    key={cat.id}
-                    className={`inline-block px-3 py-1 ${badgeClasses} text-[10px] font-extrabold uppercase tracking-widest rounded-full`}
-                  >
-                    {cat.name}
-                  </span>
-                );
-              })
-            ) : (
-              <span
-                className={`inline-block px-3 py-1 ${CATEGORY_STYLES.default} text-[10px] font-extrabold uppercase tracking-widest rounded-full`}
-              >
-                Sin categoría
-              </span>
-            )}
-          </div>
+          <span
+            className={`inline-block px-3 py-1 ${badgeClasses} text-[10px] font-extrabold uppercase tracking-widest rounded-full mb-4`}
+          >
+            {categories?.[0]?.name || "Sin categoria"}
+          </span>
           <h2 className="text-2xl font-bold text-on-surface mb-3 tight-tracking line-clamp-2 leading-tight group-hover:text-primary transition-colors">
             {title}
           </h2>
