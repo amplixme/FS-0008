@@ -12,11 +12,8 @@ export const categoryController = {
   },
 
   async create(req, res, next) {
-    try {
-      const { name, slug } = req.body;
-      if (!name || !slug) {
-        return res.status(400).json({ error: "El nombre y el slug son obligatorios" });
-      }
+  try {
+    const { name, slug } = req.body;
 
       const newCategory = await categoryService.create({ name, slug });
       return success(res, newCategory, 201);
@@ -27,18 +24,17 @@ export const categoryController = {
 
  
   async update(req, res, next) {
-    try {
-      const { id } = req.params;
-      const { name, slug } = req.body;
+  try {
+    const { id } = req.params;
+    const { name, slug } = req.body;
 
-      const updatedCategory = await categoryService.update(id, { name, slug });
-      return success(res, updatedCategory, 200);
-    } catch (error) {
-      next(error);
-    }
-  },
+    const updatedCategory = await categoryService.update(id, { name, slug });
+    return success(res, updatedCategory, 200);
+  } catch (error) {
+    next(error);
+  }
+},
 
- 
   async delete(req, res, next) {
     try {
       const { id } = req.params;

@@ -48,7 +48,7 @@ export const categoryService = {
 
     if (categoryWithPosts && categoryWithPosts.posts.length > 0) {
       const error = new Error("No se puede eliminar una categoría que tiene posts asociados");
-      error.statusCode = 409; // Conflicto
+      error.status = 409; // Conflicto
       throw error;
     }
 
@@ -56,4 +56,4 @@ export const categoryService = {
       where: { id: categoryId }
     });
   }
-};
+}; 
