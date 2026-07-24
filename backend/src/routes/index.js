@@ -14,7 +14,7 @@ router.get("/health", (req, res) => {
 // Agregador de rutas principales
 router.use("/auth", authRoutes);
 router.use("/posts", postRoutes);
-router.use('/categories', categoryRoutes);
+router.use("/categories", categoryRoutes);
 router.use("/upload", uploadRoutes);
 
 export default router;
