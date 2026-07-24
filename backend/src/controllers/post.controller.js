@@ -3,7 +3,7 @@ import { success } from "../utils/response.js";
 
 export const create = async (req, res, next) => {
   try {
-    const { title, content, coverImage } = req.body;
+    const { title, content, coverImage, categoryIds } = req.body;
     const authorId = req.user.id;
 
     const newPost = await postService.createPost(
@@ -11,6 +11,7 @@ export const create = async (req, res, next) => {
       content,
       authorId,
       coverImage,
+      categoryIds,
     );
 
     return success(res, newPost, 201);
@@ -55,7 +56,7 @@ export const getById = async (req, res, next) => {
 export const update = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { title, content, coverImage } = req.body;
+    const { title, content, coverImage, categoryIds } = req.body;
     const userId = req.user.id;
     const userRole = req.user.role; // El middleware de auth debería dejarnos el rol acá
 
@@ -80,6 +81,7 @@ export const update = async (req, res, next) => {
       title,
       content,
       coverImage,
+      categoryIds,
     );
     return success(res, updatedPost, 200);
   } catch (error) {
