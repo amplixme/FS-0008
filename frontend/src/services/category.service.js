@@ -1,7 +1,7 @@
 import api from "./api";
 
-export async function getAll(config = {}) {
-  const response = await api.get("/categories", { ...config }); // Agregar configuracion para manejar la señal de cancelación
+export async function getAll() {
+  const response = await api.get("/categories");
   console.log(response);
   return response;
 }
