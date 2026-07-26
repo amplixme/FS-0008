@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { truncateText } from "../../utils/utils";
 import { CATEGORY_STYLES } from "../../constants/categories";
 
@@ -19,6 +19,16 @@ function PostCard({
     month: "long",
     year: "numeric",
   });
+
+  const [, setSearchParams] = useSearchParams();
+
+  const handleCategoryClick = (event, slug) => {
+  event.preventDefault();
+  event.stopPropagation();
+
+  setSearchParams({ category: slug });
+};
+
   return (
     <Link to={`posts/${id}`}>
       <article className="group bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -35,12 +45,16 @@ function PostCard({
           {categories?.length > 0 ? (
            <div className="flex flex-wrap gap-2 mb-4"> 
              {categories.slice(0, 3).map((category) => (
-              <span
+               <button
                  key={category.id}
-                 className={` inline-block px-3 py-1 ${CATEGORY_STYLES[category.slug] || CATEGORY_STYLES.default} text-[10px] font-extrabold uppercase tracking-widest rounded-full `}
-              >
-               {category.name}
-              </span>
+                 type="button"
+                 onClick={(event) => handleCategoryClick(event, category.slug)}
+                 className={` inline-block px-3 py-1 ${
+                   CATEGORY_STYLES[category.slug] || CATEGORY_STYLES.default
+                 } text-[10px] font-extrabold uppercase tracking-widest rounded-full `}
+               >
+                 {category.name}
+               </button>
             ))}
 
             {categories?.length > 3 && (
