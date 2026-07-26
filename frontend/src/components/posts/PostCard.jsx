@@ -13,17 +13,12 @@ function PostCard({
     comments,
     categories,
   },
-}) {
-  const badgeClasses =
-    CATEGORY_STYLES[categories?.[0]?.name] || CATEGORY_STYLES.default;
-
-  console.log(categories);
+}) {  
   const formattedDate = new Date(createdAt).toLocaleDateString("es-AR", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-
   return (
     <Link to={`posts/${id}`}>
       <article className="group bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -37,11 +32,30 @@ function PostCard({
           />
         </div>
         <div className="p-8">
-          <span
-            className={`inline-block px-3 py-1 ${badgeClasses} text-[10px] font-extrabold uppercase tracking-widest rounded-full mb-4`}
-          >
-            {categories?.[0]?.name || "Sin categoria"}
-          </span>
+          {categories?.length > 0 ? (
+           <div className="flex flex-wrap gap-2 mb-4"> 
+             {categories.slice(0, 3).map((category) => (
+              <span
+                 key={category.id}
+                 className={` inline-block px-3 py-1 ${CATEGORY_STYLES[category.slug] || CATEGORY_STYLES.default} text-[10px] font-extrabold uppercase tracking-widest rounded-full `}
+              >
+               {category.name}
+              </span>
+            ))}
+
+            {categories?.length > 3 && (
+              <span className={`inline-block px-3 py-1 ${CATEGORY_STYLES.default} text-[10px] font-extrabold uppercase tracking-widest rounded-full`}>
+                +{categories.length - 3}
+              </span>
+            )}
+          </div>
+          ) : (
+            <span
+                className={`inline-block px-3 py-1 ${CATEGORY_STYLES.default} text-[10px] font-extrabold uppercase tracking-widest rounded-full`}
+              >
+              Sin categoría
+            </span> 
+          )}
           <h2 className="text-2xl font-bold text-on-surface mb-3 tight-tracking line-clamp-2 leading-tight group-hover:text-primary transition-colors">
             {title}
           </h2>
