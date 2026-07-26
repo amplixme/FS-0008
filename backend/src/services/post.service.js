@@ -1,12 +1,20 @@
 import prisma from "../prisma.client.js";
 
-export const createPost = async (title, content, authorId, coverImage) => {
+export const createPost = async (
+  title, 
+  content, 
+  authorId, 
+  coverImage, 
+  categoryIds = []) => {
   const newPost = await prisma.post.create({
     data: {
       title,
       content,
       authorId,
       coverImage,
+      categories: {
+        connect: categoryIds.map((id) => ({ id })),
+      },
     },
     include: {
       author: {
@@ -14,13 +22,19 @@ export const createPost = async (title, content, authorId, coverImage) => {
           name: true,
         },
       },
+       categories: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        }
+      },
     },
   });
 
   return newPost;
 };
 
-// 1. NUEVA FUNCIÓN: Traer todos los posts
 export const getAllPosts = async (categorySlug) => {
   const where = categorySlug
     ? { categories: { some: { slug: categorySlug } } }
@@ -50,7 +64,6 @@ export const getAllPosts = async (categorySlug) => {
   return posts;
 };
 
-// Traer un post por su ID
 export const getPostById = async (id) => {
   const post = await prisma.post.findUnique({
     where: {
@@ -62,29 +75,48 @@ export const getPostById = async (id) => {
           name: true,
         },
       },
+      categories: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
     },
   });
 
   return post;
 };
 
-// Actualizar un post
-export const updatePost = async (id, title, content, coverImage) => {
+export const updatePost = async (id, title, content, coverImage, categoryIds) => {
   const updatedPost = await prisma.post.update({
     where: {
-      id: Number(id), 
+      id: Number(id),
     },
     data: {
       title,
       content,
       coverImage,
+      ...(categoryIds !== undefined && {
+        categories: {
+          set: categoryIds.map((catId) => ({ id: catId })),
+        },
+      }),
+    },
+    include: {
+      categories: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
     },
   });
 
   return updatedPost;
 };
 
-// Eliminar un post
 export const deletePost = async (id) => {
   const deletedPost = await prisma.post.delete({
     where: {
