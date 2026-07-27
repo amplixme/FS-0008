@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { create } from "../../services/category.service";
 import { categorySchema } from "../../schemas/categorySchema";
+import { generateSlug } from "../../utils/utils";
 
 export function CreateCategoryModal({ onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
@@ -10,6 +11,7 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(categorySchema),
@@ -66,7 +68,14 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
               </label>
               <input
                 id="name"
-                {...register("name")}
+                // genera el slug automáticamente al escribir el nombre
+                {...register("name", {
+                  onChange: (e) => {
+                    setValue("slug", generateSlug(e.target.value), {
+                      shouldValidate: true, // valida el slug automaticamente
+                    });
+                  },
+                })}
                 disabled={isSubmitting}
                 placeholder="Ej. Programación"
                 className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400 disabled:opacity-50"
