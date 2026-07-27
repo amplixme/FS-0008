@@ -6,6 +6,7 @@ import { validate } from "../middlewares/validate.middleware.js";
 
 const router = Router();
 
+// POST /api/posts/:postId/comments
 router.post(
   "/:postId/comments",
   authMiddleware,
