@@ -7,7 +7,7 @@ export function useCategories() {
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  const refetch = useCallback(() => {
+  const handleRetry = useCallback(() => {
     setRetryCount((count) => count + 1);
   }, []);
 
@@ -38,7 +38,6 @@ export function useCategories() {
     categories,
     isLoading,
     error,
-    refetch,
-    handleRetry: refetch,
+    handleRetry,
   };
 }

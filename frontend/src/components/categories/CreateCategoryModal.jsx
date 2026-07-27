@@ -26,7 +26,7 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
 
     try {
       await create(formData);
-      onSuccess(); // Triggerea refetch() en el componente padre
+      onSuccess(); // Triggerea handleRetry() en el componente padre
       onClose(); // Cierra el modal
     } catch (err) {
       // Errores del backend

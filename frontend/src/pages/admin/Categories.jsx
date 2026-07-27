@@ -7,13 +7,13 @@ import { DeleteCategoryModal } from "../../components/categories/DeleteCategoryM
 import ErrorMessage from "../../components/common/ErrorMessage";
 
 export function Categories() {
-  const { categories, isLoading, error, refetch } = useCategories();
+  const { categories, isLoading, error, handleRetry } = useCategories();
   const [activeModal, setActiveModal] = useState(null);
 
   if (error) {
     return (
       <div className="w-full max-w-7xl mx-auto p-6 pt-24">
-        <ErrorMessage icon="warning" message={error} onRetry={refetch} />
+        <ErrorMessage icon="warning" message={error} onRetry={handleRetry} />
       </div>
     );
   }
@@ -34,7 +34,7 @@ export function Categories() {
       {activeModal?.type === "create" && (
         <CreateCategoryModal
           onClose={() => setActiveModal(null)}
-          onSuccess={refetch}
+          onSuccess={handleRetry}
         />
       )}
 
@@ -42,7 +42,7 @@ export function Categories() {
         <EditCategoryModal
           category={activeModal.category}
           onClose={() => setActiveModal(null)}
-          onSuccess={refetch}
+          onSuccess={handleRetry}
         />
       )}
 
@@ -50,7 +50,7 @@ export function Categories() {
         <DeleteCategoryModal
           category={activeModal.category}
           onClose={() => setActiveModal(null)}
-          onSuccess={refetch}
+          onSuccess={handleRetry}
         />
       )}
     </div>
