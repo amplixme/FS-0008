@@ -6,6 +6,7 @@ import PostAuthorMeta from "../../components/posts/PostAuthorMeta";
 import PostActions from "../../components/posts/PostActions";
 import Alert from "../../components/ui/Alert";
 import ConfirmModal from "../../components/common/ConfirmModal";
+import { CATEGORY_STYLES } from "../../constants/categories";
 
 import Spinner from "../../components/common/Spinner";
 
@@ -97,9 +98,44 @@ function PostDetails() {
               {post.title}
             </h1>
             <div className="aspect-[16/9] overflow-hidden relative rounded-xl">
-              <span className="absolute top-4 left-4 z-10 bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full text-sm font-bold shadow-sm">
-                {post.categories?.[0]?.name || "Sin categoria"}
-              </span>
+              <div className="absolute top-4 left-4 z-10 gap-2 flex">
+                {/* Si no hay categoria */}
+                {post.categories?.length === 0 && (
+                  <span
+                    className={`px-3 py-1 ${
+                      CATEGORY_STYLES.default || "bg-gray-200 text-gray-800"
+                    } text-[10px] font-extrabold uppercase tracking-widest rounded-full `}
+                  >
+                    Sin categoria
+                  </span>
+                )}
+
+                {/* Si hay categorias */}
+                {post.categories?.length > 0 &&
+                  post.categories.slice(0, 3).map((category) => (
+                    <span
+                      key={category.id}
+                      className={`px-3 py-1 ${
+                        CATEGORY_STYLES[category.slug] ||
+                        CATEGORY_STYLES.default ||
+                        "bg-gray-200 text-gray-800"
+                      } text-[10px] font-extrabold uppercase tracking-widest rounded-full `}
+                    >
+                      {category.name}
+                    </span>
+                  ))}
+
+                {/* Más de 3 categorías */}
+                {post.categories?.length > 3 && (
+                  <span
+                    className={`px-3 py-1 ${
+                      CATEGORY_STYLES.default || "bg-gray-200 text-gray-800"
+                    } text-[10px] font-extrabold uppercase tracking-widest rounded-full`}
+                  >
+                    +{post.categories.length - 3}
+                  </span>
+                )}
+              </div>
               <img
                 alt="Post cover image"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
