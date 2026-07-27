@@ -11,6 +11,8 @@ import { AuthProvider } from "./context/AuthProvider.jsx";
 import PostDetails from "./pages/posts/PostDetails.jsx";
 import CreatePost from "./pages/posts/CreatePost.jsx";
 import EditPost from "./pages/posts/EditPost.jsx";
+import { Categories } from "./pages/admin/Categories.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -37,6 +39,22 @@ createRoot(document.getElementById("root")).render(
               element={
                 <ProtectedRoute>
                   <EditPost />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/"
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/categorias/"
+              element={
+                <ProtectedRoute>
+                  <Categories />
                 </ProtectedRoute>
               }
             />
