@@ -22,13 +22,13 @@ export function DeleteCategoryModal({ category, onClose, onSuccess }) {
     }
   };
 
-  // Mensaje del modal, mostrando error si existe
+  // Mensaje del modal
   const modalMessage = error ? (
-    <span className="text-error font-medium">{error}</span>
+    <span className="text-red-600 font-medium">{error}</span>
   ) : (
     <>
       ¿Estás seguro de que deseas eliminar la categoría{" "}
-      <strong className="text-on-surface">{category?.name}</strong>? Esta acción
+      <strong className="text-slate-900">{category?.name}</strong>? Esta acción
       no se puede deshacer.
     </>
   );
@@ -38,9 +38,11 @@ export function DeleteCategoryModal({ category, onClose, onSuccess }) {
       isOpen={Boolean(category)}
       onClose={onClose}
       onConfirm={handleConfirm}
-      title="Eliminar Categoría"
+      title="Eliminar categoría"
       message={modalMessage}
       isProcessing={isDeleting}
+      confirmText={isDeleting ? "Eliminando..." : "Eliminar categoría"}
+      isDestructive={true}
     />
   );
 }

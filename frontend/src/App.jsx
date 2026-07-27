@@ -42,7 +42,7 @@ createRoot(document.getElementById("root")).render(
               }
             />
             <Route
-              path="/categorias/"
+              path="/admin/categorias/"
               element={
                 <ProtectedRoute>
                   <Categories />

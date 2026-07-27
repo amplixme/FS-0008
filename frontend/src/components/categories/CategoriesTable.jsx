@@ -9,11 +9,11 @@ export function CategoriesTable({
   onDelete,
 }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-      {/* Header del bloque: permanece siempre visible */}
-      <div className="flex items-center justify-between p-6 border-b border-gray-100">
+    <div className="bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden">
+      {/* Header del bloque */}
+      <div className="flex items-center justify-between p-6 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-gray-900">Categorías</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Categorías</h1>
           <span className="bg-blue-100 text-blue-700 py-0.5 px-3 rounded-full text-sm font-semibold">
             {isLoading ? "..." : data.length}
           </span>
@@ -40,33 +40,33 @@ export function CategoriesTable({
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase">
+              <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
                 <th className="py-4 px-6">ID</th>
                 <th className="py-4 px-6">Nombre</th>
                 <th className="py-4 px-6">Slug</th>
                 <th className="py-4 px-6 text-right">Acciones</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100">
               {data.map((category) => (
                 <tr
                   key={category.id}
-                  className="hover:bg-gray-50 transition-colors"
+                  className="hover:bg-slate-50 transition-colors"
                 >
-                  <td className="py-4 px-6 text-sm text-gray-400 font-mono">
+                  <td className="py-4 px-6 text-sm text-slate-400 font-mono">
                     {category.id}
                   </td>
-                  <td className="py-4 px-6 text-sm font-medium text-gray-900">
+                  <td className="py-4 px-6 text-sm font-medium text-slate-900">
                     {category.name}
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-600">
+                  <td className="py-4 px-6 text-sm text-slate-600">
                     {category.slug || "-"}
                   </td>
                   <td className="py-4 px-6 text-right">
                     <button
                       type="button"
                       onClick={() => onEdit(category)}
-                      className="px-4 py-1.5 mr-3 border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:border-gray-300 transition-colors"
+                      className="px-4 py-1.5 mr-3 border border-slate-200 rounded-full text-sm font-medium text-slate-700 hover:border-slate-300 transition-colors"
                     >
                       Editar
                     </button>

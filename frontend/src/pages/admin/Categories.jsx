@@ -20,6 +20,9 @@ export function Categories() {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-6 pt-24">
+      <h1 className="text-2xl font-bold text-slate-900 mb-12">
+        Panel de administracion - Categorías
+      </h1>
       <CategoriesTable
         data={categories}
         isLoading={isLoading}

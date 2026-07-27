@@ -17,7 +17,6 @@ function PostCard({
   const badgeClasses =
     CATEGORY_STYLES[categories?.[0]?.name] || CATEGORY_STYLES.default;
 
-  console.log(categories);
   const formattedDate = new Date(createdAt).toLocaleDateString("es-AR", {
     day: "numeric",
     month: "long",
