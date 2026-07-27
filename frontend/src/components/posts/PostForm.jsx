@@ -1,9 +1,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postSchema } from "../../schemas/postSchema";
+import { useCategories } from "../../hooks/useCategories";
 import ToggleSwitch from "../ui/ToggleSwitch";
+import Spinner from "../common/Spinner";
+import ErrorMessage from "../common/ErrorMessage";
 
 function PostForm({ initialValues, onSubmit }) {
+  const {
+    categories,
+    isLoading: categoriesLoading,
+    error: categoriesError,
+    handleRetry,
+  } = useCategories();
+
   const {
     register,
     handleSubmit,
@@ -13,6 +23,7 @@ function PostForm({ initialValues, onSubmit }) {
     defaultValues: {
       title: "",
       content: "",
+      categoryIds: [],
       // published: false
     },
     values: initialValues,
@@ -63,6 +74,44 @@ function PostForm({ initialValues, onSubmit }) {
           </p>
         )}
       </div>
+
+      <fieldset className="flex flex-col gap-3">
+        <legend className="text-sm font-semibold text-on-surface mb-1">
+          Categorías
+        </legend>
+
+        {categoriesLoading && (
+          <Spinner icon="progress_activity" message="Cargando categorías..." />
+        )}
+
+        {!categoriesLoading && categoriesError && (
+          <ErrorMessage
+            icon="error"
+            message="No se pudieron cargar las categorías"
+            onRetry={handleRetry}
+          />
+        )}
+
+        {!categoriesLoading && !categoriesError && (
+          // Contenedor que muestra las categorias para seleccionar.
+          <div className="flex flex-wrap gap-3">
+            {categories.map((category) => (
+              <label
+                key={category.id}
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant text-sm font-medium text-on-surface-variant cursor-pointer has-checked:border-primary has-checked:bg-primary-fixed has-checked:text-on-primary-fixed transition-colors"
+              >
+                <input
+                  type="checkbox"
+                  value={category.id}
+                  className="sr-only"
+                  {...register("categoryIds")}
+                />
+                {category.name}
+              </label>
+            ))}
+          </div>
+        )}
+      </fieldset>
 
       <ToggleSwitch
         label="Publicar ahora"

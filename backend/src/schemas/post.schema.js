@@ -14,6 +14,8 @@ export const createPostSchema = z.object({
     .min(1, "El contenido no puede estar vacío"),
 
   coverImage: z.string().url("Debe ser una URL válida").optional(),
+
+  categoryIds: z.array(z.string()).optional(),
 });
 
 export const updatePostSchema = createPostSchema.partial();
