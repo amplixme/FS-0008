@@ -10,7 +10,7 @@ function PostCard({
     content,
     author,
     createdAt,
-    comments,
+    commentCount,
     categories,
   },
 }) {  
@@ -93,7 +93,7 @@ function PostCard({
             </div>
             <div className="flex items-center gap-1 text-outline">
               <span className="material-symbols-outlined text-sm">forum</span>
-              <span className="text-xs font-medium">{comments || 0}</span>
+              <span className="text-xs font-medium">{commentCount ?? 0}</span>
             </div>
           </div>
         </div>
