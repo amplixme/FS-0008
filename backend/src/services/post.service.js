@@ -58,10 +58,18 @@ export const getAllPosts = async (categorySlug) => {
           slug: true,
         },
       },
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
   });
 
-  return posts;
+  return posts.map(({ _count, ...post }) => ({
+    ...post,
+    commentCount: _count.comments,
+  }));
 };
 
 export const getPostById = async (id) => {
