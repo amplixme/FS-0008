@@ -7,3 +7,5 @@ export const createCommentSchema = z.object({
     })
     .min(1, "El contenido no puede estar vacío"),
 });
+
+export const updateCommentSchema = createCommentSchema;

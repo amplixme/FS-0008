@@ -1,17 +1,23 @@
 import { Router } from "express";
-import { createCommentSchema } from "../schemas/comment.schema.js";
+import {
+  createCommentSchema,
+  updateCommentSchema,
+} from "../schemas/comment.schema.js";
 import commentController from "../controllers/comment.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validate.middleware.js";
 
 const router = Router();
 
-// POST /api/posts/:postId/comments
-router.post(
-  "/:postId/comments",
+// PUT /api/comments/:commentId
+router.put(
+  "/:commentId",
   authMiddleware,
-  validate(createCommentSchema),
-  commentController.create,
+  validate(updateCommentSchema),
+  commentController.update,
 );
+
+// DELETE /api/comments/:commentId
+router.delete("/:commentId", authMiddleware, commentController.remove);
 
 export default router;
