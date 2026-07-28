@@ -30,4 +30,59 @@ const createComment = async (commentData) => {
   return newComment;
 };
 
-export default { createComment };
+const updateComment = async (commentData) => {
+  const { commentId, content, userId } = commentData;
+
+  // Fetchear comentario
+  const comment = await prisma.comment.findUnique({
+    where: { id: String(commentId) },
+  });
+
+  if (!comment) {
+    const error = new Error("Comentario no encontrado.");
+    error.status = 404;
+    throw error;
+  }
+
+  if (comment.authorId !== userId) {
+    const error = new Error(
+      "No tienes permiso para modificar este comentario.",
+    );
+    error.status = 403;
+    throw error;
+  }
+
+  // Actualizar comentario
+  return await prisma.comment.update({
+    where: { id: String(commentId) },
+    data: { content },
+  });
+};
+
+const deleteComment = async (commentData) => {
+  const { commentId, user } = commentData;
+
+  // Fetchear comentario
+  const comment = await prisma.comment.findUnique({
+    where: { id: String(commentId) },
+  });
+
+  if (!comment) {
+    const error = new Error("Comentario no encontrado.");
+    error.status = 404;
+    throw error;
+  }
+
+  if (comment.authorId !== user.id && user.role !== "ADMIN") {
+    const error = new Error("No tienes permiso para eliminar este comentario.");
+    error.status = 403;
+    throw error;
+  }
+
+  // Eliminar comentario
+  return await prisma.comment.delete({
+    where: { id: String(commentId) },
+  });
+};
+
+export default { createComment, updateComment, deleteComment };

@@ -17,7 +17,6 @@ router.use("/auth", authRoutes);
 router.use("/posts", postRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/upload", uploadRoutes);
-// rutas de comentarios especificadas en criterio (/api/posts/:postId/comments) <- puede ser que se deba cambiar a /api/comments/:postId para normalizar con el resto
-router.use("/posts", commentRoutes);
+router.use("/comments", commentRoutes);
 
 export default router;
