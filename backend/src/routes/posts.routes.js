@@ -35,6 +35,12 @@ router.delete("/:id", authMiddleware, postController.remove);
 
 // ------------- COMENTARIOS ----------------------
 
+// GET /api/posts/:postId/comments
+router.get(
+  "/:postId/comments",
+  commentController.getByPost,
+);
+
 // POST /api/posts/:postId/comments
 router.post(
   "/:postId/comments",

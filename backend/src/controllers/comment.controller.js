@@ -42,4 +42,13 @@ export const remove = async (req, res, next) => {
   return success(res, { message: "Comentario eliminado correctamente" }, 200);
 };
 
-export default { create, update, remove };
+export const getByPost = async (req, res) => {
+  const { postId } = req.params;
+
+  const comments = await commentService.getCommentsByPost(postId);
+
+  return success(res, comments, 200);
+};
+
+export default { create, update, remove, getByPost };
+
