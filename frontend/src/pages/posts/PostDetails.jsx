@@ -14,7 +14,7 @@ import Spinner from "../../components/common/Spinner";
 
 function PostDetails() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -172,6 +172,30 @@ function PostDetails() {
               message="¿Estás seguro de que deseas eliminar este artículo? Esta acción no se puede deshacer."
             />
           </article>
+        )}
+
+        {/* Formulario para comentar */}
+        {isAuthenticated ? 
+        // Si está autenticado
+        (
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm mb-12 border border-outline-variant/10 focus-within:ring-2 ring-primary/20 transition-all">
+          <textarea className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-on-surface placeholder:text-on-surface-variant/50 resize-none" 
+          placeholder="Escribe un comentario..." rows="3"></textarea>
+
+          <div className="flex justify-end mt-2">
+            <button className="bg-primary text-on-primary px-6 py-2 rounded-full font-bold hover:shadow-lg  hover:shadow-primary/30 transition-all">
+            Comentar
+          </button>
+          </div>
+        </div>
+        ) : 
+        // Si no esta autenticado
+        (
+          <Link 
+            className="bg-primary text-on-primary px-6 py-2 rounded-full font-bold hover:shadow-lg  hover:shadow-primary/30 transition-all"
+            to='/login'>
+            Inicia sesión para comentar
+          </Link>
         )}
       </div>
     </div>
