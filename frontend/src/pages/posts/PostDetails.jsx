@@ -7,6 +7,8 @@ import PostActions from "../../components/posts/PostActions";
 import Alert from "../../components/ui/Alert";
 import ConfirmModal from "../../components/common/ConfirmModal";
 import { CATEGORY_STYLES } from "../../constants/categories";
+import CommentSection from "../../components/comments/CommentSection";
+
 
 import Spinner from "../../components/common/Spinner";
 
@@ -158,6 +160,8 @@ function PostDetails() {
             <div className="prose-content text-lg leading-[1.75] text-on-surface-variant whitespace-pre-line">
               {post.content}
             </div>
+
+            <CommentSection postId={post.id} />
 
             <ConfirmModal
               isOpen={isDeleteModalOpen}
