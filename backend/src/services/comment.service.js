@@ -30,6 +30,25 @@ const createComment = async (commentData) => {
   return newComment;
 };
 
+// Obtener comentarios
+const getCommentsByPost = async (postId) => {
+  return await prisma.comment.findMany({
+    where: {
+      postId: Number(postId),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+ };
+
 const updateComment = async (commentData) => {
   const { commentId, content, userId } = commentData;
 
@@ -85,4 +104,5 @@ const deleteComment = async (commentData) => {
   });
 };
 
-export default { createComment, updateComment, deleteComment };
+
+export default { createComment, getCommentsByPost, updateComment, deleteComment, };
