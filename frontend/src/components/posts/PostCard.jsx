@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from "react-router";
 import { truncateText } from "../../utils/utils";
 import { CATEGORY_STYLES } from "../../constants/categories";
+import { formatRelativeTime } from "../../utils/formatRelativeTime"; 
 
 function PostCard({
   post: {
@@ -13,13 +14,7 @@ function PostCard({
     commentCount,
     categories,
   },
-}) {  
-  const formattedDate = new Date(createdAt).toLocaleDateString("es-AR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-
+}) { 
   const [, setSearchParams] = useSearchParams();
 
   const handleCategoryClick = (event, slug) => {
@@ -88,7 +83,7 @@ function PostCard({
               </div>
               <div>
                 <p className="text-xs font-bold">{author.name}</p>
-                <p className="text-[10px] text-outline">{formattedDate}</p>
+                <p className="text-[10px] text-outline">{formatRelativeTime(createdAt)}</p>
               </div>
             </div>
             <div className="flex items-center gap-1 text-outline">
