@@ -7,7 +7,7 @@ export function useComments( postId ) {
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  const handleRetry = () => {
+  const refreshComments = () => {
     setRetryCount((count) => count + 1);
   };
 
@@ -46,7 +46,7 @@ export function useComments( postId ) {
     comments,
     isLoading,
     error,
-    handleRetry,
+    refreshComments,
   };
 }
 

@@ -1,11 +1,12 @@
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
-import EmptyState from "../common/EmptyState"
+import EmptyState from "../common/EmptyState";
 import { useComments } from "../../hooks/useComments";
 import { formatRelativeDate } from "../../utils/formatRelativeDate";
+import CommentForm from "./CommentForm";
 
 function CommentSection({ postId }) {
-  const { comments, isLoading, error, handleRetry } = useComments(postId);
+  const { comments, isLoading, error, refreshComments } = useComments(postId);
 
   // Loading
   if (isLoading) {
@@ -13,10 +14,7 @@ function CommentSection({ postId }) {
       <section className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
 
-        <Spinner
-          icon="progress_activity"
-          message="Cargando comentarios..."
-        />
+        <Spinner icon="progress_activity" message="Cargando comentarios..." />
       </section>
     );
   }
@@ -27,7 +25,7 @@ function CommentSection({ postId }) {
       <section className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
 
-        <ErrorMessage icon="error" message={error} onRetry={handleRetry}/>
+        <ErrorMessage icon="error" message={error} onRetry={refreshComments} />
       </section>
     );
   }
@@ -38,7 +36,10 @@ function CommentSection({ postId }) {
       <section className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
 
-        <EmptyState icon="forum" message="Aún no hay comentarios. ¡Sé el primero!" />
+        <EmptyState
+          icon="forum"
+          message="Aún no hay comentarios. ¡Sé el primero!"
+        />
       </section>
     );
   }
@@ -72,6 +73,10 @@ function CommentSection({ postId }) {
           </div>
         ))}
       </div>
+
+      {/* Formulario para comentar */}
+      <CommentForm postId={postId}
+    onSuccess={refreshComments}/>
     </section>
   );
 }
