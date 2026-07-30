@@ -8,8 +8,6 @@ import Alert from "../../components/ui/Alert";
 import ConfirmModal from "../../components/common/ConfirmModal";
 import { CATEGORY_STYLES } from "../../constants/categories";
 import CommentSection from "../../components/comments/CommentSection";
-
-
 import Spinner from "../../components/common/Spinner";
 
 function PostDetails() {
