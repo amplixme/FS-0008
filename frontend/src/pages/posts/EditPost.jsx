@@ -24,7 +24,7 @@ function EditPost() {
         const data = await getById(id);
         setPost(data);
         setError(false);
-      } catch (err) {
+      } catch {
         setError(true);
       } finally {
         setIsLoading(false);
