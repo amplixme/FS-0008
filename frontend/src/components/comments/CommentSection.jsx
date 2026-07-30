@@ -4,9 +4,15 @@ import EmptyState from "../common/EmptyState";
 import { useComments } from "../../hooks/useComments";
 import { formatRelativeTime } from "../../utils/formatRelativeTime";
 import CommentForm from "./CommentForm";
+import useAuth from "../../hooks/useAuth";
 
 function CommentSection({ postId }) {
+
+  const { user } = useAuth();
+
   const { comments, isLoading, error, refreshComments } = useComments(postId);
+
+
 
   // Loading
   if (isLoading) {
@@ -70,6 +76,25 @@ function CommentSection({ postId }) {
                 <p className="text-sm text-on-surface-variant leading-relaxed">
                   {comment.content}
                 </p>
+
+                {user?.id === comment.authorId && (
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      type="button"
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Editar
+                    </button>
+
+                    <button
+                      type="button"
+                      className="text-sm text-red-600 hover:underline"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                )}
+
               </div>
             </div>
           ))}
