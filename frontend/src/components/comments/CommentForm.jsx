@@ -1,13 +1,10 @@
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useComments } from "../../hooks/useComments";
 import { create } from "../../services/comment.service";
 import { Link } from "react-router";
 
-function CommentForm({ postId,
-    onSuccess, }) {
+function CommentForm({ postId, onSuccess }) {
 	const { isAuthenticated } = useAuth();
-	const { refreshComments } = useComments(postId);
  	const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -17,16 +14,9 @@ function CommentForm({ postId,
 			setIsSubmitting(true);
 	
 			try {
-				await create(postId, {
-					content,
-				});
-	
+				await create(postId, { content });
 				setContent("");
-	
 				onSuccess();
-
-				// volver a cargar comentarios
-				refreshComments();
 			} catch (error) {
 				console.error(error);
 			} finally {
