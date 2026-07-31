@@ -7,7 +7,8 @@ import { formatRelativeTime } from "../../utils/formatRelativeTime";
 import CommentForm from "./CommentForm";
 import useAuth from "../../hooks/useAuth";
 import { update } from "../../services/comment.service";
-
+import { delete as deleteComment } from "../../services/comment.service";
+import ConfirmModal from "../common/ConfirmModal";
 
 function CommentSection({ postId }) {
 
@@ -17,6 +18,9 @@ function CommentSection({ postId }) {
 
   const [editingId, setEditingId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState(null);
 
   // Loading
   if (isLoading) {
@@ -70,7 +74,27 @@ function CommentSection({ postId }) {
     } catch (error) {
       console.error(error);
     }
-}
+  }
+
+  function handleDelete(comment) {
+    setCommentToDelete(comment);
+    setShowConfirmModal(true);
+  }
+
+  async function confirmDelete() {
+    if (!commentToDelete) return;
+
+    try {
+      await deleteComment(commentToDelete.id);
+
+      setShowConfirmModal(false);
+      setCommentToDelete(null);
+
+      refreshComments();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
   return (
@@ -146,6 +170,7 @@ function CommentSection({ postId }) {
 
                       <button
                         type="button"
+                        onClick={() => handleDelete(comment)}
                         className="text-sm text-red-600 hover:underline"
                       >
                         Eliminar
@@ -164,6 +189,19 @@ function CommentSection({ postId }) {
         postId={postId}
         onSuccess={refreshComments}
       />
+
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setCommentToDelete(null);
+        }}
+        onConfirm={confirmDelete}
+        title="Eliminar comentario"
+        message="¿Estás seguro de que querés eliminar este comentario?"
+        isDestructive
+      />
+
     </section>
   );
 }
