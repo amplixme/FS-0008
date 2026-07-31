@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
 import EmptyState from "../common/EmptyState";
@@ -5,6 +6,8 @@ import { useComments } from "../../hooks/useComments";
 import { formatRelativeDate } from "../../utils/formatRelativeDate";
 import CommentForm from "./CommentForm";
 import useAuth from "../../hooks/useAuth";
+import { update } from "../../services/comment.service";
+
 
 function CommentSection({ postId }) {
 
@@ -12,7 +15,8 @@ function CommentSection({ postId }) {
 
   const { comments, isLoading, error, refreshComments } = useComments(postId);
 
-
+  const [editingId, setEditingId] = useState(null);
+  const [editedContent, setEditedContent] = useState("");
 
   // Loading
   if (isLoading) {
@@ -42,6 +46,32 @@ function CommentSection({ postId }) {
       </section>
     );
   }
+
+  function handleEdit(comment) {
+    setEditingId(comment.id);
+    setEditedContent(comment.content);
+  }
+
+  function handleCancel() {
+    setEditingId(null);
+    setEditedContent("");
+  }
+
+  async function handleSave(comment) {
+    try {
+      await update(comment.id, {
+        content: editedContent,
+      });
+
+      setEditingId(null);
+      setEditedContent("");
+
+      refreshComments();
+    } catch (error) {
+      console.error(error);
+    }
+}
+
 
   return (
     <section className="mt-10">
@@ -73,26 +103,55 @@ function CommentSection({ postId }) {
                   </span>
                 </div>
 
-                <p className="text-sm text-on-surface-variant leading-relaxed">
-                  {comment.content}
-                </p>
+                {editingId === comment.id ? (
+                  <textarea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                    className="w-full rounded-md border border-outline p-2 text-sm"
+                  />
+                ) : (
+                  <p className="text-sm text-on-surface-variant leading-relaxed">
+                    {comment.content}
+                  </p>
+                )}
 
                 {user?.id === comment.authorId && (
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      type="button"
-                      className="text-sm text-primary hover:underline"
-                    >
-                      Editar
-                    </button>
+                  editingId === comment.id ? (
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        type="button"
+                        onClick={() => handleSave(comment)}
+                        className="text-sm text-primary hover:underline"
+                      >
+                        Guardar
+                      </button>
 
-                    <button
-                      type="button"
-                      className="text-sm text-red-600 hover:underline"
-                    >
-                      Eliminar
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        onClick={handleCancel}
+                        className="text-sm text-outline hover:underline"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        type="button"
+                        onClick={() => handleEdit(comment)}
+                        className="text-sm text-primary hover:underline"
+                      >
+                        Editar
+                      </button>
+
+                      <button
+                        type="button"
+                        className="text-sm text-red-600 hover:underline"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  )
                 )}
 
               </div>
