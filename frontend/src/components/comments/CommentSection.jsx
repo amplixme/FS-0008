@@ -9,7 +9,7 @@ import useAuth from "../../hooks/useAuth";
 import { update } from "../../services/comment.service";
 import { delete as deleteComment } from "../../services/comment.service";
 import ConfirmModal from "../common/ConfirmModal";
-import Alert from "../common/Alert";
+import Alert from "../ui/Alert";
 
 function CommentSection({ postId }) {
 
