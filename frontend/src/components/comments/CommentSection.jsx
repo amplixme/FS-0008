@@ -9,24 +9,27 @@ import useAuth from "../../hooks/useAuth";
 import { update } from "../../services/comment.service";
 import { delete as deleteComment } from "../../services/comment.service";
 import ConfirmModal from "../common/ConfirmModal";
+import Alert from "../common/Alert";
 
 function CommentSection({ postId }) {
 
   const { user } = useAuth();
-
   const { comments, isLoading, error, refreshComments } = useComments(postId);
-
   const [editingId, setEditingId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
-
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [actionError, setActionError] = useState("");
 
   // Loading
   if (isLoading) {
     return (
       <section className="mt-10">
-        <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          Comentarios
+        </h2>
 
         <Spinner
           icon="progress_activity"
@@ -40,7 +43,9 @@ function CommentSection({ postId }) {
   if (error) {
     return (
       <section className="mt-10">
-        <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          Comentarios
+        </h2>
 
         <ErrorMessage
           icon="error"
@@ -62,6 +67,10 @@ function CommentSection({ postId }) {
   }
 
   async function handleSave(comment) {
+    
+    setActionError("");
+    setIsSaving(true);
+    
     try {
       await update(comment.id, {
         content: editedContent,
@@ -70,9 +79,14 @@ function CommentSection({ postId }) {
       setEditingId(null);
       setEditedContent("");
 
-      refreshComments();
+      await refreshComments();
+
     } catch (error) {
       console.error(error);
+      setActionError("No se pudo editar el comentario.");
+    }
+    finally {
+      setIsSaving(false);
     }
   }
 
@@ -84,24 +98,33 @@ function CommentSection({ postId }) {
   async function confirmDelete() {
     if (!commentToDelete) return;
 
+    setActionError("");
+    setIsDeleting(true);
+
     try {
       await deleteComment(commentToDelete.id);
 
       setShowConfirmModal(false);
       setCommentToDelete(null);
 
-      refreshComments();
+      await refreshComments();
     } catch (error) {
       console.error(error);
+      setActionError("No se pudo eliminar el comentario.");
+    } finally {
+        setIsDeleting(false);
     }
   }
-
 
   return (
     <section className="mt-10">
       <h2 className="text-2xl font-bold mb-6 text-on-surface">
         Comentarios
       </h2>
+
+      <div className="mb-4">
+        <Alert type="error" message={actionError} />
+      </div>
 
       {comments.length === 0 ? (
         <EmptyState
@@ -131,7 +154,7 @@ function CommentSection({ postId }) {
                   <textarea
                     value={editedContent}
                     onChange={(e) => setEditedContent(e.target.value)}
-                    className="w-full rounded-md border border-outline p-2 text-sm"
+                    className="w-full bg-surface-container-lowest text-on-surface rounded-lg border border-outline-variant p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 ) : (
                   <p className="text-sm text-on-surface-variant leading-relaxed">
@@ -145,15 +168,17 @@ function CommentSection({ postId }) {
                       <button
                         type="button"
                         onClick={() => handleSave(comment)}
-                        className="text-sm text-primary hover:underline"
+                        disabled={isSaving}
+                        className="text-sm text-primary hover:underline disabled:opacity-50"
                       >
-                        Guardar
+                        {isSaving ? "Guardando..." : "Guardar"}
                       </button>
 
                       <button
                         type="button"
                         onClick={handleCancel}
-                        className="text-sm text-outline hover:underline"
+                        disabled={isSaving}
+                        className="text-sm text-outline hover:underline disabled:opacity-50"
                       >
                         Cancelar
                       </button>
@@ -199,6 +224,8 @@ function CommentSection({ postId }) {
         onConfirm={confirmDelete}
         title="Eliminar comentario"
         message="¿Estás seguro de que querés eliminar este comentario?"
+        isProcessing={isDeleting}
+        confirmText={isDeleting ? "Eliminando..." : "Eliminar"}
         isDestructive
       />
 
