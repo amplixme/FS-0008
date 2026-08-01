@@ -122,9 +122,14 @@ function CommentSection({ postId }) {
         Comentarios
       </h2>
 
-      <div className="mb-4">
-        <Alert type="error" message={actionError} />
-      </div>
+      {actionError && (
+        <div className="mb-4">
+          <Alert
+            type="error"
+            message={actionError}
+          />
+        </div>
+      )}
 
       {comments.length === 0 ? (
         <EmptyState
@@ -139,7 +144,7 @@ function CommentSection({ postId }) {
                 {comment.author.name?.charAt(0)}
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-sm font-bold text-on-surface">
                     {comment.author.name}
