@@ -3,7 +3,7 @@ import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
 import EmptyState from "../common/EmptyState";
 import { useComments } from "../../hooks/useComments";
-import { formatRelativeDate } from "../../utils/formatRelativeDate";
+import { formatRelativeTime } from "../../utils/formatRelativeTime";
 import CommentForm from "./CommentForm";
 import useAuth from "../../hooks/useAuth";
 import { update } from "../../services/comment.service";
@@ -146,7 +146,7 @@ function CommentSection({ postId }) {
                   </span>
 
                   <span className="text-[10px] text-outline">
-                    {formatRelativeDate(comment.createdAt)}
+                    {formatRelativeTime(comment.createdAt)}
                   </span>
                 </div>
 
