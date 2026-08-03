@@ -41,6 +41,7 @@ export const getAllPosts = async ({
   limit = 10,
   sort = "newest",
   category: categorySlug,
+  search,
 }) => {
   const MAX_LIMIT = 40; // limite maximo de posts por pagina (para evitar DoS)
 
@@ -53,6 +54,25 @@ export const getAllPosts = async ({
 
   if (categorySlug) {
     where = { categories: { some: { slug: categorySlug } } };
+  }
+
+  const searchTerm = typeof search === "string" ? search.trim() : "";
+
+  if (searchTerm) {
+    where.OR = [
+      {
+        title: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      },
+      {
+        content: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      },
+    ];
   }
 
   let orderBy = { createdAt: "desc" }; // Default: sort -> newest
