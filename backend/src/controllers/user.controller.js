@@ -17,11 +17,10 @@ export const update = async (req, res, next) => {
     const userId = req.user.id;
     const { name, bio, avatarUrl } = req.body;
 
-    const updatedProfile = await userService.updateProfile({
-      userId,
-      name,
-      bio,
-      avatarUrl,
+    const updatedProfile = await userService.updateProfile(userId, {
+      name: name,
+      bio: bio,
+      avatarUrl: avatarUrl,
     });
 
     return success(res, updatedProfile, 200);

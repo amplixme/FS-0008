@@ -20,6 +20,6 @@ router.use("/posts", postRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/upload", uploadRoutes);
 router.use("/comments", commentRoutes);
-router.use("/user", userRoutes);
+router.use("/users", userRoutes);
 
 export default router;
