@@ -5,13 +5,13 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 // GET /api/users/:id - Ruta para mostrar el perfil Público
-router.get("/:id", userController.getPublicProfile);
+router.get("/:id", userController.getProfile);
 
 // PUT /api/users/me - Ruta para actualizar el perfil
 router.put(
   "/me",
   authMiddleware,
-  userController.updateProfile
+  userController.update
 );
 
 export default router;
