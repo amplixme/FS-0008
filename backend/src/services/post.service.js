@@ -67,7 +67,7 @@ export const getAllPosts = async ({
     };
   }
 
-  // Ejecuta la busqueda y el conteo total en paralelo
+  // Ejecuta la busqueda de posts y el conteo total en paralelo
   const [posts, total] = await Promise.all([
     prisma.post.findMany({
       where,
@@ -94,6 +94,7 @@ export const getAllPosts = async ({
     meta: {
       total,
       page: pageNum,
+      limit: limitNum,
       totalPages,
     },
   };
