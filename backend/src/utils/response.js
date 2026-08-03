@@ -2,9 +2,14 @@
  * res: Envia una respuesta exitosa con formato consistente
  * data: Datos a devolver en la respuesta
  * status: Codigo de estado HTTP (por defecto 200)
+ * meta: Metadatos adicionales a incluir en la respuesta
  */
-export function success(res, data, status = 200) {
-  return res.status(status).json({ data });
+export function success(res, data, status = 200, meta = null) {
+  const response = { data };
+  if (meta) {
+    response.meta = meta;
+  }
+  return res.status(status).json(response);
 }
 
 /**
