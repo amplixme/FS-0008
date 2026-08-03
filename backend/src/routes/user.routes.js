@@ -2,6 +2,7 @@ import { Router } from "express";
 import * as userController from "../controllers/user.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { updateProfileSchema } from "../schemas/user.schema.js";
+import { validate } from "../middlewares/validate.middleware.js";
 
 const router = Router();
 
@@ -13,7 +14,7 @@ router.put(
   "/me",
   authMiddleware,
   validate(updateProfileSchema),
-  userController.update
+  userController.update,
 );
 
 export default router;
