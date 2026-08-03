@@ -42,9 +42,11 @@ export const getAllPosts = async ({
   sort = "newest",
   category: categorySlug,
 }) => {
+  const MAX_LIMIT = 40; // limite maximo de posts por pagina (para evitar DoS)
+
   // Sanitizar y parsear numeros
   const pageNum = Math.max(1, parseInt(page, 10) || 1);
-  const limitNum = Math.max(1, parseInt(limit, 10) || 10);
+  const limitNum = Math.min(Math.max(1, parseInt(limit, 10) || 10), MAX_LIMIT);
   const skip = (pageNum - 1) * limitNum;
 
   let where = {};
