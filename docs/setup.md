@@ -129,11 +129,15 @@ Vite va a mostrarte en la terminal la URL local donde se ejecuta el servidor (po
 PORT = "3000"
 DATABASE_URL= "postgresql://USER:PASSWORD@HOST:PORT/DATABASE_NAME?schema=public"
 JWT_SECRET= "tu_secret_seguro_de_al_menos_64_caracteres"
+CLOUDINARY_URL="cloudinary://API_KEY:API_SECRET@CLOUD_NAME"
+CLOUDINARY_FOLDER="tu_carpeta_en_cloudinary"
 ```
 
 - **`PORT`**: puerto donde corre el servidor Express.
 - **`DATABASE_URL`**: cadena de conexión a PostgreSQL. Si usaste Docker (Opción A del paso 2), reemplazá `USER:PASSWORD@HOST:PORT/DATABASE_NAME` por `blog:postgres@localhost:5432/blog_db`. Si instalaste PostgreSQL vos mismo (Opción B), usá los datos que definiste en tu instalación.
 - **`JWT_SECRET`**: clave usada para firmar los tokens de sesión. En desarrollo podés generar una aleatoria ejecutando `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"` desde la terminal. **Nunca** se comparte ni se sube al repositorio.
+- **`CLOUDINARY_URL`**: Cadena de conexión provista en el panel de control de Cloudinary. Contiene las credenciales necesarias (API_KEY, API_SECRET y CLOUD_NAME) para autenticar la subida y gestión de imágenes desde el servidor.
+- **`CLOUDINARY_FOLDER`**: Nombre de la carpeta dentro de tu cuenta de Cloudinary donde se organizarán y guardarán los archivos o imágenes subidos por la aplicación.
 
 ### Frontend (`frontend/.env.example`)
 
