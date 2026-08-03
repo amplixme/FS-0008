@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as userController from "../controllers/user.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { updateProfileSchema } from "../schemas/user.schema.js";
 
 const router = Router();
 
@@ -11,6 +12,7 @@ router.get("/:id", userController.getProfile);
 router.put(
   "/me",
   authMiddleware,
+  validate(updateProfileSchema),
   userController.update
 );
 
