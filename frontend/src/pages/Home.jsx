@@ -11,7 +11,7 @@ import { usePosts } from "../hooks/usePosts";
 
 function Home() {
   const [searchParams] = useSearchParams();
-  const selectedCategory = searchParams.get("category");
+  const searchParamsObject = Object.fromEntries(searchParams.entries());
 
   const {
     categories,
@@ -25,7 +25,7 @@ function Home() {
     isLoading: isLoadingPosts,
     error: postsError,
     handleRetry: handleRetryPosts,
-  } = usePosts(selectedCategory);
+  } = usePosts(searchParamsObject);
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">

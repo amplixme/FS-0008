@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAll } from "../services/post.service";
 
-export function usePosts(selectedCategory) {
+export function usePosts(filters = {}) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,6 +11,9 @@ export function usePosts(selectedCategory) {
     setRetryCount((count) => count + 1);
   };
 
+  const category = filters.category || "";
+  const search = filters.search || "";
+
   useEffect(() => {
     let isMounted = true;
 
@@ -19,9 +22,10 @@ export function usePosts(selectedCategory) {
       setError(null);
 
       try {
-        const params = selectedCategory || "";
-        const data = await getAll(`?category=${params}`);
-
+        const queryParams = {};
+        if (category) queryParams.category = category;
+        if (search) queryParams.search = search;
+        const data = await getAll(queryParams);
         if (isMounted) setPosts(data);
       } catch (err) {
         if (isMounted)
@@ -36,7 +40,7 @@ export function usePosts(selectedCategory) {
     return () => {
       isMounted = false;
     };
-  }, [selectedCategory, retryCount]);
+  }, [category, search, retryCount]);
 
   return {
     posts,
