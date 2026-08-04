@@ -145,8 +145,9 @@ function PostDetails() {
             </div>
             <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
               <PostAuthorMeta
-                authorName={post.author.name}
-                date={formattedDate}
+                  authorId={post.author.id}
+                  authorName={post.author.name}
+                  date={formattedDate}
               />
               {isOwner && (
                 <PostActions

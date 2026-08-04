@@ -5,6 +5,7 @@ import "./global.css";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import User from "./pages/User.jsx";
 import Layout from "./components/layout/Layout.jsx";
 import ProtectedRoute from "./components/hoc/ProtectedRoute.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
@@ -24,6 +25,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/posts/:id" element={<PostDetails />} />
+            <Route path="/perfil/:id" element={<User />} />
 
             {/* Rutas protegidas */}
             <Route

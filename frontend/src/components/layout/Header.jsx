@@ -56,9 +56,12 @@ function Header() {
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <>
-                <p className="hidden md:block text-slate-700 dark:text-slate-200 font-medium font-inter tracking-tight">
+                <Link
+                  to={`/perfil/${user?.id}`}
+                  className="hidden md:block text-slate-700 dark:text-slate-200 font-medium font-inter tracking-tight hover:text-primary"
+                >
                   Hola, {user?.name || "Usuario"}
-                </p>
+                </Link>
                 <button
                   onClick={logout}
                   className="px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
