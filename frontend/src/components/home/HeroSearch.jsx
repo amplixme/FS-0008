@@ -30,6 +30,9 @@ function HeroSearch() {
       nextParams.delete("search");
     }
 
+    // Para resetear la paginacion a la pagina 1
+    nextParams.delete("page");
+
     setSearchParams(nextParams);
   }, [debouncedSearch, searchInUrl, searchParams, setSearchParams]);
 
@@ -37,6 +40,9 @@ function HeroSearch() {
     setSearchTerm("");
     const nextParams = new URLSearchParams(searchParams);
     nextParams.delete("search");
+
+    // Para resetear la paginacion a la pagina 1
+    nextParams.delete("page");
   };
 
   return (

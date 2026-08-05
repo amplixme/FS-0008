@@ -16,6 +16,9 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
       nextParams.delete("category");
     }
 
+    // Para resetear la paginacion a la pagina 1
+    nextParams.delete("page");
+
     setSearchParams(nextParams);
   };
 
