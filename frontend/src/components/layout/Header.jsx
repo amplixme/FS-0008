@@ -45,12 +45,14 @@ function Header() {
               <Link className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
                 Boletín
               </Link>
-              <Link
-                to="/admin"
-                className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight"
-              >
-                Admin
-              </Link>
+              {user?.role === "ADMIN" && (
+                <Link
+                  to="/admin"
+                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight"
+                >
+                  Admin
+                </Link>
+              )}
             </nav>
           </div>
           <div className="flex items-center gap-4">
