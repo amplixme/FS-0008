@@ -16,6 +16,7 @@ import { Categories } from "./pages/admin/Categories.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import NotFound from "./pages/404/NotFound.jsx";
 import ErrorBoundary from "./components/common/ErrorBoundary.jsx";
+import EditProfile from "./pages/EditProfile.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -36,6 +37,14 @@ createRoot(document.getElementById("root")).render(
                 element={
                   <ProtectedRoute>
                     <CreatePost />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/perfil/editar"
+                element={
+                  <ProtectedRoute>
+                    <EditProfile />
                   </ProtectedRoute>
                 }
               />

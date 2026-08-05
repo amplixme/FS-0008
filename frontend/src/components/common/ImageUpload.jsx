@@ -14,7 +14,16 @@ function validateFile(file) {
   return null;
 }
 
-function ImageUpload({ value, onChange }) {
+function ImageUpload({
+  value,
+  onChange,
+  id = "image-upload",
+  alt = "Vista previa de la imagen",
+  aspectRatio = "aspect-[21/9]",
+  recommendation = "Recomendado: 1920x1080px",
+
+}) {
+
   const [preview, setPreview] = useState(value || null);
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -73,21 +82,21 @@ function ImageUpload({ value, onChange }) {
   return (
     <div>
       <label
-        htmlFor="cover-image-upload"
+        htmlFor={id}
         onDragOver={(event) => {
           event.preventDefault();
           setIsDragging(true);
         }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
-        className={`relative w-full aspect-[21/9] rounded-xl border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden ${
+        className={`relative w-full ${aspectRatio} rounded-xl border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden ${
           isDragging
             ? "border-primary bg-primary-fixed"
             : "border-outline-variant bg-surface-container-lowest hover:border-primary/40 hover:bg-primary-fixed"
         }`}
       >
         <input
-          id="cover-image-upload"
+          id={id}
           type="file"
           accept="image/jpeg,image/png,image/webp"
           onChange={handleInputChange}
@@ -98,7 +107,7 @@ function ImageUpload({ value, onChange }) {
           <>
             <img
               src={preview}
-              alt="Vista previa de la imagen de portada"
+              alt={alt}
               className="w-full h-full object-cover"
             />
 
@@ -136,7 +145,7 @@ function ImageUpload({ value, onChange }) {
               Arrastra una imagen o haz clic para subir
             </p>
             <p className="text-xs text-outline mt-1 uppercase tracking-widest">
-              Recomendado: 1920x1080px
+              {recommendation}
             </p>
           </>
         )}

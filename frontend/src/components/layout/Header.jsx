@@ -1,7 +1,6 @@
 import { Link } from "react-router";
 import Drawer from "../ui/Drawer";
 import { useState } from "react";
-import { USER } from "../../data/data";
 import useAuth from "../../hooks/useAuth";
 
 function Header() {
@@ -70,9 +69,9 @@ function Header() {
                 </button>
                 <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden border-2 border-primary/10 hidden md:block">
                   <img
-                    alt={USER.alt}
+                    alt={`Avatar de ${user?.name || "Usuario"}`}
                     className="w-full h-full object-cover"
-                    src={USER.avatarUrl}
+                    src={user?.avatarUrl || "https://placehold.co/40x40"}
                   />
                 </div>
               </>
