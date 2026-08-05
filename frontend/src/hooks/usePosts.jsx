@@ -23,18 +23,16 @@ export function usePosts(options = {}) {
 
       try {
         // Construimos los parámetros de consulta de forma robusta
-        const queryParams = new URLSearchParams();
-        
-        if (page) queryParams.append("page", page);
-        if (limit) queryParams.append("limit", limit);
-        if (category) queryParams.append("category", category);
-        if (sort) queryParams.append("sort", sort);
-        if (search) queryParams.append("search", search);
+        const params = {
+          page,
+          limit,
+        };
 
-        // Llamamos al servicio con el string generado (ej: "?page=1&limit=6&category=react")
-        const queryString = queryParams.toString() ? `?${queryParams.toString()}` : "";
-        const response = await getAll(queryString);
+        if (category) params.category = category;
+        if (sort) params.sort = sort;
+        if (search) params.search = search;
 
+        const response = await getAll(params);
 
         if (isMounted) {
           // Como el backend ahora retorna { posts, meta }

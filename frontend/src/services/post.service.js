@@ -1,7 +1,11 @@
 import api from "./api";
 
 export async function getAll(params = {}, config = {}) {
-  const response = await api.get(`/posts${params}`, { ...config }); // Agregar configuracion para manejar la señal de cancelación
+  const response = await api.get("/posts", {
+    ...config,
+    params,
+  });
+
   return response;
 }
 
