@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { getAll } from "../services/post.service";
 
-export function usePosts(filters = {}) {
+export function usePosts(options = {}) {
+  const { category, page = 1, limit = 6, sort, search } = options;
+
   const [posts, setPosts] = useState([]);
+  const [meta, setMeta] = useState(null); // Guardamos la meta de paginación (totalPages, total, etc.)
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
@@ -10,9 +13,6 @@ export function usePosts(filters = {}) {
   const handleRetry = () => {
     setRetryCount((count) => count + 1);
   };
-
-  const category = filters.category || "";
-  const search = filters.search || "";
 
   useEffect(() => {
     let isMounted = true;
@@ -22,16 +22,31 @@ export function usePosts(filters = {}) {
       setError(null);
 
       try {
-        const queryParams = {};
-        if (category) queryParams.category = category;
-        if (search) queryParams.search = search;
-        const data = await getAll(queryParams);
-        if (isMounted) setPosts(data);
+        // Construimos los parámetros de consulta de forma robusta
+        const params = {
+          page,
+          limit,
+        };
+
+        if (category) params.category = category;
+        if (sort) params.sort = sort;
+        if (search) params.search = search;
+
+        const response = await getAll(params);
+
+        if (isMounted) {
+          // Como el backend ahora retorna { posts, meta }
+          setPosts(response.posts || response); // Soporte por si alguna respuesta antigua devolvía solo array
+          setMeta(response.meta || null);
+        }
       } catch (err) {
-        if (isMounted)
+        if (isMounted) {
           setError(err.message || "Error al obtener publicaciones.");
+        }
       } finally {
-        if (isMounted) setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
 
@@ -40,10 +55,11 @@ export function usePosts(filters = {}) {
     return () => {
       isMounted = false;
     };
-  }, [category, search, retryCount]);
+  }, [category, page, limit, sort, search, retryCount]);
 
   return {
     posts,
+    meta,
     isLoading,
     error,
     handleRetry,

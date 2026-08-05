@@ -22,10 +22,11 @@ function Home() {
 
   const {
     posts,
+    meta,
     isLoading: isLoadingPosts,
     error: postsError,
     handleRetry: handleRetryPosts,
-  } = usePosts(searchParamsObject);
+  } = usePosts({ ...searchParamsObject, limit: 6 });
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
@@ -63,7 +64,8 @@ function Home() {
                   <PostCard key={post.id} post={post} />
                 ))}
               </div>
-              {posts.length > 4 && <Pagination />}
+              {/* Paginación integrada con las meta páginas del backend */}
+              <Pagination totalPages={meta?.totalPages || 1} />
             </>
           )}
         </div>
