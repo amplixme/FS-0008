@@ -23,12 +23,13 @@ export const create = async (req, res, next) => {
 // Obtener todos los posts (público)
 export const getAll = async (req, res, next) => {
   try {
-    const { page, limit, sort, category } = req.query;
+    const { page, limit, sort, category, search } = req.query;
     const { posts, meta } = await postService.getAllPosts({
       page,
       limit,
       sort,
       category,
+      search,
     });
     return success(res, posts, 200, meta);
   } catch (error) {
