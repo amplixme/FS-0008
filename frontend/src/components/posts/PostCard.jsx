@@ -25,7 +25,7 @@ function PostCard({
 };
 
   return (
-    <Link to={`posts/${id}`}>
+    <Link to={`/posts/${id}`}>
       <article className="group bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
         <div className="aspect-[16/9] overflow-hidden">
           <img
@@ -81,10 +81,19 @@ function PostCard({
                   src={author.avatar || "https://placehold.co/32x32"}
                 />
               </div>
-              <div>
-                <p className="text-xs font-bold">{author.name}</p>
-                <p className="text-[10px] text-outline">{formatRelativeTime(createdAt)}</p>
-              </div>
+                <div>
+                  <Link
+                    to={`/perfil/${author.id}`}
+                    onClick={(event) => event.stopPropagation()}
+                    className="text-xs font-bold hover:text-primary transition-colors"
+                  >
+                    {author.name}
+                  </Link>
+
+                  <p className="text-[10px] text-outline">
+                    {formatRelativeTime(createdAt)}
+                  </p>
+                </div>
             </div>
             <div className="flex items-center gap-1 text-outline">
               <span className="material-symbols-outlined text-sm">forum</span>
