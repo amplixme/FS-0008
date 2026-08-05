@@ -21,7 +21,15 @@ api.interceptors.request.use(
 // Si el backend responde 401, limpia sesion y redirige a login
 api.interceptors.response.use(
   (response) => {
-    // retornar directamente los datos exitosos.
+    // Las respuestas paginadas necesitan conservar posts y meta.
+    if (response.data.meta) {
+      return {
+        posts: response.data.data,
+        meta: response.data.meta,
+      };
+    }
+
+    // El resto del front continúa funcionando como antes.
     return response.data.data;
   },
   (error) => {

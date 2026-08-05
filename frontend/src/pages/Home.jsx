@@ -12,7 +12,7 @@ import { usePosts } from "../hooks/usePosts";
 function Home() {
   const [searchParams] = useSearchParams();
   const selectedCategory = searchParams.get("category");
-
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const {
     categories,
     isLoading: isLoadingCategories,
@@ -22,10 +22,12 @@ function Home() {
 
   const {
     posts,
+    meta,
     isLoading: isLoadingPosts,
     error: postsError,
     handleRetry: handleRetryPosts,
-  } = usePosts(selectedCategory);
+  } = usePosts({ category: selectedCategory, page: currentPage, limit: 6 });
+
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
@@ -63,7 +65,8 @@ function Home() {
                   <PostCard key={post.id} post={post} />
                 ))}
               </div>
-              {posts.length > 4 && <Pagination />}
+              {/* Paginación integrada con las meta páginas del backend */}
+              <Pagination totalPages={meta?.totalPages || 1} />
             </>
           )}
         </div>
