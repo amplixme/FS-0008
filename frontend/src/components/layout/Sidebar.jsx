@@ -6,7 +6,7 @@ import { CATEGORY_ICONS } from "../../constants/categories";
 function Sidebar({ categories, isLoading, error, onRetry }) {
   const [searchParams, setSearchParams] = useSearchParams({ sort: "newest" });
   const selectedCategory = searchParams.get("category");
-  const currentSort = searchParams.get("sort");
+  const currentSort = searchParams.get("sort") || "newest";
 
   const handleSelectCategory = (categorySlug) => {
     setSearchParams((prev) => {
