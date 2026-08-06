@@ -26,50 +26,93 @@ function RecentCommentsList({
       ) : isLoading ? (
         <Spinner icon="progress_activity" message="Cargando comentarios..." />
       ) : comments.length === 0 ? (
-        <EmptyState
-          icon="chat_bubble"
-          message="No hay comentarios todavía."
-        />
+        <EmptyState icon="chat_bubble" message="No hay comentarios todavía." />
       ) : (
-        <ul className="divide-y divide-surface-variant/30">
-          {comments.map((comment) => (
-            <li key={comment.id} className="p-6">
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="material-symbols-outlined text-outline text-sm">
-                      person
+        <>
+          {/* Lista: desktop */}
+          <ul className="hidden md:block divide-y divide-surface-variant/30">
+            {comments.map((comment) => (
+              <li key={comment.id} className="p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="material-symbols-outlined text-outline text-sm">
+                        person
+                      </span>
+                      <span className="font-bold text-sm text-on-surface">
+                        {comment.author?.name}
+                      </span>
+                      <span className="text-[10px] text-outline font-medium">
+                        · {formatRelativeTime(comment.createdAt)}
+                      </span>
+                    </div>
+                    <p className="text-sm text-on-surface-variant italic leading-relaxed">
+                      "{truncateText(comment.content, 140)}"
+                    </p>
+                    {comment.post?.title && (
+                      <p className="text-xs text-outline mt-1 truncate">
+                        En: {comment.post.title}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onDelete(comment)}
+                    title="Eliminar comentario"
+                    className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors shrink-0"
+                  >
+                    <span className="material-symbols-outlined text-lg">
+                      delete
                     </span>
-                    <span className="font-bold text-sm text-on-surface">
-                      {comment.author?.name}
-                    </span>
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Tarjetas: mobile */}
+          <div className="md:hidden divide-y divide-surface-variant/30">
+            {comments.map((comment) => (
+              <div key={comment.id} className="p-5 space-y-2">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="material-symbols-outlined text-outline text-sm">
+                        person
+                      </span>
+                      <span className="font-bold text-sm text-on-surface truncate">
+                        {comment.author?.name}
+                      </span>
+                    </div>
                     <span className="text-[10px] text-outline font-medium">
-                      · {formatRelativeTime(comment.createdAt)}
+                      {formatRelativeTime(comment.createdAt)}
                     </span>
                   </div>
-                  <p className="text-sm text-on-surface-variant italic leading-relaxed">
-                    "{truncateText(comment.content, 140)}"
-                  </p>
-                  {comment.post?.title && (
-                    <p className="text-xs text-outline mt-1 truncate">
-                      En: {comment.post.title}
-                    </p>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => onDelete(comment)}
+                    title="Eliminar comentario"
+                    className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors shrink-0"
+                  >
+                    <span className="material-symbols-outlined text-lg">
+                      delete
+                    </span>
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => onDelete(comment)}
-                  title="Eliminar comentario"
-                  className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors shrink-0"
-                >
-                  <span className="material-symbols-outlined text-lg">
-                    delete
-                  </span>
-                </button>
+
+                <p className="text-sm text-on-surface-variant italic leading-relaxed">
+                  "{truncateText(comment.content, 140)}"
+                </p>
+
+                {comment.post?.title && (
+                  <p className="text-xs text-outline truncate">
+                    En: {comment.post.title}
+                  </p>
+                )}
               </div>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

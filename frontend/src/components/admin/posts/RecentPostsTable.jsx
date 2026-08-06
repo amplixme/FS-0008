@@ -112,6 +112,7 @@ function RecentPostsTable({ posts = [], isLoading, error, onRetry, onDelete }) {
                     </h3>
                   </div>
                 </div>
+
                 <div className="grid grid-cols-2 gap-4 py-3 border-t border-surface-variant/30">
                   <div>
                     <span className="block text-[10px] font-bold text-outline uppercase tracking-wider mb-1">
@@ -121,7 +122,16 @@ function RecentPostsTable({ posts = [], isLoading, error, onRetry, onDelete }) {
                       {post.author?.name}
                     </span>
                   </div>
+                  <div>
+                    <span className="block text-[10px] font-bold text-outline uppercase tracking-wider mb-1">
+                      Fecha
+                    </span>
+                    <span className="text-sm font-medium text-on-surface">
+                      {formatDate(post.createdAt)}
+                    </span>
+                  </div>
                 </div>
+
                 <div className="flex border-t border-surface-variant/30 -mx-5 -mb-5">
                   <Link
                     to={`/posts/${post.id}/edit`}

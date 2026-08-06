@@ -47,7 +47,6 @@ function UsersTable({
           disabled={isLoading}
           className="flex items-center gap-1 bg-primary text-on-primary px-5 py-2.5 rounded-full font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
         >
-          <span className="material-symbols-outlined text-lg">add</span>
           Crear usuario
         </button>
       </div>
@@ -157,8 +156,11 @@ function UsersTable({
             {users.map((user) => {
               const isSelf = user.id === currentUserId;
               return (
-                <div key={user.id} className="p-5 space-y-3">
+                <div key={user.id} className="p-5 space-y-4">
                   <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm shrink-0">
+                      {user.name?.charAt(0).toUpperCase()}
+                    </div>
                     <div className="min-w-0">
                       <p className="font-semibold text-on-surface truncate">
                         {user.name}
@@ -168,39 +170,22 @@ function UsersTable({
                       </p>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-t border-surface-variant/30">
+
+                  <div className="flex justify-between items-center">
                     <span className="text-xs font-bold text-outline uppercase tracking-wider">
                       Rol
                     </span>
                     <RoleBadge role={user.role} />
                   </div>
-                  <div className="flex justify-between items-center text-sm text-on-surface-variant">
-                    <span className="text-xs font-bold text-outline uppercase tracking-wider">
-                      Posts
-                    </span>
-                    {user.postsCount}
-                  </div>
-                  <div className="flex justify-between items-center text-sm text-on-surface-variant">
-                    <span className="text-xs font-bold text-outline uppercase tracking-wider">
-                      Registro
-                    </span>
-                    {formatDate(user.createdAt)}
-                  </div>
+
                   <div className="flex border-t border-surface-variant/30 -mx-5 -mb-5 mt-3">
-                    <button
-                      type="button"
-                      onClick={() => onEdit(user)}
-                      className="flex-1 py-3 text-sm font-bold text-on-surface-variant hover:bg-surface-container transition-colors"
-                    >
-                      Editar
-                    </button>
                     <button
                       type="button"
                       onClick={() => onChangeRole(user)}
                       disabled={isSelf}
                       className="flex-1 py-3 text-sm font-bold text-primary hover:bg-surface-container transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
-                      Cambiar rol
+                      Cambiar Rol
                     </button>
                     <button
                       type="button"
