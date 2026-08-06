@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import EmptyState from "../common/EmptyState";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
+import { formatDate } from "../../utils/formatDate";
 
 function CategoryChips({ categories = [] }) {
   if (categories.length === 0) {
@@ -19,14 +20,6 @@ function CategoryChips({ categories = [] }) {
       ))}
     </div>
   );
-}
-
-function formatDate(date) {
-  return new Date(date).toLocaleDateString("es-AR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
 }
 
 function RecentPostsTable({ posts = [], isLoading, error, onRetry, onDelete }) {

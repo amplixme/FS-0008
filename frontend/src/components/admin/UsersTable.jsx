@@ -1,6 +1,7 @@
 import EmptyState from "../common/EmptyState";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
+import { formatDate } from "../../utils/formatDate";
 
 function RoleBadge({ role }) {
   const isAdmin = role === "ADMIN";
@@ -15,14 +16,6 @@ function RoleBadge({ role }) {
       {role}
     </span>
   );
-}
-
-function formatDate(date) {
-  return new Date(date).toLocaleDateString("es-AR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
 }
 
 function UsersTable({
