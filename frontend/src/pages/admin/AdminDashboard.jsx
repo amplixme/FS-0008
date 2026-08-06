@@ -53,7 +53,7 @@ function AdminDashboard() {
         onRetry={stats.handleRetry}
       />
 
-      <div className="flex flex-col gap-4 lg:flex-row">
+      <div className="w-full flex flex-1 flex-col lg:flex-row lg:justify-between">
         <UsersTable
           users={users.users}
           isLoading={users.isLoading}

@@ -30,7 +30,7 @@ function UsersTable({
   onDelete,
 }) {
   return (
-    <div className="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+    <div className="w-auto lg:w-3/4 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
       {/* Header del bloque */}
       <div className="flex items-center justify-between p-6 border-b border-surface-variant/30">
         <div className="flex items-center gap-3">
