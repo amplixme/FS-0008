@@ -27,7 +27,7 @@ function AdminDashboard() {
   /* 
    Cualquier mutación (usuarios, posts o comentarios) puede impactar en más de una sección (ej: borrar un usuario borra sus posts/comentarios en cascada), así que refrescamos todo para mantener los contadores consistentes en vez de intentar invalidar selectivamente cada sección.
   */
-  
+
   const refreshAll = () => {
     stats.handleRetry();
     users.handleRetry();
@@ -53,17 +53,29 @@ function AdminDashboard() {
         onRetry={stats.handleRetry}
       />
 
-      <UsersTable
-        users={users.users}
-        isLoading={users.isLoading}
-        error={users.error}
-        onRetry={users.handleRetry}
-        currentUserId={user?.id}
-        onCreate={() => setActiveModal({ type: "createUser" })}
-        onEdit={(u) => setActiveModal({ type: "editUser", user: u })}
-        onChangeRole={(u) => setActiveModal({ type: "changeRole", user: u })}
-        onDelete={(u) => setActiveModal({ type: "deleteUser", user: u })}
-      />
+      <div className="flex gap-4">
+        <UsersTable
+          users={users.users}
+          isLoading={users.isLoading}
+          error={users.error}
+          onRetry={users.handleRetry}
+          currentUserId={user?.id}
+          onCreate={() => setActiveModal({ type: "createUser" })}
+          onEdit={(u) => setActiveModal({ type: "editUser", user: u })}
+          onChangeRole={(u) => setActiveModal({ type: "changeRole", user: u })}
+          onDelete={(u) => setActiveModal({ type: "deleteUser", user: u })}
+        />
+
+        <RecentCommentsList
+          comments={comments.comments}
+          isLoading={comments.isLoading}
+          error={comments.error}
+          onRetry={comments.handleRetry}
+          onDelete={(comment) =>
+            setActiveModal({ type: "deleteComment", comment })
+          }
+        />
+      </div>
 
       <RecentPostsTable
         posts={posts.posts}
@@ -71,16 +83,6 @@ function AdminDashboard() {
         error={posts.error}
         onRetry={posts.handleRetry}
         onDelete={(post) => setActiveModal({ type: "deletePost", post })}
-      />
-
-      <RecentCommentsList
-        comments={comments.comments}
-        isLoading={comments.isLoading}
-        error={comments.error}
-        onRetry={comments.handleRetry}
-        onDelete={(comment) =>
-          setActiveModal({ type: "deleteComment", comment })
-        }
       />
 
       {activeModal?.type === "createUser" && (

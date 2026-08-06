@@ -99,14 +99,8 @@ function UsersTable({
                         {formatDate(user.createdAt)}
                       </td>
                       <td className="py-4 px-6">
-                        <div className="flex justify-end items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() => onEdit(user)}
-                            className="px-4 py-1.5 border border-surface-variant rounded-full text-sm font-medium text-on-surface-variant hover:border-outline transition-colors"
-                          >
-                            Editar
-                          </button>
+                        {/* Acciones */}
+                        <div className="flex flex-col items-end gap-2">
                           <button
                             type="button"
                             onClick={() => onChangeRole(user)}
@@ -120,21 +114,35 @@ function UsersTable({
                           >
                             Cambiar rol
                           </button>
-                          <button
-                            type="button"
-                            onClick={() => onDelete(user)}
-                            disabled={isSelf}
-                            title={
-                              isSelf
-                                ? "No podés eliminarte a vos mismo"
-                                : "Eliminar usuario"
-                            }
-                            className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                          >
-                            <span className="material-symbols-outlined text-lg">
-                              delete
-                            </span>
-                          </button>
+
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => onEdit(user)}
+                              title="Editar usuario"
+                              className="p-2 rounded-full hover:bg-blue-100 text-on-surface-variant hover:border-outline transition-colors"
+                            >
+                              <span className="material-symbols-outlined text-lg">
+                                edit
+                              </span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => onDelete(user)}
+                              disabled={isSelf}
+                              title={
+                                isSelf
+                                  ? "No podés eliminarte a vos mismo"
+                                  : "Eliminar usuario"
+                              }
+                              className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                            >
+                              <span className="material-symbols-outlined text-lg">
+                                delete
+                              </span>
+                            </button>
+                          </div>
                         </div>
                       </td>
                     </tr>
