@@ -49,6 +49,19 @@ const getCommentsByPost = async (postId) => {
   });
  };
 
+// GET /api/admin/comments
+// Comentarios recientes para el panel de admin (no filtra por post)
+const getRecentComments = async (limit = 10) => {
+  return await prisma.comment.findMany({
+    orderBy: { createdAt: "desc" },
+    take: limit,
+    include: {
+      author: { select: { id: true, name: true } },
+      post: { select: { id: true, title: true } },
+    },
+  });
+};
+
 const updateComment = async (commentData) => {
   const { commentId, content, userId } = commentData;
 
@@ -105,4 +118,10 @@ const deleteComment = async (commentData) => {
 };
 
 
-export default { createComment, getCommentsByPost, updateComment, deleteComment, };
+export default {
+  createComment,
+  getCommentsByPost,
+  getRecentComments,
+  updateComment,
+  deleteComment,
+};

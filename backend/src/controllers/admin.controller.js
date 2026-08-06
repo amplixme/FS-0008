@@ -1,4 +1,5 @@
 import * as adminService from "../services/admin.service.js";
+import * as userService from "../services/user.service.js";
 import * as postService from "../services/post.service.js";
 import commentService from "../services/comment.service.js";
 import { success } from "../utils/response.js";
@@ -14,7 +15,7 @@ export const getStats = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
   try {
-    const users = await adminService.getAllUsers();
+    const users = await userService.getAllUsers();
     return success(res, users, 200);
   } catch (error) {
     next(error);
@@ -24,7 +25,7 @@ export const getAllUsers = async (req, res, next) => {
 export const createUser = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
-    const newUser = await adminService.createUser({
+    const newUser = await userService.createUser({
       name,
       email,
       password,
@@ -42,7 +43,7 @@ export const changeUserRole = async (req, res, next) => {
     const { role } = req.body;
     const requestingUserId = req.user.id;
 
-    const updatedUser = await adminService.changeUserRole(
+    const updatedUser = await userService.changeUserRole(
       id,
       role,
       requestingUserId,
@@ -58,7 +59,7 @@ export const updateUser = async (req, res, next) => {
     const { id } = req.params;
     const { name, email, role } = req.body;
 
-    const updatedUser = await adminService.updateUser(id, {
+    const updatedUser = await userService.updateUser(id, {
       name,
       email,
       role,
@@ -74,7 +75,7 @@ export const deleteUser = async (req, res, next) => {
     const { id } = req.params;
     const requestingUserId = req.user.id;
 
-    const result = await adminService.deleteUser(id, requestingUserId);
+    const result = await userService.deleteUser(id, requestingUserId);
     return success(res, result, 200);
   } catch (error) {
     next(error);
@@ -93,7 +94,7 @@ export const deletePost = async (req, res, next) => {
 
 export const getRecentComments = async (req, res, next) => {
   try {
-    const comments = await adminService.getRecentComments();
+    const comments = await commentService.getRecentComments();
     return success(res, comments, 200);
   } catch (error) {
     next(error);
