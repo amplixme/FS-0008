@@ -134,6 +134,7 @@ export const getPostById = async (id) => {
     include: {
       author: {
         select: {
+          id: true,
           name: true,
           avatarUrl: true,
         },

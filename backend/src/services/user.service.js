@@ -15,6 +15,26 @@ export const getPublicProfile = async (id) => {
       name: true,
       bio: true,
       avatarUrl: true,
+      createdAt: true,
+      posts: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          coverImage: true,
+          createdAt: true,
+          categories: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      },
       _count: {
         select: {
           posts: true,
@@ -34,6 +54,8 @@ export const getPublicProfile = async (id) => {
     name: user.name,
     bio: user.bio,
     avatarUrl: user.avatarUrl,
+    createdAt: user.createdAt,
+    posts: user.posts,
     postsCount: user._count.posts,
   };
 };
