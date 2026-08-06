@@ -4,45 +4,43 @@ import { useDebounce } from "../../hooks/useDebounce";
 
 function HeroSearch() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchInUrl = searchParams.get("search") || "";
+  const urlSearch = searchParams.get("search") || "";
 
-  const [searchTerm, setSearchTerm] = useState(searchInUrl);
-  const [prevSearchInUrl, setPrevSearchInUrl] = useState(searchInUrl);
+  const [inputValue, setInputValue] = useState(urlSearch);
 
-  // Sincronizacion durante el renderizado si la URL cambia por navegacion externa
-  if (prevSearchInUrl !== searchInUrl) {
-    setPrevSearchInUrl(searchInUrl);
-    setSearchTerm(searchInUrl);
+  // Registro del ultimo valor de la URL que vimos (para evitar re-render innecesarios)
+  const [prevUrlSearch, setPrevUrlSearch] = useState(urlSearch);
+
+  // Si la URL cambia externamente (ej. boton Atras), actualizamos el estado inmediatamente.
+  if (urlSearch !== prevUrlSearch) {
+    setPrevUrlSearch(urlSearch);
+    setInputValue(urlSearch);
   }
 
-  const debouncedSearch = useDebounce(searchTerm, 300);
+  const debouncedSearch = useDebounce(inputValue, 300);
 
-  // Sincroniza la busqueda debounced hacia la URL
   useEffect(() => {
-    const cleanSearch = debouncedSearch.trim();
+    setSearchParams(
+      (prev) => {
+        const params = new URLSearchParams(prev);
 
-    if (cleanSearch === searchInUrl) return;
+        if (debouncedSearch) {
+          params.set("search", debouncedSearch);
+        } else {
+          // Si el input esta vacío, elimina la key para no dejar "?search=" en la URL
+          params.delete("search");
+        }
 
-    const nextParams = new URLSearchParams(searchParams);
-    if (cleanSearch) {
-      nextParams.set("search", cleanSearch);
-    } else {
-      nextParams.delete("search");
-    }
-
-    // Para resetear la paginacion a la pagina 1
-    nextParams.delete("page");
-
-    setSearchParams(nextParams);
-  }, [debouncedSearch, searchInUrl, searchParams, setSearchParams]);
+        // Para evitar bugs de paginacion donde al cambiar el search, la pagina se queda en 2, 3, etc. y no vuelve a la 1
+        params.delete("page");
+        return params;
+      },
+      { replace: true }, // Evita llenar el historial de navegacion en cada cambio
+    );
+  }, [debouncedSearch, setSearchParams]);
 
   const handleClear = () => {
-    setSearchTerm("");
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.delete("search");
-
-    // Para resetear la paginacion a la pagina 1
-    nextParams.delete("page");
+    setInputValue("");
   };
 
   return (
@@ -58,12 +56,12 @@ function HeroSearch() {
             </span>
             <input
               type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               className="w-full pl-12 pr-12 py-4 bg-surface-container-lowest border-none rounded-2xl shadow-sm focus:ring-2 focus:ring-primary/20 transition-all text-lg placeholder:text-outline/50 text-on-surface"
               placeholder="Buscar artículos..."
             />
-            {searchTerm && (
+            {inputValue && (
               <button
                 type="button"
                 onClick={handleClear}
