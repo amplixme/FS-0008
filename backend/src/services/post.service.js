@@ -112,7 +112,11 @@ export const getAllPosts = async ({
   const totalPages = Math.ceil(total / limitNum);
 
   return {
-    posts: posts,
+    // Aplanamos _count.comments (formato de Prisma) a commentCount (lo que espera el frontend)
+    posts: posts.map(({ _count, ...post }) => ({
+      ...post,
+      commentCount: _count.comments,
+    })),
     meta: {
       total,
       page: pageNum,

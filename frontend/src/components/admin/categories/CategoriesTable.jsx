@@ -1,5 +1,5 @@
-import EmptyState from "../common/EmptyState";
-import Spinner from "../common/Spinner";
+import EmptyState from "../../common/EmptyState";
+import Spinner from "../../common/Spinner";
 
 export function CategoriesTable({
   data = [],
