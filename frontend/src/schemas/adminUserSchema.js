@@ -9,7 +9,7 @@ export const createAdminUserSchema = z.object({
     .email("Ingresa un email válido"),
   password: z
     .string()
-    .min(8, "La contraseña debe tener al menos 6 caracteres"),
+    .min(8, "La contraseña debe tener al menos 8 caracteres"),
   role: z.enum(["USER", "ADMIN"], {
     required_error: "Selecciona un rol",
   }),
