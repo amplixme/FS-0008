@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { deleteComment } from "../../services/admin.service";
-import ConfirmModal from "../common/ConfirmModal";
-import { truncateText } from "../../utils/utils";
+import { deleteComment } from "../../../services/admin.service";
+import ConfirmModal from "../../common/ConfirmModal";
+import { truncateText } from "../../../utils/utils";
 
 function DeleteCommentModal({ comment, onClose, onSuccess }) {
   const [isDeleting, setIsDeleting] = useState(false);

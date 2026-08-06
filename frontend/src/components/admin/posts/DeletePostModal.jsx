@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { deleteUser } from "../../services/admin.service";
-import ConfirmModal from "../common/ConfirmModal";
+import { deletePost } from "../../../services/admin.service";
+import ConfirmModal from "../../common/ConfirmModal";
 
-function DeleteUserModal({ user, onClose, onSuccess }) {
+function DeletePostModal({ post, onClose, onSuccess }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -11,11 +11,11 @@ function DeleteUserModal({ user, onClose, onSuccess }) {
     setError(null);
 
     try {
-      await deleteUser(user.id);
+      await deletePost(post.id);
       onSuccess();
       onClose();
     } catch (err) {
-      setError(err.message || "Error al eliminar el usuario.");
+      setError(err.message || "Error al eliminar el post.");
     } finally {
       setIsDeleting(false);
     }
@@ -25,25 +25,24 @@ function DeleteUserModal({ user, onClose, onSuccess }) {
     <span className="text-error font-medium">{error}</span>
   ) : (
     <>
-      ¿Estás seguro de que querés eliminar a{" "}
-      <strong className="text-on-surface">{user?.name}</strong>? Se eliminarán
-      también todos sus posts y comentarios. Esta acción no se puede
-      deshacer.
+      ¿Estás seguro de que querés eliminar el post{" "}
+      <strong className="text-on-surface">{post?.title}</strong>? Esta acción
+      no se puede deshacer.
     </>
   );
 
   return (
     <ConfirmModal
-      isOpen={Boolean(user)}
+      isOpen={Boolean(post)}
       onClose={onClose}
       onConfirm={handleConfirm}
-      title="Eliminar usuario"
+      title="Eliminar post"
       message={modalMessage}
       isProcessing={isDeleting}
-      confirmText={isDeleting ? "Eliminando..." : "Eliminar usuario"}
+      confirmText={isDeleting ? "Eliminando..." : "Eliminar post"}
       isDestructive={true}
     />
   );
 }
 
-export default DeleteUserModal;
+export default DeletePostModal;

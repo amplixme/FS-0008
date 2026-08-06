@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { create } from "../../services/category.service";
-import { categorySchema } from "../../schemas/categorySchema";
-import { generateSlug } from "../../utils/utils";
+import { update } from "../../../services/category.service";
+import { categorySchema } from "../../../schemas/categorySchema";
+import { generateSlug } from "../../../utils/utils";
 
-export function CreateCategoryModal({ onClose, onSuccess }) {
+export function EditCategoryModal({ category, onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
 
   const {
@@ -16,8 +16,8 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
   } = useForm({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      name: "",
-      slug: "",
+      name: category?.name || "",
+      slug: category?.slug || "",
     },
   });
 
@@ -25,12 +25,12 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
     setServerError(null);
 
     try {
-      await create(formData);
+      await update(category.id, formData);
       onSuccess(); // Triggerea handleRetry() en el componente padre
       onClose(); // Cierra el modal
     } catch (err) {
       // Errores del backend
-      setServerError(err.message || "Error al crear la categoría.");
+      setServerError(err.message || "Error al actualizar la categoría.");
     }
   };
 
@@ -39,7 +39,9 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform transition-all animate-in fade-in zoom-in duration-200">
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-slate-100">
-          <h2 className="title-md font-bold text-slate-900">Crear categoría</h2>
+          <h2 className="title-md font-bold text-slate-900">
+            Editar categoría
+          </h2>
           <button
             type="button"
             onClick={onClose}
@@ -77,7 +79,6 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
                   },
                 })}
                 disabled={isSubmitting}
-                placeholder="Ej. Programación"
                 className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400 disabled:opacity-50"
               />
               {errors.name && (
@@ -98,7 +99,6 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
                 id="slug"
                 {...register("slug")}
                 disabled={isSubmitting}
-                placeholder="Ej. programacion"
                 className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400 disabled:opacity-50"
               />
               {errors.slug && (
@@ -124,7 +124,7 @@ export function CreateCategoryModal({ onClose, onSuccess }) {
               disabled={isSubmitting}
               className="px-6 py-2.5 rounded-full bg-primary text-white font-semibold shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-50"
             >
-              {isSubmitting ? "Creando..." : "Crear categoría"}
+              {isSubmitting ? "Guardando..." : "Guardar categoría"}
             </button>
           </div>
         </form>

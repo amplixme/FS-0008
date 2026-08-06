@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { changeUserRole } from "../../services/admin.service";
-import ConfirmModal from "../common/ConfirmModal";
+import { changeUserRole } from "../../../services/admin.service";
+import ConfirmModal from "../../common/ConfirmModal";
 
 function ChangeRoleModal({ user, onClose, onSuccess }) {
   const [isProcessing, setIsProcessing] = useState(false);

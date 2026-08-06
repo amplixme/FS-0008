@@ -1,10 +1,28 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { editAdminUserSchema } from "../../schemas/adminUserSchema";
-import { updateUser } from "../../services/admin.service";
+import { createAdminUserSchema } from "../../../schemas/adminUserSchema";
+import { createUser } from "../../../services/admin.service";
 
-function EditUserModal({ user, onClose, onSuccess }) {
+function RoleRadioOption({ id, value, label, register }) {
+  return (
+    <label
+      htmlFor={id}
+      className="flex items-center gap-2 cursor-pointer select-none"
+    >
+      <input
+        id={id}
+        type="radio"
+        value={value}
+        {...register("role")}
+        className="w-5 h-5 accent-primary cursor-pointer"
+      />
+      <span className="font-medium text-on-surface">{label}</span>
+    </label>
+  );
+}
+
+function CreateUserModal({ onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
 
   const {
@@ -12,11 +30,12 @@ function EditUserModal({ user, onClose, onSuccess }) {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(editAdminUserSchema),
+    resolver: zodResolver(createAdminUserSchema),
     defaultValues: {
-      name: user?.name || "",
-      email: user?.email || "",
-      role: user?.role || "USER",
+      name: "",
+      email: "",
+      password: "",
+      role: "USER",
     },
   });
 
@@ -24,11 +43,11 @@ function EditUserModal({ user, onClose, onSuccess }) {
     setServerError(null);
 
     try {
-      await updateUser(user.id, formData);
+      await createUser(formData);
       onSuccess();
       onClose();
     } catch (err) {
-      setServerError(err.message || "Error al actualizar el usuario.");
+      setServerError(err.message || "Error al crear el usuario.");
     }
   };
 
@@ -38,7 +57,7 @@ function EditUserModal({ user, onClose, onSuccess }) {
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-surface-variant/30">
           <h2 className="text-xl font-bold text-on-surface">
-            Editar usuario
+            Crear nuevo usuario
           </h2>
           <button
             type="button"
@@ -63,16 +82,17 @@ function EditUserModal({ user, onClose, onSuccess }) {
 
             <div>
               <label
-                htmlFor="edit-name"
+                htmlFor="name"
                 className="block text-xs font-bold text-outline uppercase tracking-widest mb-2"
               >
                 Nombre completo
               </label>
               <input
-                id="edit-name"
+                id="name"
                 {...register("name")}
                 disabled={isSubmitting}
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all disabled:opacity-50"
+                placeholder="Ej. Juan Pérez"
+                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-outline disabled:opacity-50"
               />
               {errors.name && (
                 <p className="text-xs text-error font-medium mt-1">
@@ -83,17 +103,18 @@ function EditUserModal({ user, onClose, onSuccess }) {
 
             <div>
               <label
-                htmlFor="edit-email"
+                htmlFor="email"
                 className="block text-xs font-bold text-outline uppercase tracking-widest mb-2"
               >
                 Correo electrónico
               </label>
               <input
-                id="edit-email"
+                id="email"
                 type="email"
                 {...register("email")}
                 disabled={isSubmitting}
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all disabled:opacity-50"
+                placeholder="usuario@ejemplo.com"
+                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-outline disabled:opacity-50"
               />
               {errors.email && (
                 <p className="text-xs text-error font-medium mt-1">
@@ -104,20 +125,44 @@ function EditUserModal({ user, onClose, onSuccess }) {
 
             <div>
               <label
-                htmlFor="edit-role"
+                htmlFor="password"
                 className="block text-xs font-bold text-outline uppercase tracking-widest mb-2"
               >
-                Rol
+                Contraseña
               </label>
-              <select
-                id="edit-role"
-                {...register("role")}
+              <input
+                id="password"
+                type="password"
+                {...register("password")}
                 disabled={isSubmitting}
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all disabled:opacity-50"
-              >
-                <option value="USER">USER</option>
-                <option value="ADMIN">ADMIN</option>
-              </select>
+                placeholder="••••••••"
+                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-outline disabled:opacity-50"
+              />
+              {errors.password && (
+                <p className="text-xs text-error font-medium mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <span className="block text-xs font-bold text-outline uppercase tracking-widest mb-2">
+                Selector de rol
+              </span>
+              <div className="flex items-center gap-8">
+                <RoleRadioOption
+                  id="role-user"
+                  value="USER"
+                  label="USER"
+                  register={register}
+                />
+                <RoleRadioOption
+                  id="role-admin"
+                  value="ADMIN"
+                  label="ADMIN"
+                  register={register}
+                />
+              </div>
               {errors.role && (
                 <p className="text-xs text-error font-medium mt-1">
                   {errors.role.message}
@@ -141,7 +186,7 @@ function EditUserModal({ user, onClose, onSuccess }) {
               disabled={isSubmitting}
               className="px-6 py-2.5 rounded-full bg-primary text-on-primary font-semibold shadow-md hover:opacity-90 transition-all disabled:opacity-50"
             >
-              {isSubmitting ? "Guardando..." : "Guardar cambios"}
+              {isSubmitting ? "Creando..." : "Crear usuario"}
             </button>
           </div>
         </form>
@@ -150,4 +195,4 @@ function EditUserModal({ user, onClose, onSuccess }) {
   );
 }
 
-export default EditUserModal;
+export default CreateUserModal;

@@ -1,28 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createAdminUserSchema } from "../../schemas/adminUserSchema";
-import { createUser } from "../../services/admin.service";
+import { editAdminUserSchema } from "../../../schemas/adminUserSchema";
+import { updateUser } from "../../../services/admin.service";
 
-function RoleRadioOption({ id, value, label, register }) {
-  return (
-    <label
-      htmlFor={id}
-      className="flex items-center gap-2 cursor-pointer select-none"
-    >
-      <input
-        id={id}
-        type="radio"
-        value={value}
-        {...register("role")}
-        className="w-5 h-5 accent-primary cursor-pointer"
-      />
-      <span className="font-medium text-on-surface">{label}</span>
-    </label>
-  );
-}
-
-function CreateUserModal({ onClose, onSuccess }) {
+function EditUserModal({ user, onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
 
   const {
@@ -30,12 +12,11 @@ function CreateUserModal({ onClose, onSuccess }) {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(createAdminUserSchema),
+    resolver: zodResolver(editAdminUserSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      role: "USER",
+      name: user?.name || "",
+      email: user?.email || "",
+      role: user?.role || "USER",
     },
   });
 
@@ -43,11 +24,11 @@ function CreateUserModal({ onClose, onSuccess }) {
     setServerError(null);
 
     try {
-      await createUser(formData);
+      await updateUser(user.id, formData);
       onSuccess();
       onClose();
     } catch (err) {
-      setServerError(err.message || "Error al crear el usuario.");
+      setServerError(err.message || "Error al actualizar el usuario.");
     }
   };
 
@@ -57,7 +38,7 @@ function CreateUserModal({ onClose, onSuccess }) {
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-surface-variant/30">
           <h2 className="text-xl font-bold text-on-surface">
-            Crear nuevo usuario
+            Editar usuario
           </h2>
           <button
             type="button"
@@ -82,17 +63,16 @@ function CreateUserModal({ onClose, onSuccess }) {
 
             <div>
               <label
-                htmlFor="name"
+                htmlFor="edit-name"
                 className="block text-xs font-bold text-outline uppercase tracking-widest mb-2"
               >
                 Nombre completo
               </label>
               <input
-                id="name"
+                id="edit-name"
                 {...register("name")}
                 disabled={isSubmitting}
-                placeholder="Ej. Juan Pérez"
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-outline disabled:opacity-50"
+                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all disabled:opacity-50"
               />
               {errors.name && (
                 <p className="text-xs text-error font-medium mt-1">
@@ -103,18 +83,17 @@ function CreateUserModal({ onClose, onSuccess }) {
 
             <div>
               <label
-                htmlFor="email"
+                htmlFor="edit-email"
                 className="block text-xs font-bold text-outline uppercase tracking-widest mb-2"
               >
                 Correo electrónico
               </label>
               <input
-                id="email"
+                id="edit-email"
                 type="email"
                 {...register("email")}
                 disabled={isSubmitting}
-                placeholder="usuario@ejemplo.com"
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-outline disabled:opacity-50"
+                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all disabled:opacity-50"
               />
               {errors.email && (
                 <p className="text-xs text-error font-medium mt-1">
@@ -125,44 +104,20 @@ function CreateUserModal({ onClose, onSuccess }) {
 
             <div>
               <label
-                htmlFor="password"
+                htmlFor="edit-role"
                 className="block text-xs font-bold text-outline uppercase tracking-widest mb-2"
               >
-                Contraseña
+                Rol
               </label>
-              <input
-                id="password"
-                type="password"
-                {...register("password")}
+              <select
+                id="edit-role"
+                {...register("role")}
                 disabled={isSubmitting}
-                placeholder="••••••••"
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-outline disabled:opacity-50"
-              />
-              {errors.password && (
-                <p className="text-xs text-error font-medium mt-1">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <span className="block text-xs font-bold text-outline uppercase tracking-widest mb-2">
-                Selector de rol
-              </span>
-              <div className="flex items-center gap-8">
-                <RoleRadioOption
-                  id="role-user"
-                  value="USER"
-                  label="USER"
-                  register={register}
-                />
-                <RoleRadioOption
-                  id="role-admin"
-                  value="ADMIN"
-                  label="ADMIN"
-                  register={register}
-                />
-              </div>
+                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/30 transition-all disabled:opacity-50"
+              >
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+              </select>
               {errors.role && (
                 <p className="text-xs text-error font-medium mt-1">
                   {errors.role.message}
@@ -186,7 +141,7 @@ function CreateUserModal({ onClose, onSuccess }) {
               disabled={isSubmitting}
               className="px-6 py-2.5 rounded-full bg-primary text-on-primary font-semibold shadow-md hover:opacity-90 transition-all disabled:opacity-50"
             >
-              {isSubmitting ? "Creando..." : "Crear usuario"}
+              {isSubmitting ? "Guardando..." : "Guardar cambios"}
             </button>
           </div>
         </form>
@@ -195,4 +150,4 @@ function CreateUserModal({ onClose, onSuccess }) {
   );
 }
 
-export default CreateUserModal;
+export default EditUserModal;

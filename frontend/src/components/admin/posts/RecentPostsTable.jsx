@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import EmptyState from "../common/EmptyState";
-import Spinner from "../common/Spinner";
-import ErrorMessage from "../common/ErrorMessage";
-import { formatDate } from "../../utils/formatDate";
+import EmptyState from "../../common/EmptyState";
+import Spinner from "../../common/Spinner";
+import ErrorMessage from "../../common/ErrorMessage";
+import { formatDate } from "../../../utils/formatDate";
 
 function CategoryChips({ categories = [] }) {
   if (categories.length === 0) {

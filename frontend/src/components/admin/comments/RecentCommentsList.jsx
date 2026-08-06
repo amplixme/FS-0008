@@ -1,8 +1,8 @@
-import EmptyState from "../common/EmptyState";
-import Spinner from "../common/Spinner";
-import ErrorMessage from "../common/ErrorMessage";
-import { formatRelativeTime } from "../../utils/formatRelativeTime";
-import { truncateText } from "../../utils/utils";
+import EmptyState from "../../common/EmptyState";
+import Spinner from "../../common/Spinner";
+import ErrorMessage from "../../common/ErrorMessage";
+import { formatRelativeTime } from "../../../utils/formatRelativeTime";
+import { truncateText } from "../../../utils/utils";
 
 function RecentCommentsList({
   comments = [],

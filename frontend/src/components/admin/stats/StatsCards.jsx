@@ -1,5 +1,5 @@
-import Spinner from "../common/Spinner";
-import ErrorMessage from "../common/ErrorMessage";
+import Spinner from "../../common/Spinner";
+import ErrorMessage from "../../common/ErrorMessage";
 
 const STAT_CARDS = [
   {

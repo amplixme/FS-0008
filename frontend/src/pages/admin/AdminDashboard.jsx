@@ -4,16 +4,16 @@ import { useAdminStats } from "../../hooks/useAdminStats";
 import { useAdminUsers } from "../../hooks/useAdminUsers";
 import { useAdminPosts } from "../../hooks/useAdminPosts";
 import { useAdminComments } from "../../hooks/useAdminComments";
-import StatsCards from "../../components/admin/StatsCards";
-import UsersTable from "../../components/admin/UsersTable";
-import RecentPostsTable from "../../components/admin/RecentPostsTable";
-import RecentCommentsList from "../../components/admin/RecentCommentsList";
-import CreateUserModal from "../../components/admin/CreateUserModal";
-import EditUserModal from "../../components/admin/EditUserModal";
-import ChangeRoleModal from "../../components/admin/ChangeRoleModal";
-import DeleteUserModal from "../../components/admin/DeleteUserModal";
-import DeletePostModal from "../../components/admin/DeletePostModal";
-import DeleteCommentModal from "../../components/admin/DeleteCommentModal";
+import StatsCards from "../../components/admin/stats/StatsCards";
+import UsersTable from "../../components/admin/user/UsersTable";
+import RecentPostsTable from "../../components/admin/posts/RecentPostsTable";
+import RecentCommentsList from "../../components/admin/comments/RecentCommentsList";
+import CreateUserModal from "../../components/admin/user/CreateUserModal";
+import EditUserModal from "../../components/admin/user/EditUserModal";
+import ChangeRoleModal from "../../components/admin/role/ChangeRoleModal";
+import DeleteUserModal from "../../components/admin/user/DeleteUserModal";
+import DeletePostModal from "../../components/admin/posts/DeletePostModal";
+import DeleteCommentModal from "../../components/admin/comments/DeleteCommentModal";
 
 function AdminDashboard() {
   const { user } = useAuth();
