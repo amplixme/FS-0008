@@ -20,6 +20,10 @@ function HeroSearch() {
   const debouncedSearch = useDebounce(inputValue, 300);
 
   useEffect(() => {
+    if (debouncedSearch === urlSearch) {
+      return;
+    }
+
     setSearchParams(
       (prev) => {
         const params = new URLSearchParams(prev);
@@ -37,7 +41,7 @@ function HeroSearch() {
       },
       { replace: true }, // Evita llenar el historial de navegacion en cada cambio
     );
-  }, [debouncedSearch, setSearchParams]);
+  }, [debouncedSearch, setSearchParams, urlSearch]);
 
   const handleClear = () => {
     setInputValue("");
