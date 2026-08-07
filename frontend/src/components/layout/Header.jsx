@@ -4,6 +4,13 @@ import { useState } from "react";
 import { USER } from "../../data/data";
 import useAuth from "../../hooks/useAuth";
 
+const navLinkClass = "text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight";
+
+const adminLinks = [
+  { to: "/admin/categorias", label: "Categorias" },
+  { to: "/admin", label: "Admin" },
+];
+
 function Header() {
   const [showDrawer, setShowDrawer] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
@@ -45,12 +52,14 @@ function Header() {
               <Link className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
                 Boletín
               </Link>
-              <Link
-                to="/admin"
-                className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight"
-              >
-                Admin
-              </Link>
+
+              {/* mostrar links en la navegación si el usuario es ADMIN */}
+              {user?.role === "ADMIN" &&
+                adminLinks.map(({ to, label }) => (
+                  <Link key={to} to={to} className={navLinkClass}>
+                    {label}
+                  </Link>
+                ))}
             </nav>
           </div>
           <div className="flex items-center gap-4">

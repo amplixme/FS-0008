@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { remove } from "../../services/category.service";
-import ConfirmModal from "../common/ConfirmModal";
+import { remove } from "../../../services/category.service";
+import ConfirmModal from "../../common/ConfirmModal";
 
 export function DeleteCategoryModal({ category, onClose, onSuccess }) {
   const [isDeleting, setIsDeleting] = useState(false);
