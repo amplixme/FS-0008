@@ -19,8 +19,8 @@ export function useAdminPosts(limit = 5) {
       setError(null);
 
       try {
-        const data = await getAll(`?limit=${limit}&sort=newest`);
-        if (isMounted) setPosts(data);
+        const data = await getAll({ limit, sort: "newest" });
+        if (isMounted) setPosts(data.posts);
       } catch (err) {
         if (isMounted)
           setError(err.message || "Error al obtener publicaciones.");
