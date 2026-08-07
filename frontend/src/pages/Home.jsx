@@ -11,9 +11,8 @@ import { usePosts } from "../hooks/usePosts";
 
 function Home() {
   const [searchParams] = useSearchParams();
-  const selectedCategory = searchParams.get("category");
-  const currentSort = searchParams.get("sort");
-  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const searchParamsObject = Object.fromEntries(searchParams.entries());
+
   const {
     categories,
     isLoading: isLoadingCategories,
@@ -27,12 +26,7 @@ function Home() {
     isLoading: isLoadingPosts,
     error: postsError,
     handleRetry: handleRetryPosts,
-  } = usePosts({
-    category: selectedCategory,
-    page: currentPage,
-    limit: 6,
-    sort: currentSort,
-  });
+  } = usePosts({ ...searchParamsObject, limit: 6 });
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">

@@ -1,11 +1,7 @@
 import api from "./api";
 
-export async function getAll(params = {}, config = {}) {
-  const response = await api.get("/posts", {
-    ...config,
-    params,
-  });
-
+export async function getAll(params = {}) {
+  const response = await api.get("/posts", { params });
   return response;
 }
 
