@@ -8,13 +8,14 @@ import Register from "./pages/Register.jsx";
 import User from "./pages/User.jsx";
 import Layout from "./components/layout/Layout.jsx";
 import ProtectedRoute from "./components/hoc/ProtectedRoute.jsx";
+import ProtectedAdminRoute from "./components/hoc/ProtectedAdminRoute.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 import PostDetails from "./pages/posts/PostDetails.jsx";
 import CreatePost from "./pages/posts/CreatePost.jsx";
 import EditPost from "./pages/posts/EditPost.jsx";
 import { Categories } from "./pages/admin/Categories.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
-import NotFound from "./pages/404/NotFound.jsx";
+import NotFound from "./pages/404/NotFound.jsx"
 import ErrorBoundary from "./components/common/ErrorBoundary.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
 
@@ -59,23 +60,23 @@ createRoot(document.getElementById("root")).render(
               <Route
                 path="/admin/"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedAdminRoute>
                     <AdminDashboard />
-                  </ProtectedRoute>
+                  </ProtectedAdminRoute>
                 }
               />
               <Route
                 path="/admin/categorias/"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedAdminRoute>
                     <Categories />
-                  </ProtectedRoute>
+                  </ProtectedAdminRoute>
                 }
               />
-            </Route>
 
-            {/* Catch-all: cualquier ruta no definida */}
-            <Route path="*" element={<NotFound />} />
+              {/* Catch-all: cualquier ruta no definida */}
+              <Route path="*" element={<NotFound />} />
+            </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>

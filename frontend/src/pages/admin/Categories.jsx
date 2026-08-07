@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useCategories } from "../../hooks/useCategories";
-import { CategoriesTable } from "../../components/categories/CategoriesTable";
-import { CreateCategoryModal } from "../../components/categories/CreateCategoryModal";
-import { EditCategoryModal } from "../../components/categories/EditCategoryModal";
-import { DeleteCategoryModal } from "../../components/categories/DeleteCategoryModal";
+import { CategoriesTable } from "../../components/admin/categories/CategoriesTable";
+import { CreateCategoryModal } from "../../components/admin/categories/CreateCategoryModal";
+import { EditCategoryModal } from "../../components/admin/categories/EditCategoryModal";
+import { DeleteCategoryModal } from "../../components/admin/categories/DeleteCategoryModal";
 import ErrorMessage from "../../components/common/ErrorMessage";
+
 
 export function Categories() {
   const { categories, isLoading, error, handleRetry } = useCategories();
