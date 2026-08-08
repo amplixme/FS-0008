@@ -1,23 +1,40 @@
 import { useEffect, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router";
 import Alert from "../components/ui/Alert";
 import ImageUpload from "../components/common/ImageUpload";
 import Spinner from "../components/common/Spinner";
 import useAuth from "../hooks/useAuth";
+import { editProfileSchema } from "../schemas/editProfile.schema";
 import { getProfile, updateProfile } from "../services/user.service";
 
 function EditProfile() {
   const { user, updateUser } = useAuth();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    bio: "",
-    avatarUrl: "",
-  });
   const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(editProfileSchema),
+    defaultValues: {
+      name: "",
+      bio: "",
+      avatarUrl: "",
+    },
+  });
+
+  const bio = useWatch({
+    control,
+    name: "bio",
+  }) || "";
 
   useEffect(() => {
     let isMounted = true;
@@ -33,7 +50,7 @@ function EditProfile() {
         const profile = await getProfile(user.id);
 
         if (isMounted) {
-          setFormData({
+          reset({
             name: profile.name || "",
             bio: profile.bio || "",
             avatarUrl: profile.avatarUrl || "",
@@ -55,34 +72,25 @@ function EditProfile() {
     return () => {
       isMounted = false;
     };
-  }, [user?.id]);
+  }, [reset, user?.id]);
 
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-
-    setFormData((currentData) => ({
-      ...currentData,
-      [name]: value,
-    }));
-
+  function clearMessages() {
     setError("");
     setSuccess("");
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setIsSaving(true);
+  async function onSubmit(formData) {
     setError("");
     setSuccess("");
 
     try {
       const updatedProfile = await updateProfile({
-        name: formData.name.trim(),
-        bio: formData.bio.trim() || null,
+        name: formData.name,
+        bio: formData.bio || null,
         avatarUrl: formData.avatarUrl || null,
       });
 
-      setFormData({
+      reset({
         name: updatedProfile.name || "",
         bio: updatedProfile.bio || "",
         avatarUrl: updatedProfile.avatarUrl || "",
@@ -92,8 +100,6 @@ function EditProfile() {
       setSuccess("Perfil actualizado correctamente.");
     } catch (err) {
       setError(err.message);
-    } finally {
-      setIsSaving(false);
     }
   }
 
@@ -112,22 +118,34 @@ function EditProfile() {
           Editar perfil
         </h1>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          <ImageUpload
-            id="avatar-upload"
-            value={formData.avatarUrl}
-            onChange={(avatarUrl) => {
-              setFormData((currentData) => ({
-                ...currentData,
-                avatarUrl: avatarUrl || "",
-              }));
-              setError("");
-              setSuccess("");
-            }}
-            alt="Vista previa del avatar"
-            aspectRatio="aspect-square max-w-64"
-            recommendation="JPG, PNG o WEBP. Máximo 5 MB"
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mt-8 space-y-6"
+          noValidate
+        >
+          <Controller
+            name="avatarUrl"
+            control={control}
+            render={({ field }) => (
+              <ImageUpload
+                id="avatar-upload"
+                value={field.value}
+                onChange={(avatarUrl) => {
+                  field.onChange(avatarUrl || "");
+                  clearMessages();
+                }}
+                alt="Vista previa del avatar"
+                aspectRatio="aspect-square max-w-64"
+                recommendation="JPG, PNG o WEBP. Máximo 5 MB"
+              />
+            )}
           />
+
+          {errors.avatarUrl && (
+            <p role="alert" className="text-sm text-error">
+              {errors.avatarUrl.message}
+            </p>
+          )}
 
           <label className="block">
             <span className="text-sm font-semibold text-on-surface">
@@ -135,12 +153,19 @@ function EditProfile() {
             </span>
             <input
               type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "name-error" : undefined}
               className="mt-1 w-full rounded-lg border border-outline-variant px-3 py-2"
+              {...register("name", {
+                onChange: clearMessages,
+              })}
             />
+
+            {errors.name && (
+              <p id="name-error" role="alert" className="mt-1 text-sm text-error">
+                {errors.name.message}
+              </p>
+            )}
           </label>
 
           <label className="block">
@@ -148,28 +173,36 @@ function EditProfile() {
               Biografía
             </span>
             <textarea
-              name="bio"
-              value={formData.bio}
-              onChange={handleInputChange}
-              maxLength={200}
               rows={5}
+              aria-invalid={!!errors.bio}
+              aria-describedby={errors.bio ? "bio-error" : undefined}
               className="mt-1 w-full rounded-lg border border-outline-variant px-3 py-2"
+              {...register("bio", {
+                onChange: clearMessages,
+              })}
             />
+
             <span className="mt-1 block text-right text-sm text-outline">
-              {formData.bio.length}/200
+              {bio.length}/200
             </span>
+
+            {errors.bio && (
+              <p id="bio-error" role="alert" className="mt-1 text-sm text-error">
+                {errors.bio.message}
+              </p>
+            )}
           </label>
 
-          <Alert type="error" message={error} />
-          <Alert type="success" message={success} />
+          {error && <Alert type="error" message={error} />}
+          {success && <Alert type="success" message={success} />}
 
           <div className="flex flex-wrap gap-3">
             <button
               type="submit"
-              disabled={isSaving || !formData.name.trim()}
+              disabled={isSubmitting}
               className="px-5 py-2 bg-primary text-on-primary font-bold rounded-full disabled:opacity-60"
             >
-              {isSaving ? "Guardando..." : "Guardar cambios"}
+              {isSubmitting ? "Guardando..." : "Guardar cambios"}
             </button>
 
             <Link
