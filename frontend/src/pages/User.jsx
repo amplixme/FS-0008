@@ -1,86 +1,50 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
-import useAuth from "../hooks/useAuth";
-import { getProfile, updateProfile } from "../services/user.service";
+import { Link, useLocation, useParams } from "react-router";
 import Spinner from "../components/common/Spinner";
 import Alert from "../components/ui/Alert";
+import useAuth from "../hooks/useAuth";
+import { getProfile } from "../services/user.service";
 
 function User() {
   const { id } = useParams();
+  const location = useLocation();
+  const successMessage = location.state?.successMessage;
   const { user } = useAuth();
+
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    bio: "",
-    avatarUrl: "",
-  });
 
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchProfile() {
       setLoading(true);
       setError(null);
 
       try {
         const data = await getProfile(id);
-        setProfile(data);
-        setFormData({
-          name: data.name,
-          bio: data.bio || "",
-          avatarUrl: data.avatarUrl || "",
-        });
+
+        if (isMounted) {
+          setProfile(data);
+        }
       } catch (err) {
-        setError(err.message);
+        if (isMounted) {
+          setError(err.message);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchProfile();
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormData((currentData) => ({
-      ...currentData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSaving(true);
-    setError(null);
-
-    try {
-      const updatedProfile = await updateProfile({
-        name: formData.name,
-        bio: formData.bio || undefined,
-        avatarUrl: formData.avatarUrl || undefined,
-      });
-
-      setProfile((currentProfile) => ({
-        ...currentProfile,
-        ...updatedProfile,
-      }));
-
-      setFormData({
-        name: updatedProfile.name,
-        bio: updatedProfile.bio || "",
-        avatarUrl: updatedProfile.avatarUrl || "",
-      });
-
-      setIsEditing(false);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsSaving(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -107,21 +71,16 @@ function User() {
         year: "numeric",
       })
     : "";
-    
-  const handleCancelEdit = () => {
-    setFormData({
-      name: profile.name,
-      bio: profile.bio || "",
-      avatarUrl: profile.avatarUrl || "",
-    });
-
-    setIsEditing(false);
-  };
 
   const posts = profile.posts ?? [];
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
+      {successMessage && (
+        <div className="mb-6">
+          <Alert type="success" message={successMessage} />
+        </div>
+      )}
       <section className="bg-surface-container-lowest rounded-2xl p-8 mb-10">
         <div className="flex flex-col sm:flex-row gap-6 items-start">
           <img
@@ -131,85 +90,25 @@ function User() {
           />
 
           <div className="flex-1">
-            {isEditing ? (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <label className="block">
-                  <span className="text-sm font-semibold text-on-surface">Nombre</span>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="mt-1 w-full rounded-lg border border-outline-variant px-3 py-2"
-                  />
-                </label>
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <h1 className="text-3xl font-extrabold text-on-surface">
+                {profile.name}
+              </h1>
 
-                <label className="block">
-                  <span className="text-sm font-semibold text-on-surface">Biografía</span>
-                  <textarea
-                    name="bio"
-                    value={formData.bio}
-                    onChange={handleInputChange}
-                    rows="3"
-                    className="mt-1 w-full rounded-lg border border-outline-variant px-3 py-2"
-                  />
-                </label>
+              {isOwnProfile && (
+                <Link
+                  to="/perfil/editar"
+                  className="px-5 py-2 bg-primary text-on-primary font-bold rounded-full"
+                >
+                  Editar perfil
+                </Link>
+              )}
+            </div>
 
-                <label className="block">
-                  <span className="text-sm font-semibold text-on-surface">
-                    URL del avatar
-                  </span>
-                  <input
-                    type="url"
-                    name="avatarUrl"
-                    value={formData.avatarUrl}
-                    onChange={handleInputChange}
-                    className="mt-1 w-full rounded-lg border border-outline-variant px-3 py-2"
-                  />
-                </label>
-
-                <div className="flex gap-3">
-                  <button
-                    type="submit"
-                    disabled={isSaving}
-                    className="px-5 py-2 bg-primary text-on-primary font-bold rounded-full disabled:opacity-60"
-                  >
-                    {isSaving ? "Guardando..." : "Guardar cambios"}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleCancelEdit}
-                    className="px-5 py-2 border border-outline rounded-full font-bold"
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <>
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <h1 className="text-3xl font-extrabold text-on-surface">
-                    {profile.name}
-                  </h1>
-
-                  {isOwnProfile && (
-                    <button
-                      type="button"
-                      onClick={() => setIsEditing(true)}
-                      className="px-5 py-2 bg-primary text-on-primary font-bold rounded-full"
-                    >
-                      Editar perfil
-                    </button>
-                  )}
-                </div>
-
-                <p className="text-on-surface-variant mt-4">
-                  {profile.bio || "Este usuario todavía no agregó una biografía."}
-                </p>
-              </>
-            )}
+            <p className="text-on-surface-variant mt-4">
+              {profile.bio ||
+                "Este usuario todavía no agregó una biografía."}
+            </p>
 
             <p className="text-sm text-outline mt-4">
               Miembro desde {memberSince}
