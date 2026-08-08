@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import AuthContext from "./AuthContext";
+import { getProfile } from "../services/user.service";
 
 export function AuthProvider({ children }) {
   const navigate = useNavigate();
@@ -14,11 +15,20 @@ export function AuthProvider({ children }) {
 
   const isAuthenticated = !!token;
 
-  const login = (newToken, userData) => {
+  const login = async (newToken, userData) => {
+    let fullUser = userData;
+    try {
+      fullUser = await getProfile(userData.id);
+    } catch (err) {
+      // el login no debe bloquearse si falla la carga del perfil completo;
+      // seguimos con los datos parciales que vinieron del login
+      console.error("No se pudo cargar el perfil completo tras el login:", err);
+    }
+
     setToken(newToken);
-    setUser(userData);
+    setUser(fullUser);
     localStorage.setItem("token", newToken);
-    localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("userData", JSON.stringify(fullUser));
   };
 
   const updateUser = (updatedData) => {
