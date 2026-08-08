@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Alert from "../components/ui/Alert";
 import ImageUpload from "../components/common/ImageUpload";
 import Spinner from "../components/common/Spinner";
@@ -12,9 +12,10 @@ import { getProfile, updateProfile } from "../services/user.service";
 function EditProfile() {
   const { user, updateUser } = useAuth();
 
+  const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const {
     control,
@@ -76,12 +77,10 @@ function EditProfile() {
 
   function clearMessages() {
     setError("");
-    setSuccess("");
   }
 
   async function onSubmit(formData) {
     setError("");
-    setSuccess("");
 
     try {
       const updatedProfile = await updateProfile({
@@ -90,14 +89,13 @@ function EditProfile() {
         avatarUrl: formData.avatarUrl || null,
       });
 
-      reset({
-        name: updatedProfile.name || "",
-        bio: updatedProfile.bio || "",
-        avatarUrl: updatedProfile.avatarUrl || "",
-      });
-
       updateUser(updatedProfile);
-      setSuccess("Perfil actualizado correctamente.");
+
+      navigate(`/perfil/${updatedProfile.id ?? user.id}`, {
+        state: {
+          successMessage: "Perfil actualizado correctamente.",
+        },
+      });
     } catch (err) {
       setError(err.message);
     }
@@ -194,7 +192,6 @@ function EditProfile() {
           </label>
 
           {error && <Alert type="error" message={error} />}
-          {success && <Alert type="success" message={success} />}
 
           <div className="flex flex-wrap gap-3">
             <button

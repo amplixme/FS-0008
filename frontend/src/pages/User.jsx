@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import Spinner from "../components/common/Spinner";
 import Alert from "../components/ui/Alert";
 import useAuth from "../hooks/useAuth";
@@ -7,6 +7,8 @@ import { getProfile } from "../services/user.service";
 
 function User() {
   const { id } = useParams();
+  const location = useLocation();
+  const successMessage = location.state?.successMessage;
   const { user } = useAuth();
 
   const [profile, setProfile] = useState(null);
@@ -74,6 +76,11 @@ function User() {
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
+      {successMessage && (
+        <div className="mb-6">
+          <Alert type="success" message={successMessage} />
+        </div>
+      )}
       <section className="bg-surface-container-lowest rounded-2xl p-8 mb-10">
         <div className="flex flex-col sm:flex-row gap-6 items-start">
           <img
