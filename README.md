@@ -6,6 +6,10 @@ AmplixMe Acceleration Program — Javascript
 
 Aplicación de blog con sistema de comentarios y autenticación. Los usuarios pueden registrarse, iniciar sesión y crear publicaciones (posts), diferenciando entre roles de administrador y usuario regular.
 
+🌐 URL de Producción (API): https://fs-0008.onrender.com
+
+🌐 URL de Producción (Frontend): https://fs-0008.vercel.app/
+
 ## Stack Tecnológico
 
 ### Frontend
