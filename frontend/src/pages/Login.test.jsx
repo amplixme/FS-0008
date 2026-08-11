@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router";
 import Login from "./Login";
 import { loginUser } from "../services/auth.service";
 
-// Mock de react-router manteniendonos en MemoryRouter
+// Mock de react-router
 const mockNavigate = vi.fn();
 vi.mock("react-router", async () => {
   const actual = await vi.importActual("react-router");
@@ -14,7 +14,7 @@ vi.mock("react-router", async () => {
   };
 });
 
-// Mock del hook de autenticación
+// Mock del hook de autenticacion
 const mockLoginContext = vi.fn();
 vi.mock("../hooks/useAuth", () => ({
   default: () => ({
@@ -32,7 +32,49 @@ describe("Login Component", () => {
     vi.resetAllMocks();
   });
 
-  it("muestra errores de validación de Zod si se envía el formulario vacío", async () => {
+  it("muestra la alerta de exito si viene un mensaje en location.state", () => {
+    render(
+      <MemoryRouter
+        initialEntries={[
+          {
+            pathname: "/login",
+            state: {
+              successMessage:
+                "Cuenta creada correctamente. Ahora podes iniciar sesion.",
+            },
+          },
+        ]}
+      >
+        <Login />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByText(
+        "Cuenta creada correctamente. Ahora podes iniciar sesion.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("alterna la visibilidad de la contraseña al pulsar el boton correspondiente", () => {
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>,
+    );
+
+    const passwordInput = screen.getByLabelText(/^contraseña$/i);
+    const toggleButton = screen.getByRole("button", {
+      name: /mostrar contraseña/i,
+    });
+
+    expect(passwordInput).toHaveAttribute("type", "password");
+
+    fireEvent.click(toggleButton);
+    expect(passwordInput).toHaveAttribute("type", "text");
+  });
+
+  it("muestra errores de validacion de Zod si se envía el formulario vacio", async () => {
     render(
       <MemoryRouter>
         <Login />
@@ -44,21 +86,17 @@ describe("Login Component", () => {
     });
     fireEvent.click(submitButton);
 
-    // findByText es asíncrono, se usa para esperar a que Zod ejecute la validacion
     const emailError = await screen.findByText("El email es obligatorio");
-    expect(emailError).toBeInTheDocument();
-
-    // Para el segundo error ya podemos usar getByText porque la re-renderización ya ocurrio
     const passwordError = screen.getByText(
       "La contraseña debe tener al menos 8 caracteres",
     );
-    expect(passwordError).toBeInTheDocument();
 
-    // Aseguramos que la API nunca se ejecuto
+    expect(emailError).toBeInTheDocument();
+    expect(passwordError).toBeInTheDocument();
     expect(loginUser).not.toHaveBeenCalled();
   });
 
-  it("ejecuta la autenticación y navega al home cuando el formulario es válido", async () => {
+  it("ejecuta la autenticacion y navega al home cuando el formulario es valido", async () => {
     const mockUserResponse = {
       token: "fake-jwt-token",
       user: { id: "1", name: "Usuario Prueba" },
@@ -72,25 +110,21 @@ describe("Login Component", () => {
     );
 
     const emailInput = screen.getByLabelText(/correo electronico/i);
-    // Usamos regex estricta /^contraseña$/i para no coincidir con aria-label="Mostrar contraseña"
     const passwordInput = screen.getByLabelText(/^contraseña$/i);
     const submitButton = screen.getByRole("button", {
       name: /iniciar sesion/i,
     });
 
-    // Simulamos las interacciones con fireEvent
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.change(passwordInput, { target: { value: "password123" } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      // Verificamos que la API recibio los datos del formulario
       expect(loginUser).toHaveBeenCalledWith({
         email: "test@example.com",
         password: "password123",
       });
 
-      // Verificamos la actualizacion del contexto y la navegacion
       expect(mockLoginContext).toHaveBeenCalledWith(
         "fake-jwt-token",
         mockUserResponse.user,
@@ -102,7 +136,7 @@ describe("Login Component", () => {
     });
   });
 
-  it("muestra la alerta de error del servidor si la petición falla", async () => {
+  it("muestra la alerta de error del servidor si la peticion falla", async () => {
     loginUser.mockRejectedValueOnce(new Error("Credenciales inválidas"));
 
     render(
@@ -121,13 +155,8 @@ describe("Login Component", () => {
     fireEvent.change(passwordInput, { target: { value: "password123" } });
     fireEvent.click(submitButton);
 
-    // Verificamos que se llame la API
-    await waitFor(() => {
-      expect(loginUser).toHaveBeenCalledTimes(1);
-    });
-
-    // Esperamos a que el estado serverError se actualice y renderice el texto
     const errorMessage = await screen.findByText(/Credenciales inválidas/i);
     expect(errorMessage).toBeInTheDocument();
+    expect(loginUser).toHaveBeenCalledTimes(1);
   });
 });
