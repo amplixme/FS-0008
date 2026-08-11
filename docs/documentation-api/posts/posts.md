@@ -113,6 +113,7 @@ Devuelve el post creado, con `author.name` y `categories` incluidos (mismo shape
 |--------|--------|
 | `400` | Body inválido (falta `title`/`content`, `coverImage` no es URL válida) |
 | `401` | Token faltante, inválido o expirado |
+| `404` | Algún `id` de `categoryIds` no corresponde a una categoría existente (falla el `connect` de Prisma) |
 
 ---
 
@@ -137,7 +138,7 @@ Devuelve el post actualizado, con `categories` incluidas.
 | `400` | Body inválido |
 | `401` | Token faltante, inválido o expirado |
 | `403` | El usuario no es el autor del post ni `ADMIN` |
-| `404` | No existe un post con ese `id` |
+| `404` | No existe un post con ese `id`, o algún `id` de `categoryIds` no corresponde a una categoría existente (falla el `set` de Prisma) |
 
 ---
 
