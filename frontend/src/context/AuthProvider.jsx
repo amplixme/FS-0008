@@ -16,9 +16,14 @@ export function AuthProvider({ children }) {
   const isAuthenticated = !!token;
 
   const login = async (newToken, userData) => {
-    let fullUser = userData;
+    // para no perder la informacion de userData (role en especial, sirve para mostrar opciones en Header)
+    let fullUser = { ...userData };
+
     try {
-      fullUser = await getProfile(userData.id);
+      const profile = await getProfile(userData.id);
+      if (profile) {
+        fullUser = { ...fullUser, ...profile };
+      }
     } catch (err) {
       // el login no debe bloquearse si falla la carga del perfil completo;
       // seguimos con los datos parciales que vinieron del login
