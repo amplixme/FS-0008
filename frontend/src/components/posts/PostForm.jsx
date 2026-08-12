@@ -1,10 +1,11 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postSchema } from "../../schemas/postSchema";
 import { useCategories } from "../../hooks/useCategories";
 import ToggleSwitch from "../ui/ToggleSwitch";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
+import ImageUpload from "../common/ImageUpload";
 
 function PostForm({ initialValues, onSubmit }) {
   const {
@@ -15,6 +16,7 @@ function PostForm({ initialValues, onSubmit }) {
   } = useCategories();
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -23,6 +25,7 @@ function PostForm({ initialValues, onSubmit }) {
     defaultValues: {
       title: "",
       content: "",
+      coverImage: null,
       categoryIds: [],
       // published: false
     },
@@ -35,6 +38,28 @@ function PostForm({ initialValues, onSubmit }) {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
+      <div>
+        <Controller
+          name="coverImage"
+          control={control}
+          render={({ field }) => (
+            <ImageUpload
+              key={field.value ?? "empty-cover"}
+              id="cover-image-upload"
+              value={field.value}
+              onChange={field.onChange}
+              alt="Vista previa de la portada del artículo"
+              recommendation="JPG, PNG o WEBP. Máximo 5 MB"
+            />
+          )}
+        />
+
+        {errors.coverImage && (
+          <p role="alert" className="text-sm text-error mt-2">
+            {errors.coverImage.message}
+          </p>
+        )}
+      </div>
       <div>
         <label htmlFor="title" className="sr-only">
           Título del artículo
