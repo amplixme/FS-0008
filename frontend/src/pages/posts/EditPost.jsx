@@ -81,6 +81,7 @@ function EditPost() {
             initialValues={{
               title: post.title,
               content: post.content,
+              coverImage: post.coverImage ?? null,
               categoryIds: post.categories?.map((c) => c.id) ?? [],
               // published: post.published
             }}

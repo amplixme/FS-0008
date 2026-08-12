@@ -13,7 +13,11 @@ export const createPostSchema = z.object({
     })
     .min(1, "El contenido no puede estar vacío"),
 
-  coverImage: z.string().url("Debe ser una URL válida").optional(),
+  coverImage: z
+    .string()
+    .url("Debe ser una URL válida")
+    .nullable()
+    .optional(),
 
   categoryIds: z.array(z.string()).optional(),
 });
