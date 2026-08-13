@@ -16,7 +16,6 @@ const corsOptions = {
 
     if (!isProduction) {
       // En desarrollo permite cualquier puerto de localhost (http://localhost:*)
-      const localhostRegex = /^http:\/\/localhost(:\d+)?$/;
       if (localhostRegex.test(origin)) {
         return callback(null, true);
       }
@@ -27,7 +26,7 @@ const corsOptions = {
       return callback(null, true);
     }
 
-    return callback(new Error("Acceso no permitido por la política de CORS"));
+    return callback(null, false);
   },
   credentials: true,
 };
