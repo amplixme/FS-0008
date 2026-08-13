@@ -157,11 +157,8 @@ function UsersTable({
               const isSelf = user.id === currentUserId;
               return (
                 <div key={user.id} className="p-5 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm shrink-0">
-                      {user.name?.charAt(0).toUpperCase()}
-                    </div>
-                    <div className="min-w-0">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex flex-col min-w-0">
                       <p className="font-semibold text-on-surface truncate">
                         {user.name}
                       </p>
@@ -169,6 +166,17 @@ function UsersTable({
                         {user.email}
                       </p>
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={() => onEdit(user)}
+                      title="Editar usuario"
+                      className="p-2 rounded-full hover:bg-blue-100 text-on-surface-variant hover:border-outline transition-colors"
+                    >
+                    <span className="material-symbols-outlined text-lg">
+                      edit
+                    </span>
+                    </button>
                   </div>
 
                   <div className="flex justify-between items-center">

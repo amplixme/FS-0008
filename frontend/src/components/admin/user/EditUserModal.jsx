@@ -37,9 +37,7 @@ function EditUserModal({ user, onClose, onSuccess }) {
       <div className="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-surface-variant/30">
-          <h2 className="text-xl font-bold text-on-surface">
-            Editar usuario
-          </h2>
+          <h2 className="text-xl font-bold text-on-surface">Editar usuario</h2>
           <button
             type="button"
             onClick={onClose}
@@ -54,9 +52,7 @@ function EditUserModal({ user, onClose, onSuccess }) {
           <div className="p-8 space-y-6">
             {serverError && (
               <div className="p-4 rounded-xl bg-error-container text-on-error-container text-sm font-medium flex items-center gap-2">
-                <span className="material-symbols-outlined text-lg">
-                  error
-                </span>
+                <span className="material-symbols-outlined text-lg">error</span>
                 {serverError}
               </div>
             )}
@@ -127,19 +123,19 @@ function EditUserModal({ user, onClose, onSuccess }) {
           </div>
 
           {/* Modal Footer */}
-          <div className="px-8 py-6 bg-surface-container-low flex justify-end gap-4">
+          <div className="px-4 py-6 sm:px-8 bg-surface-container-low flex flex-col-reverse sm:flex-row justify-end gap-3 sm:gap-4">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-6 py-2.5 rounded-full text-on-surface-variant font-semibold border-2 border-surface-variant hover:bg-surface-container transition-all disabled:opacity-50"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-full text-on-surface-variant font-semibold border-2 border-surface-variant hover:bg-surface-container transition-all disabled:opacity-50"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 rounded-full bg-primary text-on-primary font-semibold shadow-md hover:opacity-90 transition-all disabled:opacity-50"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-primary text-on-primary font-semibold shadow-md hover:opacity-90 transition-all disabled:opacity-50"
             >
               {isSubmitting ? "Guardando..." : "Guardar cambios"}
             </button>
