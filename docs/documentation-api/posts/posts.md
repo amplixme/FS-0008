@@ -26,7 +26,6 @@ Lista los posts, con paginación, búsqueda, orden y filtro por categoría. Púb
 
 ```json
 {
-  "success": true,
   "data": [
     {
       "id": 12,
@@ -59,7 +58,6 @@ Devuelve un post por `id`. Pública.
 
 ```json
 {
-  "success": true,
   "data": {
     "id": 12,
     "title": "Cómo armar un README de API",
@@ -152,7 +150,6 @@ Elimina un post. Solo el autor o un `ADMIN`.
 
 ```json
 {
-  "success": true,
   "data": { "message": "Post eliminado con éxito" }
 }
 ```

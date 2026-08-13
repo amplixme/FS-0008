@@ -16,7 +16,6 @@ Lista todas las categorías, ordenadas por `name`. Pública.
 
 ```json
 {
-  "success": true,
   "data": [
     { "id": "clx1a2b3c", "name": "Backend", "slug": "backend" }
   ]
@@ -46,7 +45,6 @@ Crea una categoría.
 
 ```json
 {
-  "success": true,
   "data": { "id": "clx1a2b3c", "name": "Backend", "slug": "backend" }
 }
 ```
@@ -100,7 +98,6 @@ Elimina una categoría. Falla si tiene posts asociados.
 
 ```json
 {
-  "success": true,
   "data": { "message": "Categoría eliminada correctamente" }
 }
 ```

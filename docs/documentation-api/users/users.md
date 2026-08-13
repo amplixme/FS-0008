@@ -16,7 +16,6 @@ Devuelve el perfil público de un usuario junto con sus posts. Pública.
 
 ```json
 {
-  "success": true,
   "data": {
     "id": 1,
     "name": "John Doe",
@@ -76,7 +75,6 @@ Actualiza el perfil del usuario autenticado.
 
 ```json
 {
-  "success": true,
   "data": {
     "id": 1,
     "name": "Jane Smith",

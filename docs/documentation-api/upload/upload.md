@@ -29,7 +29,6 @@ Sube una imagen y devuelve su URL pública en Cloudinary.
 
 ```json
 {
-  "success": true,
   "data": {
     "url": "https://res.cloudinary.com/tu-cloud/image/upload/v.../archivo.jpg"
   }

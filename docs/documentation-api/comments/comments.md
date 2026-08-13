@@ -16,7 +16,6 @@ Lista los comentarios de un post, más nuevos primero.
 
 ```json
 {
-  "success": true,
   "data": [
     {
       "id": "comment_1",
@@ -56,7 +55,6 @@ Crea un comentario en un post.
 
 ```json
 {
-  "success": true,
   "data": {
     "id": "comment_1",
     "content": "Buen artículo!",
@@ -115,7 +113,6 @@ Elimina un comentario. Solo el autor del comentario o un `ADMIN`.
 
 ```json
 {
-  "success": true,
   "data": { "message": "Comentario eliminado correctamente" }
 }
 ```

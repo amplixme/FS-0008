@@ -16,7 +16,6 @@ Devuelve estadísticas agregadas para el dashboard.
 
 ```json
 {
-  "success": true,
   "data": {
     "totalUsers": 25,
     "totalPosts": 42,
@@ -45,7 +44,6 @@ Lista todos los usuarios con la cantidad de posts de cada uno.
 
 ```json
 {
-  "success": true,
   "data": [
     {
       "id": 1,
@@ -85,7 +83,6 @@ Crea un usuario (permite asignar rol directamente, a diferencia de `/api/auth/re
 
 ```json
 {
-  "success": true,
   "data": {
     "id": 26,
     "name": "Nuevo Usuario",
@@ -168,7 +165,6 @@ Elimina un usuario. Un admin no puede eliminarse a sí mismo. Borra en cascada (
 
 ```json
 {
-  "success": true,
   "data": { "message": "Usuario eliminado correctamente" }
 }
 ```
@@ -191,7 +187,6 @@ Elimina cualquier post (sin chequeo de autoría, a diferencia de `DELETE /api/po
 
 ```json
 {
-  "success": true,
   "data": { "message": "Post eliminado correctamente" }
 }
 ```
@@ -216,7 +211,6 @@ Lista los comentarios más recientes de todo el blog (no filtra por post), para 
 
 ```json
 {
-  "success": true,
   "data": [
     {
       "id": "cmt_1",
@@ -246,7 +240,6 @@ Elimina cualquier comentario (usa la misma lógica que `DELETE /api/comments/:co
 
 ```json
 {
-  "success": true,
   "data": { "message": "Comentario eliminado correctamente" }
 }
 ```

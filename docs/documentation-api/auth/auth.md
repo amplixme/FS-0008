@@ -18,7 +18,7 @@ Registra un nuevo usuario.
 |-------|------|-----------|------------|
 | `name` | string | Sí | mínimo 2 caracteres |
 | `email` | string | Sí | formato de email válido |
-| `password` | string | Sí | mínimo 6 caracteres |
+| `password` | string | Sí | mínimo 8 caracteres |
 
 ```json
 {
@@ -32,7 +32,6 @@ Registra un nuevo usuario.
 
 ```json
 {
-  "success": true,
   "data": {
     "message": "Usuario registrado exitosamente"
   }
@@ -72,7 +71,6 @@ Autentica un usuario y devuelve un JWT.
 
 ```json
 {
-  "success": true,
   "data": {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "user": {
@@ -110,7 +108,6 @@ No requiere.
 
 ```json
 {
-  "success": true,
   "data": {
     "user": {
       "id": "uuid",

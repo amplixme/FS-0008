@@ -45,7 +45,6 @@ Respuestas exitosas:
 
 ```json
 {
-  "success": true,
   "data": { ... }
 }
 ```
@@ -54,7 +53,6 @@ Los endpoints con paginación (ej. `GET /posts`) agregan un campo `meta` adicion
 
 ```json
 {
-  "success": true,
   "data": [ ... ],
   "meta": { "total": 42, "page": 1, "limit": 10, "totalPages": 5 }
 }
@@ -64,7 +62,6 @@ Respuestas de error:
 
 ```json
 {
-  "success": false,
   "message": "Descripción del error"
 }
 ```
