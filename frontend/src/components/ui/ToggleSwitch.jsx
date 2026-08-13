@@ -13,6 +13,7 @@ function ToggleSwitch({ label, description, ref, ...props }) {
           ref={ref}
           type="checkbox"
           className="sr-only peer"
+          aria-label={label || description}
           {...props}
         />
 
