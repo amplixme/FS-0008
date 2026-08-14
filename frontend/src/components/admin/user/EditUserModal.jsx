@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editAdminUserSchema } from "../../../schemas/adminUserSchema";
 import { updateUser } from "../../../services/admin.service";
+import { useModalKeyboard } from "../../../hooks/useModalKeyboard";
 
 function EditUserModal({ user, onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
+  const modalRef = useModalKeyboard(onClose);
 
   const {
     register,
@@ -34,10 +36,17 @@ function EditUserModal({ user, onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="edit-user-modal-title"
+        tabIndex={-1}
+        className="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
+      >
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-surface-variant/30">
-          <h2 className="text-xl font-bold text-on-surface">Editar usuario</h2>
+          <h2 id="edit-user-modal-title" className="text-xl font-bold text-on-surface">Editar usuario</h2>
           <button
             type="button"
             onClick={onClose}
