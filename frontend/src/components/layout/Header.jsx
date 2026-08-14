@@ -1,11 +1,17 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import Drawer from "../ui/Drawer";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
+const activeLinkClass =
+  "text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight";
+const inactiveLinkClass =
+  "text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight pb-1 border-b-2 border-transparent";
+
 function Header() {
   const [showDrawer, setShowDrawer] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -37,24 +43,35 @@ function Header() {
             <nav className="hidden md:flex gap-6" aria-label="Menú principal">
               <Link
                 to="/"
-                className="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight"
+                aria-current={pathname === "/" ? "page" : undefined}
+                className={pathname === "/" ? activeLinkClass : inactiveLinkClass}
               >
                 Recientes
               </Link>
-              <Link 
-              to="/posts/create-post"
-              className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
+              <Link
+                to="/posts/create-post"
+                aria-current={pathname === "/posts/create-post" ? "page" : undefined}
+                className={
+                  pathname === "/posts/create-post"
+                    ? activeLinkClass
+                    : inactiveLinkClass
+                }
+              >
                 Escribir
               </Link>
 
               {/* Si el usuario es Admin mostramos en la navegación esta ruta */}
-              {user?.role === "ADMIN" &&
-                <Link 
+              {user?.role === "ADMIN" && (
+                <Link
                   to="/admin"
-                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
-                Admin
-              </Link>
-                }
+                  aria-current={pathname === "/admin" ? "page" : undefined}
+                  className={
+                    pathname === "/admin" ? activeLinkClass : inactiveLinkClass
+                  }
+                >
+                  Admin
+                </Link>
+              )}
             </nav>
           </div>
           <div className="flex items-center gap-4">
