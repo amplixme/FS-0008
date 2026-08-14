@@ -4,9 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { update } from "../../../services/category.service";
 import { categorySchema } from "../../../schemas/categorySchema";
 import { generateSlug } from "../../../utils/utils";
+import { useModalKeyboard } from "../../../hooks/useModalKeyboard";
 
 export function EditCategoryModal({ category, onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
+  const modalRef = useModalKeyboard(onClose);
 
   const {
     register,
@@ -36,10 +38,17 @@ export function EditCategoryModal({ category, onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform transition-all animate-in fade-in zoom-in duration-200">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="edit-category-modal-title"
+        tabIndex={-1}
+        className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform transition-all animate-in fade-in zoom-in duration-200"
+      >
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-slate-100">
-          <h2 className="title-md font-bold text-slate-900">
+          <h2 id="edit-category-modal-title" className="title-md font-bold text-slate-900">
             Editar categoría
           </h2>
           <button
