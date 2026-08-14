@@ -41,7 +41,7 @@ function Register() {
   return (
     <div className="min-h-full flex flex-col items-center justify-center px-4 py-10 bg-surface">
       <h1 className="text-2xl font-bold tracking-tight text-on-surface mt-20">
-        TuProyecto
+        TheCanvas
       </h1>
 
       <section className="w-full max-w-[420px] mx-auto mt-12 mb-0 bg-white md:rounded-xl shadow-xl overflow-hidden flex flex-col">

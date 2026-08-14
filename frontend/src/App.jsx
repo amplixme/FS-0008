@@ -1,12 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
-
 import { StrictMode, lazy, Suspense, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
-import "./global.css";
 import { prefetchOnIdle } from "./utils/prefetch.js";
+import "./global.css";
 
-// Componentes estructurales y de control
+// Layout y vistas criticas
+import Home from "./pages/Home.jsx";
 import Layout from "./components/layout/Layout.jsx";
 import ProtectedRoute from "./components/hoc/ProtectedRoute.jsx";
 import ProtectedAdminRoute from "./components/hoc/ProtectedAdminRoute.jsx";
@@ -15,18 +15,7 @@ import ErrorBoundary from "./components/common/ErrorBoundary.jsx";
 import Spinner from "./components/common/Spinner.jsx";
 import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 
-// Lista de las rutas a precargar
-const prefetchRoutes = () => {
-  prefetchOnIdle([
-    () => import("./pages/Login.jsx"),
-    () => import("./pages/Register.jsx"),
-    () => import("./pages/posts/PostDetails.jsx"),
-    () => import("./pages/admin/AdminDashboard.jsx"),
-  ]);
-};
-
-// Lazy loading de las paginas
-const Home = lazy(() => import("./pages/Home.jsx"));
+// Lazy loading del resto de rutas
 const Login = lazy(() => import("./pages/Login.jsx"));
 const Register = lazy(() => import("./pages/Register.jsx"));
 const User = lazy(() => import("./pages/User.jsx"));
@@ -40,7 +29,12 @@ const NotFound = lazy(() => import("./pages/404/NotFound.jsx"));
 
 function App() {
   useEffect(() => {
-    prefetchRoutes();
+    // Solo precargar rutas publicas de alta probabilidad
+    prefetchOnIdle([
+      // () => import("./pages/Login.jsx"),
+      () => import("./pages/Register.jsx"),
+      () => import("./pages/posts/PostDetails.jsx"),
+    ]);
   }, []);
 
   return (
@@ -57,6 +51,7 @@ function App() {
             <Routes>
               <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/posts/:id" element={<PostDetails />} />
@@ -104,7 +99,6 @@ function App() {
                   }
                 />
 
-                {/* Catch-all: cualquier ruta no definida */}
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
