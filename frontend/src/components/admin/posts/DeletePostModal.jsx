@@ -26,8 +26,8 @@ function DeletePostModal({ post, onClose, onSuccess }) {
   ) : (
     <>
       ¿Estás seguro de que querés eliminar el post{" "}
-      <strong className="text-on-surface">{post?.title}</strong>? Esta acción
-      no se puede deshacer.
+      <strong className="text-on-surface">{post?.title}</strong>? Esta acción no
+      se puede deshacer.
     </>
   );
 

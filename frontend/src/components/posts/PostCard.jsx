@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from "react-router";
+import ForumIcon from "~icons/material-symbols/forum-outline";
 import { truncateText } from "../../utils/utils";
 import { CATEGORY_STYLES } from "../../constants/categories";
 import { formatRelativeTime } from "../../utils/formatRelativeTime";
@@ -102,10 +103,8 @@ function PostCard({
           </div>
 
           <div className="flex items-center gap-1 text-outline">
-            <span className="material-symbols-outlined text-sm">forum</span>
-            <span className="text-xs font-medium">
-              {commentCount ?? 0}
-            </span>
+            <ForumIcon className="text-sm" aria-hidden="true" />
+            <span className="text-xs font-medium">{commentCount ?? 0}</span>
           </div>
         </div>
       </div>

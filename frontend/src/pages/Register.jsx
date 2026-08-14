@@ -5,6 +5,10 @@ import { useNavigate, Link } from "react-router";
 import { registerUser } from "../services/auth.service";
 import { registerSchema } from "../schemas/registerSchema";
 import Alert from "../components/ui/Alert";
+import PersonIcon from "~icons/material-symbols/person-outline";
+import MailIcon from "~icons/material-symbols/mail-outline";
+import LockIcon from "~icons/material-symbols/lock-outline";
+import EnhancedEncryptionIcon from "~icons/material-symbols/enhanced-encryption-outline";
 
 function Register() {
   const navigate = useNavigate();
@@ -63,12 +67,10 @@ function Register() {
               Nombre completo
             </label>
             <div className="relative">
-              <span
+              <PersonIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                person
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="name"
                 type="text"
@@ -94,12 +96,10 @@ function Register() {
               Correo electronico
             </label>
             <div className="relative">
-              <span
+              <MailIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                mail
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="email"
                 type="email"
@@ -125,12 +125,10 @@ function Register() {
               Contraseña
             </label>
             <div className="relative">
-              <span
+              <LockIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                lock
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="password"
                 type="password"
@@ -158,12 +156,10 @@ function Register() {
               Confirmar contraseña
             </label>
             <div className="relative">
-              <span
+              <EnhancedEncryptionIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                enhanced_encryption
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="confirmPassword"
                 type="password"

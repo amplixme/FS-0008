@@ -1,4 +1,6 @@
 import { Link } from "react-router";
+import LanguageIcon from "~icons/material-symbols/language";
+import ShareIcon from "~icons/material-symbols/share";
 
 const date = new Date();
 const currentYear = date.getFullYear();
@@ -48,17 +50,19 @@ function Footer() {
             className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group"
             aria-label="Cambiar idioma"
           >
-            <span className="material-symbols-outlined text-sm group-hover:text-white">
-              language
-            </span>
+            <LanguageIcon
+              className="text-sm group-hover:text-white"
+              aria-hidden="true"
+            />
           </button>
           <button
             className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group"
             aria-label="Compartir enlace"
           >
-            <span className="material-symbols-outlined text-sm group-hover:text-white">
-              share
-            </span>
+            <ShareIcon
+              className="text-sm group-hover:text-white"
+              aria-hidden="true"
+            />
           </button>
         </div>
       </div>

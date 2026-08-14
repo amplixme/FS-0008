@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editAdminUserSchema } from "../../../schemas/adminUserSchema";
 import { updateUser } from "../../../services/admin.service";
+import CloseIcon from "~icons/material-symbols/close";
+import ErrorIcon from "~icons/material-symbols/error-outline";
 
 function EditUserModal({ user, onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
@@ -43,7 +45,7 @@ function EditUserModal({ user, onClose, onSuccess }) {
             onClick={onClose}
             className="text-outline hover:text-on-surface transition-colors"
           >
-            <span className="material-symbols-outlined">close</span>
+            <CloseIcon aria-hidden="true" />
           </button>
         </div>
 
@@ -52,7 +54,7 @@ function EditUserModal({ user, onClose, onSuccess }) {
           <div className="p-8 space-y-6">
             {serverError && (
               <div className="p-4 rounded-xl bg-error-container text-on-error-container text-sm font-medium flex items-center gap-2">
-                <span className="material-symbols-outlined text-lg">error</span>
+                <ErrorIcon className="text-lg" aria-hidden="true" />
                 {serverError}
               </div>
             )}

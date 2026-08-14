@@ -1,3 +1,6 @@
+import WarningIcon from "~icons/material-symbols/warning-outline";
+import CloseIcon from "~icons/material-symbols/close";
+
 export default function ConfirmModal({
   isOpen,
   onClose,
@@ -17,9 +20,7 @@ export default function ConfirmModal({
         <div className="px-8 py-6 flex justify-between items-center border-b border-slate-100">
           <h2 className="title-md font-bold text-slate-900 flex items-center gap-2">
             {isDestructive && (
-              <span className="material-symbols-outlined text-red-500">
-                warning
-              </span>
+              <WarningIcon className="text-red-500" aria-hidden="true" />
             )}
             {title || "Confirmar acción"}
           </h2>
@@ -29,7 +30,7 @@ export default function ConfirmModal({
             disabled={isProcessing}
             className="text-slate-400 hover:text-slate-600 transition-colors disabled:opacity-50"
           >
-            <span className="material-symbols-outlined">close</span>
+            <CloseIcon aria-hidden="true" />
           </button>
         </div>
 

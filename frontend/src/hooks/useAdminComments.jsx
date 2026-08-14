@@ -22,8 +22,7 @@ export function useAdminComments() {
         const data = await getRecentComments();
         if (isMounted) setComments(data);
       } catch (err) {
-        if (isMounted)
-          setError(err.message || "Error al obtener comentarios.");
+        if (isMounted) setError(err.message || "Error al obtener comentarios.");
       } finally {
         if (isMounted) setIsLoading(false);
       }

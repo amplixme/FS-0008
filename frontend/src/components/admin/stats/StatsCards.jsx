@@ -1,3 +1,8 @@
+import GroupIcon from "~icons/material-symbols/group";
+import ArticleIcon from "~icons/material-symbols/article";
+import ChatBubbleIcon from "~icons/material-symbols/chat-bubble";
+import WarningIcon from "~icons/material-symbols/warning-outline";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 import Spinner from "../../common/Spinner";
 import ErrorMessage from "../../common/ErrorMessage";
 
@@ -5,21 +10,21 @@ const STAT_CARDS = [
   {
     key: "totalUsers",
     label: "Usuarios Totales",
-    icon: "group",
+    icon: GroupIcon,
     iconBg: "bg-primary-fixed",
     iconColor: "text-primary",
   },
   {
     key: "totalPosts",
     label: "Publicaciones",
-    icon: "article",
+    icon: ArticleIcon,
     iconBg: "bg-secondary-fixed",
     iconColor: "text-secondary",
   },
   {
     key: "totalComments",
     label: "Comentarios",
-    icon: "chat_bubble",
+    icon: ChatBubbleIcon,
     iconBg: "bg-tertiary-fixed",
     iconColor: "text-tertiary",
   },
@@ -27,12 +32,14 @@ const STAT_CARDS = [
 
 function StatsCards({ stats, isLoading, error, onRetry }) {
   if (error) {
-    return <ErrorMessage icon="warning" message={error} onRetry={onRetry} />;
+    return (
+      <ErrorMessage icon={WarningIcon} message={error} onRetry={onRetry} />
+    );
   }
 
   if (isLoading) {
     return (
-      <Spinner icon="progress_activity" message="Cargando estadísticas..." />
+      <Spinner icon={ProgressActivityIcon} message="Cargando estadísticas..." />
     );
   }
 
@@ -47,11 +54,7 @@ function StatsCards({ stats, isLoading, error, onRetry }) {
             <div
               className={`w-12 h-12 rounded-full ${card.iconBg} flex items-center justify-center shrink-0`}
             >
-              <span
-                className={`material-symbols-outlined ${card.iconColor}`}
-              >
-                {card.icon}
-              </span>
+              <card.icon className={card.iconColor} aria-hidden="true" />
             </div>
             <div>
               <span className="block text-3xl font-extrabold tracking-tight text-on-surface">

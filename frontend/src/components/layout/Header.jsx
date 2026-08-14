@@ -1,9 +1,12 @@
 import { Link } from "react-router";
+import MenuIcon from "~icons/material-symbols/menu";
+import SearchIcon from "~icons/material-symbols/search";
 import Drawer from "../ui/Drawer";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
-const navLinkClass = "text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight";
+const navLinkClass =
+  "text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight";
 
 const adminLinks = [
   { to: "/admin/categorias", label: "Categorias" },
@@ -27,12 +30,7 @@ function Header() {
                 setShowDrawer(!showDrawer);
               }}
             >
-              <span
-                className="material-symbols-outlined text-2xl"
-                data-icon="menu"
-              >
-                menu
-              </span>
+              <MenuIcon className="text-2xl" aria-hidden="true" />
             </button>
 
             <Link
@@ -101,12 +99,7 @@ function Header() {
               </>
             )}
             <button className="active:scale-95 transition-transform text-primary block md:hidden">
-              <span
-                className="material-symbols-outlined text-2xl"
-                data-icon="search"
-              >
-                search
-              </span>
+              <SearchIcon className="text-2xl" aria-hidden="true" />
             </button>
           </div>
         </div>

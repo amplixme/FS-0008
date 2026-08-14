@@ -1,4 +1,6 @@
 import { Component } from "react";
+import ErrorIcon from "~icons/material-symbols/error-outline";
+import RefreshIcon from "~icons/material-symbols/refresh";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -22,9 +24,10 @@ class ErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="flex flex-col items-center justify-center text-center px-6 py-24 min-h-screen">
-          <span className="material-symbols-outlined text-6xl mb-4 text-red-500 dark:text-red-400">
-            error
-          </span>
+          <ErrorIcon
+            className="text-6xl mb-4 text-red-500 dark:text-red-400"
+            aria-hidden="true"
+          />
           <p className="text-xl font-bold text-on-surface mb-2">
             Algo salió mal
           </p>
@@ -35,7 +38,7 @@ class ErrorBoundary extends Component {
             onClick={this.handleReload}
             className="px-6 py-3 bg-primary text-on-primary rounded-xl font-bold shadow-sm hover:opacity-90 transition-opacity flex items-center gap-2"
           >
-            <span className="material-symbols-outlined text-sm">refresh</span>
+            <RefreshIcon className="text-sm" aria-hidden="true" />
             Recargar página
           </button>
         </div>

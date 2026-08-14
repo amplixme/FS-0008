@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { update } from "../../../services/category.service";
 import { categorySchema } from "../../../schemas/categorySchema";
 import { generateSlug } from "../../../utils/utils";
+import CloseIcon from "~icons/material-symbols/close";
+import ErrorIcon from "~icons/material-symbols/error-outline";
 
 export function EditCategoryModal({ category, onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
@@ -47,7 +49,7 @@ export function EditCategoryModal({ category, onClose, onSuccess }) {
             onClick={onClose}
             className="text-slate-400 hover:text-slate-600 transition-colors"
           >
-            <span className="material-symbols-outlined">close</span>
+            <CloseIcon aria-hidden="true" />
           </button>
         </div>
 
@@ -56,7 +58,7 @@ export function EditCategoryModal({ category, onClose, onSuccess }) {
           <div className="p-8 space-y-6">
             {serverError && (
               <div className="p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm font-medium flex items-center gap-2">
-                <span className="material-symbols-outlined text-lg">error</span>
+                <ErrorIcon className="text-lg" aria-hidden="true" />
                 {serverError}
               </div>
             )}

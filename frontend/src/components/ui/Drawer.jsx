@@ -1,5 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router";
+import HomeIcon from "~icons/material-symbols/home-outline";
+import EditIcon from "~icons/material-symbols/edit-outline";
+import FolderIcon from "~icons/material-symbols/folder-outline";
+import LogoutIcon from "~icons/material-symbols/logout-outline";
 import { CATEGORIAS, USER } from "../../data/data";
 
 function Drawer({ onClose }) {
@@ -53,25 +57,14 @@ function Drawer({ onClose }) {
               className="flex items-center gap-4 px-4 py-3 transition-all rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
               to="#"
             >
-              <span
-                className="material-symbols-outlined text-slate-400"
-                data-icon="home"
-              >
-                home
-              </span>
+              <HomeIcon className="text-slate-400" aria-hidden="true" />
               <span className="font-medium">Inicio</span>
             </Link>
             <Link
               className="rounded-lg px-4 py-3 flex items-center gap-4 transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
               to="#"
             >
-              <span
-                className="material-symbols-outlined"
-                data-icon="edit"
-                style={{ fontVariationSettings: "FILL" }}
-              >
-                edit
-              </span>
+              <EditIcon aria-hidden="true" />
               <span>Escribir artículo</span>
             </Link>
           </div>
@@ -81,12 +74,7 @@ function Drawer({ onClose }) {
               <h3 className="text-xs font-black uppercase tracking-widest text-on-surface-variant/70">
                 Categorías
               </h3>
-              <span
-                className="material-symbols-outlined text-sm text-outline"
-                data-icon="category"
-              >
-                category
-              </span>
+              <FolderIcon className="text-sm text-outline" aria-hidden="true" />
             </div>
             {/* lista de categorias */}
             <ul className="space-y-1">
@@ -112,9 +100,7 @@ function Drawer({ onClose }) {
             className="flex items-center gap-4 text-error px-4 py-3 hover:bg-error-container/20 transition-all rounded-lg group"
             to="#"
           >
-            <span className="material-symbols-outlined" data-icon="logout">
-              logout
-            </span>
+            <LogoutIcon aria-hidden="true" />
             <span className="font-bold">Cerrar Sesión</span>
           </Link>
           <div className="mt-4 px-4">

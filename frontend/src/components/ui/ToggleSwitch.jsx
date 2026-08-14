@@ -9,12 +9,7 @@ function ToggleSwitch({ label, description, ref, ...props }) {
       </div>
 
       <label className="relative inline-flex items-center cursor-pointer shrink-0">
-        <input
-          ref={ref}
-          type="checkbox"
-          className="sr-only peer"
-          {...props}
-        />
+        <input ref={ref} type="checkbox" className="sr-only peer" {...props} />
 
         <div
           className="w-11 h-6 bg-outline-variant rounded-full peer

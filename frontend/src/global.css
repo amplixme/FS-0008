@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
-@import "@fontsource-variable/material-symbols-outlined";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -81,15 +80,6 @@
 }
 
 @layer utilities {
-  .material-symbols-outlined {
-    font-family: "Material Symbols Outlined Variable", sans-serif !important;
-    font-variation-settings:
-      "FILL" 0,
-      "wght" 400,
-      "GRAD" 0,
-      "opsz" 24;
-  }
-
   .tight-tracking {
     letter-spacing: -0.02em;
   }

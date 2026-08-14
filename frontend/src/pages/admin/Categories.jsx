@@ -5,16 +5,20 @@ import { CreateCategoryModal } from "../../components/admin/categories/CreateCat
 import { EditCategoryModal } from "../../components/admin/categories/EditCategoryModal";
 import { DeleteCategoryModal } from "../../components/admin/categories/DeleteCategoryModal";
 import ErrorMessage from "../../components/common/ErrorMessage";
+import WarningIcon from "~icons/material-symbols/warning-outline";
 
-
-export function Categories() {
+function Categories() {
   const { categories, isLoading, error, handleRetry } = useCategories();
   const [activeModal, setActiveModal] = useState(null);
 
   if (error) {
     return (
       <div className="w-full max-w-7xl mx-auto p-6 pt-24">
-        <ErrorMessage icon="warning" message={error} onRetry={handleRetry} />
+        <ErrorMessage
+          icon={WarningIcon}
+          message={error}
+          onRetry={handleRetry}
+        />
       </div>
     );
   }
@@ -54,3 +58,5 @@ export function Categories() {
     </div>
   );
 }
+
+export default Categories;

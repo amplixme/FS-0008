@@ -6,6 +6,8 @@ import ToggleSwitch from "../ui/ToggleSwitch";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
 import ImageUpload from "../common/ImageUpload";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import ErrorIcon from "~icons/material-symbols/error-outline";
 
 function PostForm({ initialValues, onSubmit }) {
   const {
@@ -106,12 +108,15 @@ function PostForm({ initialValues, onSubmit }) {
         </legend>
 
         {categoriesLoading && (
-          <Spinner icon="progress_activity" message="Cargando categorías..." />
+          <Spinner
+            icon={ProgressActivityIcon}
+            message="Cargando categorías..."
+          />
         )}
 
         {!categoriesLoading && categoriesError && (
           <ErrorMessage
-            icon="error"
+            icon={ErrorIcon}
             message="No se pudieron cargar las categorías"
             onRetry={handleRetry}
           />
