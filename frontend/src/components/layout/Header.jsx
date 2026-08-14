@@ -3,13 +3,6 @@ import Drawer from "../ui/Drawer";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
-const navLinkClass = "text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight";
-
-const adminLinks = [
-  { to: "/admin/categorias", label: "Categorias" },
-  { to: "/admin", label: "Admin" },
-];
-
 function Header() {
   const [showDrawer, setShowDrawer] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
@@ -42,23 +35,26 @@ function Header() {
               TheCanvas
             </Link>
             <nav className="hidden md:flex gap-6" aria-label="Menú principal">
-              <Link className="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight">
+              <Link
+                to="/"
+                className="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight"
+              >
                 Recientes
               </Link>
-              <Link className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
-                Populares
-              </Link>
-              <Link className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
-                Boletín
+              <Link 
+              to="/posts/create-post"
+              className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
+                Escribir
               </Link>
 
-              {/* mostrar links en la navegación si el usuario es ADMIN */}
+              {/* Si el usuario es Admin mostramos en la navegación esta ruta */}
               {user?.role === "ADMIN" &&
-                adminLinks.map(({ to, label }) => (
-                  <Link key={to} to={to} className={navLinkClass}>
-                    {label}
-                  </Link>
-                ))}
+                <Link 
+                  to="/admin"
+                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
+                Admin
+              </Link>
+                }
             </nav>
           </div>
           <div className="flex items-center gap-4">
