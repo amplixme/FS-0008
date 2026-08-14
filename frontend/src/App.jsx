@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     // Solo precargar rutas publicas de alta probabilidad
     prefetchOnIdle([
-      // () => import("./pages/Login.jsx"),
+      () => import("./pages/Login.jsx"),
       () => import("./pages/Register.jsx"),
       () => import("./pages/posts/PostDetails.jsx"),
     ]);
