@@ -10,9 +10,7 @@ function Footer() {
     <footer className="w-full py-12 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="flex flex-col gap-2">
-          <span className="font-bold text-slate-900 dark:text-slate-100 text-xl tight-tracking">
-            TheCanvas
-          </span>
+          <img src="/logo.webp" alt="Logo de TheCanvas" className="h-12" />
           <p className="text-label-md font-inter text-slate-500">
             © {currentYear} TheCanvas.
           </p>
