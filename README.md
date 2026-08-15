@@ -37,13 +37,13 @@ FS-0008/
 
 Para clonar el repositorio, levantar la base de datos, configurar las variables de entorno y correr el frontend y el backend, consultá la siguiente guía.
 
-**[GUÍA DE INSTALACIÓN](./docs/setup.md)**
+**[GUÍA DE INSTALACIÓN](/docs/onboarding/setup.md)**
 
 ## Documentación de la API
 
 La documentación completa de los endpoints (rutas, parámetros, autenticación con JWT, ejemplos de request/response) está disponible en:
 
-**[DOCUMENTACIÓN DE LA API](./docs/api.md)**
+**[DOCUMENTACIÓN DE LA API](/docs/documentation-api/README.md)**
 
 ---
 
