@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createAdminUserSchema } from "../../../schemas/adminUserSchema";
 import { createUser } from "../../../services/admin.service";
+import CloseIcon from "~icons/material-symbols/close";
+import ErrorIcon from "~icons/material-symbols/error-outline";
+import { useModalKeyboard } from "../../../hooks/useModalKeyboard";
 
 function RoleRadioOption({ id, value, label, register }) {
   return (
@@ -24,6 +27,7 @@ function RoleRadioOption({ id, value, label, register }) {
 
 function CreateUserModal({ onClose, onSuccess }) {
   const [serverError, setServerError] = useState(null);
+  const modalRef = useModalKeyboard(onClose);
 
   const {
     register,
@@ -53,10 +57,20 @@ function CreateUserModal({ onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="create-user-modal-title"
+        tabIndex={-1}
+        className="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
+      >
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-surface-variant/30">
-          <h2 className="text-xl font-bold text-on-surface">
+          <h2
+            id="create-user-modal-title"
+            className="text-xl font-bold text-on-surface"
+          >
             Crear nuevo usuario
           </h2>
           <button
@@ -64,7 +78,7 @@ function CreateUserModal({ onClose, onSuccess }) {
             onClick={onClose}
             className="text-outline hover:text-on-surface transition-colors"
           >
-            <span className="material-symbols-outlined">close</span>
+            <CloseIcon aria-hidden="true" />
           </button>
         </div>
 
@@ -73,9 +87,7 @@ function CreateUserModal({ onClose, onSuccess }) {
           <div className="p-8 space-y-6">
             {serverError && (
               <div className="p-4 rounded-xl bg-error-container text-on-error-container text-sm font-medium flex items-center gap-2">
-                <span className="material-symbols-outlined text-lg">
-                  error
-                </span>
+                <ErrorIcon className="text-lg" aria-hidden="true" />
                 {serverError}
               </div>
             )}

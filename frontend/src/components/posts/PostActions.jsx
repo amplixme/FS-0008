@@ -1,4 +1,6 @@
 import { Link } from "react-router";
+import EditIcon from "~icons/material-symbols/edit-outline";
+import DeleteIcon from "~icons/material-symbols/delete-outline";
 
 function PostActions({ postId, onDelete }) {
   return (
@@ -7,7 +9,7 @@ function PostActions({ postId, onDelete }) {
         to={`/posts/${postId}/edit`}
         className="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant text-sm font-semibold hover:bg-surface-container-low transition-colors"
       >
-        <span className="material-symbols-outlined text-lg">edit</span>
+        <EditIcon className="text-lg" aria-hidden="true" />
         Editar
       </Link>
       <button
@@ -15,7 +17,7 @@ function PostActions({ postId, onDelete }) {
         onClick={onDelete}
         className="flex items-center gap-2 px-4 py-2 rounded-full border border-error/30 text-error text-sm font-semibold hover:bg-error-container/40 transition-colors"
       >
-        <span className="material-symbols-outlined text-lg">delete</span>
+        <DeleteIcon className="text-lg" aria-hidden="true" />
         Eliminar
       </button>
     </div>

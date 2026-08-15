@@ -1,5 +1,7 @@
 import EmptyState from "../../common/EmptyState";
 import Spinner from "../../common/Spinner";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import CategorySearchIcon from "~icons/material-symbols/category-search";
 
 export function CategoriesTable({
   data = [],
@@ -30,10 +32,10 @@ export function CategoriesTable({
 
       {/* Contenido condicional dentro de la tarjeta */}
       {isLoading ? (
-        <Spinner icon="progress_activity" message="Cargando categorías..." />
+        <Spinner icon={ProgressActivityIcon} message="Cargando categorías..." />
       ) : data.length === 0 ? (
         <EmptyState
-          icon="category_search"
+          icon={CategorySearchIcon}
           message="No se encontraron categorías. Crea una para comenzar."
         />
       ) : (

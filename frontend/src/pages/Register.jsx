@@ -5,6 +5,10 @@ import { useNavigate, Link } from "react-router";
 import { registerUser } from "../services/auth.service";
 import { registerSchema } from "../schemas/registerSchema";
 import Alert from "../components/ui/Alert";
+import PersonIcon from "~icons/material-symbols/person-outline";
+import MailIcon from "~icons/material-symbols/mail-outline";
+import LockIcon from "~icons/material-symbols/lock-outline";
+import EnhancedEncryptionIcon from "~icons/material-symbols/enhanced-encryption-outline";
 
 function Register() {
   const navigate = useNavigate();
@@ -36,12 +40,13 @@ function Register() {
 
   return (
     <div className="min-h-full flex flex-col items-center justify-center px-4 py-10 bg-surface">
-      <h1 className="text-2xl font-bold tracking-tight text-on-surface mt-20">
-        TuProyecto
-      </h1>
-
-      <section className="w-full max-w-[420px] mx-auto mt-12 mb-0 bg-white md:rounded-xl shadow-xl overflow-hidden flex flex-col">
-        <header className="px-8 pt-10 pb-6 text-center">
+      <section className="w-full max-w-[420px] mx-auto mt-20 mb-0 bg-white md:rounded-xl shadow-xl overflow-hidden flex flex-col">
+        <img
+          src="/logo-notext.webp"
+          alt="Logo de TheCanvas"
+          className="h-24 mt-8 mx-auto"
+        />
+        <header className="px-8 pt-8 pb-6 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-on-surface">
             Crear cuenta
           </h1>
@@ -63,12 +68,10 @@ function Register() {
               Nombre completo
             </label>
             <div className="relative">
-              <span
+              <PersonIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                person
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="name"
                 type="text"
@@ -94,12 +97,10 @@ function Register() {
               Correo electronico
             </label>
             <div className="relative">
-              <span
+              <MailIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                mail
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="email"
                 type="email"
@@ -125,12 +126,10 @@ function Register() {
               Contraseña
             </label>
             <div className="relative">
-              <span
+              <LockIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                lock
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="password"
                 type="password"
@@ -158,12 +157,10 @@ function Register() {
               Confirmar contraseña
             </label>
             <div className="relative">
-              <span
+              <EnhancedEncryptionIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                enhanced_encryption
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="confirmPassword"
                 type="password"

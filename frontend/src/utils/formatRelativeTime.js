@@ -1,5 +1,5 @@
 // Convierte una fecha ISO en un texto relativo.
-// Ejemplo: "Hace un momento", "Hace 5 min", "Hace 2 horas", "Hace 3 días", 
+// Ejemplo: "Hace un momento", "Hace 5 min", "Hace 2 horas", "Hace 3 días",
 // "Hace 1 semana". Pasado ese punto, devuelve la fecha completa.
 
 export function formatRelativeTime(date) {

@@ -45,11 +45,11 @@ Deberías ver un contenedor llamado `blog-amplix-db` con estado `Up`. También p
 
 **No hace falta crear la base de datos manualmente** en este camino, el contenedor la crea sola al arrancar por primera vez, usando estos valores (ya reflejados en el `.env.example` del backend):
 
-| Variable | Valor |
-|---|---|
-| Usuario | `blog` |
-| Contraseña | `postgres` |
-| Base de datos | `blog_db` |
+| Variable      | Valor            |
+| ------------- | ---------------- |
+| Usuario       | `blog`           |
+| Contraseña    | `postgres`       |
+| Base de datos | `blog_db`        |
 | Host / Puerto | `localhost:5432` |
 
 ### Opción B — Instalando PostgreSQL directamente
@@ -131,6 +131,7 @@ DATABASE_URL= "postgresql://USER:PASSWORD@HOST:PORT/DATABASE_NAME?schema=public"
 JWT_SECRET= "tu_secret_seguro_de_al_menos_64_caracteres"
 CLOUDINARY_URL="cloudinary://API_KEY:API_SECRET@CLOUD_NAME"
 CLOUDINARY_FOLDER="tu_carpeta_en_cloudinary"
+CORS_ORIGIN="https://tu-frontend-deployado.com"
 ```
 
 - **`PORT`**: puerto donde corre el servidor Express.
@@ -138,6 +139,7 @@ CLOUDINARY_FOLDER="tu_carpeta_en_cloudinary"
 - **`JWT_SECRET`**: clave usada para firmar los tokens de sesión. En desarrollo podés generar una aleatoria ejecutando `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"` desde la terminal. **Nunca** se comparte ni se sube al repositorio.
 - **`CLOUDINARY_URL`**: Cadena de conexión provista en el panel de control de Cloudinary. Contiene las credenciales necesarias (API_KEY, API_SECRET y CLOUD_NAME) para autenticar la subida y gestión de imágenes desde el servidor.
 - **`CLOUDINARY_FOLDER`**: Nombre de la carpeta dentro de tu cuenta de Cloudinary donde se organizarán y guardarán los archivos o imágenes subidos por la aplicación.
+- **`CORS_ORIGIN`**: URL que se utiliza en produccion para CORS, solamente permite requests de este Origin.
 
 ### Frontend (`frontend/.env.example`)
 

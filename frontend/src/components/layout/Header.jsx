@@ -1,18 +1,19 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
+import MenuIcon from "~icons/material-symbols/menu";
+import SearchIcon from "~icons/material-symbols/search";
 import Drawer from "../ui/Drawer";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
-const navLinkClass = "text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight";
-
-const adminLinks = [
-  { to: "/admin/categorias", label: "Categorias" },
-  { to: "/admin", label: "Admin" },
-];
+const activeLinkClass =
+  "text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight";
+const inactiveLinkClass =
+  "text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight pb-1 border-b-2 border-transparent";
 
 function Header() {
   const [showDrawer, setShowDrawer] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -27,38 +28,45 @@ function Header() {
                 setShowDrawer(!showDrawer);
               }}
             >
-              <span
-                className="material-symbols-outlined text-2xl"
-                data-icon="menu"
-              >
-                menu
-              </span>
+              <MenuIcon className="text-2xl" aria-hidden="true" />
             </button>
 
             <Link
               className="text-2xl font-extrabold text-slate-900 dark:text-slate-50 tight-tracking"
               to="/"
             >
-              TheCanvas
+              <img src="/logo.webp" alt="Logo de TheCanvas" className="h-12" />
             </Link>
             <nav className="hidden lg:flex gap-6" aria-label="Menú principal">
               <Link className="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight">
                 Recientes
               </Link>
-              <Link className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
-                Populares
-              </Link>
-              <Link className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-100 transition-colors duration-200 font-inter tracking-tight">
-                Boletín
+              <Link
+                to="/posts/create-post"
+                aria-current={
+                  pathname === "/posts/create-post" ? "page" : undefined
+                }
+                className={
+                  pathname === "/posts/create-post"
+                    ? activeLinkClass
+                    : inactiveLinkClass
+                }
+              >
+                Escribir
               </Link>
 
-              {/* mostrar links en la navegación si el usuario es ADMIN */}
-              {user?.role === "ADMIN" &&
-                adminLinks.map(({ to, label }) => (
-                  <Link key={to} to={to} className={navLinkClass}>
-                    {label}
-                  </Link>
-                ))}
+              {/* Si el usuario es Admin mostramos en la navegación esta ruta */}
+              {user?.role === "ADMIN" && (
+                <Link
+                  to="/admin"
+                  aria-current={pathname === "/admin" ? "page" : undefined}
+                  className={
+                    pathname === "/admin" ? activeLinkClass : inactiveLinkClass
+                  }
+                >
+                  Admin
+                </Link>
+              )}
             </nav>
           </div>
           <div className="flex items-center gap-4">
@@ -107,6 +115,8 @@ function Header() {
               >
                 search
               </span>
+            <button className="active:scale-95 transition-transform text-primary block md:hidden">
+              <SearchIcon className="text-2xl" aria-hidden="true" />
             </button>
           </div>
         </div>

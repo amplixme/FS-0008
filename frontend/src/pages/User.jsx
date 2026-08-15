@@ -4,6 +4,7 @@ import Spinner from "../components/common/Spinner";
 import Alert from "../components/ui/Alert";
 import useAuth from "../hooks/useAuth";
 import { getProfile } from "../services/user.service";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 
 function User() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ function User() {
   if (loading) {
     return (
       <div className="pt-28">
-        <Spinner icon="progress_activity" message="Cargando perfil..." />
+        <Spinner icon={ProgressActivityIcon} message="Cargando perfil..." />
       </div>
     );
   }
@@ -106,8 +107,7 @@ function User() {
             </div>
 
             <p className="text-on-surface-variant mt-4">
-              {profile.bio ||
-                "Este usuario todavía no agregó una biografía."}
+              {profile.bio || "Este usuario todavía no agregó una biografía."}
             </p>
 
             <p className="text-sm text-outline mt-4">

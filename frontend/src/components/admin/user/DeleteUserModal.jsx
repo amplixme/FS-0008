@@ -27,8 +27,7 @@ function DeleteUserModal({ user, onClose, onSuccess }) {
     <>
       ¿Estás seguro de que querés eliminar a{" "}
       <strong className="text-on-surface">{user?.name}</strong>? Se eliminarán
-      también todos sus posts y comentarios. Esta acción no se puede
-      deshacer.
+      también todos sus posts y comentarios. Esta acción no se puede deshacer.
     </>
   );
 

@@ -1,6 +1,11 @@
 import EmptyState from "../../common/EmptyState";
 import Spinner from "../../common/Spinner";
 import ErrorMessage from "../../common/ErrorMessage";
+import WarningIcon from "~icons/material-symbols/warning-outline";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import GroupOffIcon from "~icons/material-symbols/group-off";
+import EditIcon from "~icons/material-symbols/edit-outline";
+import DeleteIcon from "~icons/material-symbols/delete-outline";
 import { formatDate } from "../../../utils/formatDate";
 
 function RoleBadge({ role }) {
@@ -53,12 +58,15 @@ function UsersTable({
 
       {error ? (
         <div className="p-6">
-          <ErrorMessage icon="warning" message={error} onRetry={onRetry} />
+          <ErrorMessage icon={WarningIcon} message={error} onRetry={onRetry} />
         </div>
       ) : isLoading ? (
-        <Spinner icon="progress_activity" message="Cargando usuarios..." />
+        <Spinner icon={ProgressActivityIcon} message="Cargando usuarios..." />
       ) : users.length === 0 ? (
-        <EmptyState icon="group_off" message="No hay usuarios registrados." />
+        <EmptyState
+          icon={GroupOffIcon}
+          message="No hay usuarios registrados."
+        />
       ) : (
         <>
           {/* Tabla: desktop */}
@@ -121,9 +129,10 @@ function UsersTable({
                               title="Editar usuario"
                               className="p-2 rounded-full hover:bg-blue-100 text-on-surface-variant hover:border-outline transition-colors"
                             >
-                              <span className="material-symbols-outlined text-lg">
-                                edit
-                              </span>
+                              <EditIcon
+                                className="text-lg"
+                                aria-hidden="true"
+                              />
                             </button>
 
                             <button
@@ -137,9 +146,10 @@ function UsersTable({
                               }
                               className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                             >
-                              <span className="material-symbols-outlined text-lg">
-                                delete
-                              </span>
+                              <DeleteIcon
+                                className="text-lg"
+                                aria-hidden="true"
+                              />
                             </button>
                           </div>
                         </div>
@@ -157,11 +167,8 @@ function UsersTable({
               const isSelf = user.id === currentUserId;
               return (
                 <div key={user.id} className="p-5 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm shrink-0">
-                      {user.name?.charAt(0).toUpperCase()}
-                    </div>
-                    <div className="min-w-0">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex flex-col min-w-0">
                       <p className="font-semibold text-on-surface truncate">
                         {user.name}
                       </p>
@@ -169,6 +176,15 @@ function UsersTable({
                         {user.email}
                       </p>
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={() => onEdit(user)}
+                      title="Editar usuario"
+                      className="p-2 rounded-full hover:bg-blue-100 text-on-surface-variant hover:border-outline transition-colors"
+                    >
+                      <EditIcon className="text-lg" aria-hidden="true" />
+                    </button>
                   </div>
 
                   <div className="flex justify-between items-center">

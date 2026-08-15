@@ -2,6 +2,10 @@ import { Link } from "react-router";
 import EmptyState from "../../common/EmptyState";
 import Spinner from "../../common/Spinner";
 import ErrorMessage from "../../common/ErrorMessage";
+import WarningIcon from "~icons/material-symbols/warning-outline";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import ArticleIcon from "~icons/material-symbols/article-outline";
+import DeleteIcon from "~icons/material-symbols/delete-outline";
 import { formatDate } from "../../../utils/formatDate";
 
 function CategoryChips({ categories = [] }) {
@@ -33,12 +37,12 @@ function RecentPostsTable({ posts = [], isLoading, error, onRetry, onDelete }) {
 
       {error ? (
         <div className="p-6">
-          <ErrorMessage icon="warning" message={error} onRetry={onRetry} />
+          <ErrorMessage icon={WarningIcon} message={error} onRetry={onRetry} />
         </div>
       ) : isLoading ? (
-        <Spinner icon="progress_activity" message="Cargando posts..." />
+        <Spinner icon={ProgressActivityIcon} message="Cargando posts..." />
       ) : posts.length === 0 ? (
-        <EmptyState icon="article" message="No hay posts publicados aún." />
+        <EmptyState icon={ArticleIcon} message="No hay posts publicados aún." />
       ) : (
         <>
           {/* Tabla: desktop */}
@@ -79,9 +83,7 @@ function RecentPostsTable({ posts = [], isLoading, error, onRetry, onDelete }) {
                           title="Eliminar post"
                           className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors"
                         >
-                          <span className="material-symbols-outlined text-lg">
-                            delete
-                          </span>
+                          <DeleteIcon className="text-lg" aria-hidden="true" />
                         </button>
                       </div>
                     </td>

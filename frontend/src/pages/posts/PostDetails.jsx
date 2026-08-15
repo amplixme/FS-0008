@@ -9,6 +9,8 @@ import ConfirmModal from "../../components/common/ConfirmModal";
 import { CATEGORY_STYLES } from "../../constants/categories";
 import CommentSection from "../../components/comments/CommentSection";
 import Spinner from "../../components/common/Spinner";
+import ArrowBackIcon from "~icons/material-symbols/arrow-back";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 
 function PostDetails() {
   const { id } = useParams();
@@ -76,9 +78,7 @@ function PostDetails() {
               to="/"
               className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
             >
-              <span className="material-symbols-outlined text-xl">
-                arrow_back
-              </span>
+              <ArrowBackIcon className="text-xl" aria-hidden="true" />
               Volver a inicio
             </Link>
           </div>
@@ -86,7 +86,10 @@ function PostDetails() {
 
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <Spinner icon="progress_activity" message="Cargando artículo..." />
+            <Spinner
+              icon={ProgressActivityIcon}
+              message="Cargando artículo..."
+            />
           </div>
         )}
 
@@ -145,9 +148,9 @@ function PostDetails() {
             </div>
             <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
               <PostAuthorMeta
-                  authorId={post.author.id}
-                  authorName={post.author.name}
-                  date={formattedDate}
+                authorId={post.author.id}
+                authorName={post.author.name}
+                date={formattedDate}
               />
               {isOwner && (
                 <PostActions

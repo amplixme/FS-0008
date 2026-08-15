@@ -1,6 +1,11 @@
 import EmptyState from "../../common/EmptyState";
 import Spinner from "../../common/Spinner";
 import ErrorMessage from "../../common/ErrorMessage";
+import WarningIcon from "~icons/material-symbols/warning";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import ChatBubbleIcon from "~icons/material-symbols/chat-bubble";
+import PersonIcon from "~icons/material-symbols/person-outline";
+import DeleteIcon from "~icons/material-symbols/delete-outline";
 import { formatRelativeTime } from "../../../utils/formatRelativeTime";
 import { truncateText } from "../../../utils/utils";
 
@@ -21,12 +26,18 @@ function RecentCommentsList({
 
       {error ? (
         <div className="p-6">
-          <ErrorMessage icon="warning" message={error} onRetry={onRetry} />
+          <ErrorMessage icon={WarningIcon} message={error} onRetry={onRetry} />
         </div>
       ) : isLoading ? (
-        <Spinner icon="progress_activity" message="Cargando comentarios..." />
+        <Spinner
+          icon={ProgressActivityIcon}
+          message="Cargando comentarios..."
+        />
       ) : comments.length === 0 ? (
-        <EmptyState icon="chat_bubble" message="No hay comentarios todavía." />
+        <EmptyState
+          icon={ChatBubbleIcon}
+          message="No hay comentarios todavía."
+        />
       ) : (
         <>
           {/* Lista: desktop */}
@@ -36,9 +47,10 @@ function RecentCommentsList({
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="material-symbols-outlined text-outline text-sm">
-                        person
-                      </span>
+                      <PersonIcon
+                        className="text-outline text-sm"
+                        aria-hidden="true"
+                      />
                       <span className="font-bold text-sm text-on-surface">
                         {comment.author?.name}
                       </span>
@@ -61,9 +73,7 @@ function RecentCommentsList({
                     title="Eliminar comentario"
                     className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors shrink-0"
                   >
-                    <span className="material-symbols-outlined text-lg">
-                      delete
-                    </span>
+                    <DeleteIcon className="text-lg" aria-hidden="true" />
                   </button>
                 </div>
               </li>
@@ -77,9 +87,10 @@ function RecentCommentsList({
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="material-symbols-outlined text-outline text-sm">
-                        person
-                      </span>
+                      <PersonIcon
+                        className="text-outline text-sm"
+                        aria-hidden="true"
+                      />
                       <span className="font-bold text-sm text-on-surface truncate">
                         {comment.author?.name}
                       </span>
@@ -94,9 +105,7 @@ function RecentCommentsList({
                     title="Eliminar comentario"
                     className="p-2 text-error hover:bg-error-container/40 rounded-full transition-colors shrink-0"
                   >
-                    <span className="material-symbols-outlined text-lg">
-                      delete
-                    </span>
+                    <DeleteIcon className="text-lg" aria-hidden="true" />
                   </button>
                 </div>
 

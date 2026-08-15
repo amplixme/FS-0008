@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
+import SearchIcon from "~icons/material-symbols/search";
+import CloseIcon from "~icons/material-symbols/close";
 import { useDebounce } from "../../hooks/useDebounce";
 
 function HeroSearch() {
@@ -55,10 +57,15 @@ function HeroSearch() {
             Últimas publicaciones
           </h1>
           <div className="relative flex items-center">
-            <span className="material-symbols-outlined absolute left-4 text-outline pointer-events-none">
-              search
-            </span>
+            <label htmlFor="post-search" className="sr-only">
+              Buscar artículos
+            </label>
+            <SearchIcon
+              className="absolute left-4 text-outline pointer-events-none"
+              aria-hidden="true"
+            />
             <input
+              id="post-search"
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -72,7 +79,7 @@ function HeroSearch() {
                 className="absolute right-4 p-1 rounded-full hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors flex items-center justify-center"
                 aria-label="Limpiar búsqueda"
               >
-                <span className="material-symbols-outlined text-xl">close</span>
+                <CloseIcon className="text-xl" aria-hidden="true" />
               </button>
             )}
           </div>

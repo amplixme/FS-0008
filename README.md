@@ -1,52 +1,56 @@
-# FS-0008
+# FS-0008 — The Canvas
 
-AmplixMe Acceleration Program — Javascript
+Aplicación construida como parte del Amplix Acceleration Program (track JavaScript).
 
-## Descripción del proyecto
+## Descripción
 
-Aplicación de blog con sistema de comentarios y autenticación. Los usuarios pueden registrarse, iniciar sesión y crear publicaciones (posts), diferenciando entre roles de administrador y usuario regular.
+Aplicación de blog con sistema de comentarios y autenticación.
+Los usuarios pueden registrarse, iniciar sesión y crear publicaciones, mientras que un rol de administrador cuenta con un panel dedicado para gestionar usuarios, posts y comentarios.
 
-🌐 URL de Producción (API): https://fs-0008.onrender.com
+La aplicación diferencia dos roles:
 
-🌐 URL de Producción (Frontend): https://fs-0008.vercel.app/
+- **Usuario regular**: se registra, inicia sesión, crea y edita sus propias publicaciones, y comenta en publicaciones existentes.
+- **Administrador**: además de lo anterior, accede a un panel de administración con estadísticas, gestión de usuarios, moderación de posts y comentarios.
 
-## Stack Tecnológico
+## Tech stack
 
-### Frontend
-
-- **Vite** — bundler y servidor de desarrollo
-- **React 19** — librería de UI
-- **React Router** — enrutador del lado del cliente
-- **Tailwind CSS v4** — estilos
-- **React Hook Form + Zod** — formularios y validación
-- **Axios** — cliente HTTP
-
-### Backend
-
-- **Node.js** (v24+)
-- **Express 5** — framework HTTP
-- **PostgreSQL** — base de datos relacional
-- **Prisma ORM** — acceso a datos y migraciones
-- **JWT (jsonwebtoken)** — autenticación basada en tokens
-- **bcrypt** — hasheo de contraseñas
-- **Zod** — validación de datos
-
-### Infraestructura
-
-- **Docker / Docker Compose** — para levantar PostgreSQL en desarrollo (opcional)
+- Backend: NodeJS, Express, PostgreSQL, Prisma ORM, JWT, bcrypt, Zod.
+- Frontend: React, Tailwind CSS, React Router, Vite, React Hook Form + Zod, Axios.
+- Infraestructura:
+  - Docker / Docker Compose • PostgreSQL en desarrollo (opcional)
+  - Vercel • deploy del frontend
+  - Render • deploy del backend
 
 ## Estructura del proyecto
 
 ```txt
 FS-0008/
-├── frontend/          # Aplicación React (Vite)
-├── backend/           # API REST (Express + Prisma)
-├── docs/              # Documentación del proyecto
-└── docker-compose.yml # PostgreSQL para desarrollo local
+├── backend/
+├── docs/
+├── frontend/
+└── docker-compose.yml
 ```
+
+## Screenshots
 
 ## Instalación del proyecto
 
 Para clonar el repositorio, levantar la base de datos, configurar las variables de entorno y correr el frontend y el backend, consultá la siguiente guía.
 
-**[GUIA DE INSTALACIÓN](./docs/setup.md)**
+**[GUÍA DE INSTALACIÓN](/docs/onboarding/setup.md)**
+
+## Documentación de la API
+
+La documentación completa de los endpoints (rutas, parámetros, autenticación con JWT, ejemplos de request/response) está disponible en:
+
+**[DOCUMENTACIÓN DE LA API](/docs/documentation-api/README.md)**
+
+---
+
+## URL pública de backend
+
+<https://fs-0008.onrender.com/>
+
+## URL pública de frontend
+
+<https://fs-0008.vercel.app/>

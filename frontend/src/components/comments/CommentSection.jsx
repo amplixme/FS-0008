@@ -10,9 +10,11 @@ import { update } from "../../services/comment.service";
 import { delete as deleteComment } from "../../services/comment.service";
 import ConfirmModal from "../common/ConfirmModal";
 import Alert from "../ui/Alert";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import ErrorIcon from "~icons/material-symbols/error-outline";
+import ForumIcon from "~icons/material-symbols/forum-outline";
 
 function CommentSection({ postId }) {
-
   const { user } = useAuth();
   const { comments, isLoading, error, refreshComments } = useComments(postId);
   const [editingId, setEditingId] = useState(null);
@@ -27,12 +29,10 @@ function CommentSection({ postId }) {
   if (isLoading) {
     return (
       <section className="mt-10">
-        <h2 className="text-2xl font-bold mb-4">
-          Comentarios
-        </h2>
+        <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
 
         <Spinner
-          icon="progress_activity"
+          icon={ProgressActivityIcon}
           message="Cargando comentarios..."
         />
       </section>
@@ -43,12 +43,10 @@ function CommentSection({ postId }) {
   if (error) {
     return (
       <section className="mt-10">
-        <h2 className="text-2xl font-bold mb-4">
-          Comentarios
-        </h2>
+        <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
 
         <ErrorMessage
-          icon="error"
+          icon={ErrorIcon}
           message={error}
           onRetry={refreshComments}
         />
@@ -67,10 +65,9 @@ function CommentSection({ postId }) {
   }
 
   async function handleSave(comment) {
-    
     setActionError("");
     setIsSaving(true);
-    
+
     try {
       await update(comment.id, {
         content: editedContent,
@@ -80,12 +77,10 @@ function CommentSection({ postId }) {
       setEditedContent("");
 
       await refreshComments();
-
     } catch (error) {
       console.error(error);
       setActionError("No se pudo editar el comentario.");
-    }
-    finally {
+    } finally {
       setIsSaving(false);
     }
   }
@@ -112,28 +107,23 @@ function CommentSection({ postId }) {
       console.error(error);
       setActionError("No se pudo eliminar el comentario.");
     } finally {
-        setIsDeleting(false);
+      setIsDeleting(false);
     }
   }
 
   return (
     <section className="mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-on-surface">
-        Comentarios
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 text-on-surface">Comentarios</h2>
 
       {actionError && (
         <div className="mb-4">
-          <Alert
-            type="error"
-            message={actionError}
-          />
+          <Alert type="error" message={actionError} />
         </div>
       )}
 
       {comments.length === 0 ? (
         <EmptyState
-          icon="forum"
+          icon={ForumIcon}
           message="Aún no hay comentarios. ¡Sé el primero!"
         />
       ) : (
@@ -167,8 +157,8 @@ function CommentSection({ postId }) {
                   </p>
                 )}
 
-                {user?.id === comment.authorId && (
-                  editingId === comment.id ? (
+                {user?.id === comment.authorId &&
+                  (editingId === comment.id ? (
                     <div className="flex gap-2 mt-2">
                       <button
                         type="button"
@@ -206,19 +196,14 @@ function CommentSection({ postId }) {
                         Eliminar
                       </button>
                     </div>
-                  )
-                )}
-
+                  ))}
               </div>
             </div>
           ))}
         </div>
       )}
 
-      <CommentForm
-        postId={postId}
-        onSuccess={refreshComments}
-      />
+      <CommentForm postId={postId} onSuccess={refreshComments} />
 
       <ConfirmModal
         isOpen={showConfirmModal}
@@ -233,7 +218,6 @@ function CommentSection({ postId }) {
         confirmText={isDeleting ? "Eliminando..." : "Eliminar"}
         isDestructive
       />
-
     </section>
   );
 }

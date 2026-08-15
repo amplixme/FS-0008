@@ -8,6 +8,7 @@ import Spinner from "../components/common/Spinner";
 import useAuth from "../hooks/useAuth";
 import { editProfileSchema } from "../schemas/editProfile.schema";
 import { getProfile, updateProfile } from "../services/user.service";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 
 function EditProfile() {
   const { user, updateUser } = useAuth();
@@ -32,10 +33,11 @@ function EditProfile() {
     },
   });
 
-  const bio = useWatch({
-    control,
-    name: "bio",
-  }) || "";
+  const bio =
+    useWatch({
+      control,
+      name: "bio",
+    }) || "";
 
   useEffect(() => {
     let isMounted = true;
@@ -104,7 +106,7 @@ function EditProfile() {
   if (isLoading) {
     return (
       <div className="pt-28">
-        <Spinner icon="progress_activity" message="Cargando perfil..." />
+        <Spinner icon={ProgressActivityIcon} message="Cargando perfil..." />
       </div>
     );
   }
@@ -160,7 +162,11 @@ function EditProfile() {
             />
 
             {errors.name && (
-              <p id="name-error" role="alert" className="mt-1 text-sm text-error">
+              <p
+                id="name-error"
+                role="alert"
+                className="mt-1 text-sm text-error"
+              >
                 {errors.name.message}
               </p>
             )}
@@ -185,7 +191,11 @@ function EditProfile() {
             </span>
 
             {errors.bio && (
-              <p id="bio-error" role="alert" className="mt-1 text-sm text-error">
+              <p
+                id="bio-error"
+                role="alert"
+                className="mt-1 text-sm text-error"
+              >
                 {errors.bio.message}
               </p>
             )}

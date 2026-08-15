@@ -6,6 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import PostForm from "../../components/posts/PostForm";
 import Spinner from "../../components/common/Spinner";
 import ErrorMessage from "../../components/common/ErrorMessage";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import ErrorIcon from "~icons/material-symbols/error-outline";
 
 function EditPost() {
   const navigate = useNavigate();
@@ -67,12 +69,12 @@ function EditPost() {
 
         {isLoading ? (
           <Spinner
-            icon="progress_activity"
+            icon={ProgressActivityIcon}
             message="Cargando publicación..."
           />
         ) : error ? (
           <ErrorMessage
-            icon="error"
+            icon={ErrorIcon}
             message="Ha ocurrido un error al cargar los datos"
             onRetry={handleRetry}
           />
