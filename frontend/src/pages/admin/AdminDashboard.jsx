@@ -49,8 +49,9 @@ function AdminDashboard() {
 
       <Link
         to="/admin/categorias"
-        className="w-fit px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200">
-          Administar
+        className="w-fit px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
+      >
+        Administrar categorías
       </Link>
 
       <StatsCards

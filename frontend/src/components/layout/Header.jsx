@@ -1,4 +1,6 @@
 import { Link, useLocation } from "react-router";
+import MenuIcon from "~icons/material-symbols/menu";
+import SearchIcon from "~icons/material-symbols/search";
 import Drawer from "../ui/Drawer";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
@@ -26,31 +28,30 @@ function Header() {
                 setShowDrawer(!showDrawer);
               }}
             >
-              <span
-                className="material-symbols-outlined text-2xl"
-                data-icon="menu"
-              >
-                menu
-              </span>
+              <MenuIcon className="text-2xl" aria-hidden="true" />
             </button>
 
             <Link
               className="text-2xl font-extrabold text-slate-900 dark:text-slate-50 tight-tracking"
               to="/"
             >
-              TheCanvas
+              <img src="/logo.webp" alt="Logo de TheCanvas" className="h-12" />
             </Link>
             <nav className="hidden md:flex gap-6" aria-label="Menú principal">
               <Link
                 to="/"
                 aria-current={pathname === "/" ? "page" : undefined}
-                className={pathname === "/" ? activeLinkClass : inactiveLinkClass}
+                className={
+                  pathname === "/" ? activeLinkClass : inactiveLinkClass
+                }
               >
                 Recientes
               </Link>
               <Link
                 to="/posts/create-post"
-                aria-current={pathname === "/posts/create-post" ? "page" : undefined}
+                aria-current={
+                  pathname === "/posts/create-post" ? "page" : undefined
+                }
                 className={
                   pathname === "/posts/create-post"
                     ? activeLinkClass
@@ -114,12 +115,7 @@ function Header() {
               </>
             )}
             <button className="active:scale-95 transition-transform text-primary block md:hidden">
-              <span
-                className="material-symbols-outlined text-2xl"
-                data-icon="search"
-              >
-                search
-              </span>
+              <SearchIcon className="text-2xl" aria-hidden="true" />
             </button>
           </div>
         </div>

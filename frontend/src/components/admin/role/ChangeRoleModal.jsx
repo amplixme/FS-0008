@@ -27,8 +27,9 @@ function ChangeRoleModal({ user, onClose, onSuccess }) {
     <span className="text-error font-medium">{error}</span>
   ) : (
     <>
-      ¿Cambiar el rol de <strong className="text-on-surface">{user?.name}</strong>{" "}
-      de <strong>{user?.role}</strong> a <strong>{nextRole}</strong>?
+      ¿Cambiar el rol de{" "}
+      <strong className="text-on-surface">{user?.name}</strong> de{" "}
+      <strong>{user?.role}</strong> a <strong>{nextRole}</strong>?
     </>
   );
 

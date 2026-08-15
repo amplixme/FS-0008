@@ -1,85 +1,116 @@
-import { StrictMode } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { StrictMode, lazy, Suspense, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
+import { prefetchOnIdle } from "./utils/prefetch.js";
 import "./global.css";
+
+// Layout y vistas criticas
 import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import User from "./pages/User.jsx";
 import Layout from "./components/layout/Layout.jsx";
 import ProtectedRoute from "./components/hoc/ProtectedRoute.jsx";
 import ProtectedAdminRoute from "./components/hoc/ProtectedAdminRoute.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
-import PostDetails from "./pages/posts/PostDetails.jsx";
-import CreatePost from "./pages/posts/CreatePost.jsx";
-import EditPost from "./pages/posts/EditPost.jsx";
-import { Categories } from "./pages/admin/Categories.jsx";
-import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
-import NotFound from "./pages/404/NotFound.jsx"
 import ErrorBoundary from "./components/common/ErrorBoundary.jsx";
-import EditProfile from "./pages/EditProfile.jsx";
+import Spinner from "./components/common/Spinner.jsx";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
+// Lazy loading del resto de rutas
+const Login = lazy(() => import("./pages/Login.jsx"));
+const Register = lazy(() => import("./pages/Register.jsx"));
+const User = lazy(() => import("./pages/User.jsx"));
+const PostDetails = lazy(() => import("./pages/posts/PostDetails.jsx"));
+const CreatePost = lazy(() => import("./pages/posts/CreatePost.jsx"));
+const EditPost = lazy(() => import("./pages/posts/EditPost.jsx"));
+const EditProfile = lazy(() => import("./pages/EditProfile.jsx"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard.jsx"));
+const Categories = lazy(() => import("./pages/admin/Categories.jsx"));
+const NotFound = lazy(() => import("./pages/404/NotFound.jsx"));
+
+function App() {
+  useEffect(() => {
+    // Solo precargar rutas publicas de alta probabilidad
+    prefetchOnIdle([
+      () => import("./pages/Login.jsx"),
+      () => import("./pages/Register.jsx"),
+      () => import("./pages/posts/PostDetails.jsx"),
+    ]);
+  }, []);
+
+  return (
     <ErrorBoundary>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/posts/:id" element={<PostDetails />} />
-              <Route path="/perfil/:id" element={<User />} />
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center h-screen">
+                <Spinner message={"Cargando..."} icon={ProgressActivityIcon} />
+              </div>
+            }
+          >
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path="/" element={<Home />} />
 
-              {/* Rutas protegidas */}
-              <Route
-                path="/posts/create-post"
-                element={
-                  <ProtectedRoute>
-                    <CreatePost />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/perfil/editar"
-                element={
-                  <ProtectedRoute>
-                    <EditProfile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/posts/:id/edit"
-                element={
-                  <ProtectedRoute>
-                    <EditPost />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/admin/"
-                element={
-                  <ProtectedAdminRoute>
-                    <AdminDashboard />
-                  </ProtectedAdminRoute>
-                }
-              />
-              <Route
-                path="/admin/categorias/"
-                element={
-                  <ProtectedAdminRoute>
-                    <Categories />
-                  </ProtectedAdminRoute>
-                }
-              />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/posts/:id" element={<PostDetails />} />
+                <Route path="/perfil/:id" element={<User />} />
 
-              {/* Catch-all: cualquier ruta no definida */}
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
+                {/* Rutas protegidas */}
+                <Route
+                  path="/posts/create-post"
+                  element={
+                    <ProtectedRoute>
+                      <CreatePost />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/perfil/editar"
+                  element={
+                    <ProtectedRoute>
+                      <EditProfile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/posts/:id/edit"
+                  element={
+                    <ProtectedRoute>
+                      <EditPost />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/"
+                  element={
+                    <ProtectedAdminRoute>
+                      <AdminDashboard />
+                    </ProtectedAdminRoute>
+                  }
+                />
+                <Route
+                  path="/admin/categorias/"
+                  element={
+                    <ProtectedAdminRoute>
+                      <Categories />
+                    </ProtectedAdminRoute>
+                  }
+                />
+
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Suspense>
         </AuthProvider>
       </BrowserRouter>
     </ErrorBoundary>
+  );
+}
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <App />
   </StrictMode>,
 );

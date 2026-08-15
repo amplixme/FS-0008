@@ -6,6 +6,10 @@ import { loginSchema } from "../schemas/loginSchema";
 import { loginUser } from "../services/auth.service";
 import Alert from "../components/ui/Alert";
 import useAuth from "../hooks/useAuth";
+import MailIcon from "~icons/material-symbols/mail-outline";
+import LockIcon from "~icons/material-symbols/lock-outline";
+import VisibilityIcon from "~icons/material-symbols/visibility-outline";
+import VisibilityOffIcon from "~icons/material-symbols/visibility-off-outline";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -43,12 +47,13 @@ export default function Login() {
 
   return (
     <div className="min-h-full flex flex-col items-center justify-center px-4 py-10 bg-surface">
-      <h1 className="text-2xl font-bold tracking-tight text-on-surface mt-20">
-        TuProyecto
-      </h1>
-
-      <section className="w-full max-w-105 mx-auto mt-12 mb-0 bg-white md:rounded-xl shadow-xl overflow-hidden flex flex-col">
-        <header className="px-8 pt-10 pb-12 text-center">
+      <section className="w-full max-w-105 mx-auto mt-20 mb-0 bg-white md:rounded-xl shadow-xl overflow-hidden flex flex-col">
+        <img
+          src="/logo-notext.webp"
+          alt="Logo de TheCanvas"
+          className="h-24 mt-8 mx-auto"
+        />
+        <header className="px-8 pt-8 pb-12 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-on-surface">
             Iniciar sesion
           </h1>
@@ -77,12 +82,10 @@ export default function Login() {
               Correo electronico
             </label>
             <div className="relative">
-              <span
+              <MailIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                mail
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="email"
                 type="email"
@@ -116,12 +119,10 @@ export default function Login() {
               </Link>
             </div>
             <div className="relative">
-              <span
+              <LockIcon
                 aria-hidden="true"
-                className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
-              >
-                lock
-              </span>
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl"
+              />
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
@@ -141,9 +142,14 @@ export default function Login() {
                   showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
                 }
               >
-                <span className="material-symbols-outlined text-[20px]">
-                  {showPassword ? "visibility_off" : "visibility"}
-                </span>
+                {showPassword ? (
+                  <VisibilityOffIcon
+                    className="text-[20px]"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <VisibilityIcon className="text-[20px]" aria-hidden="true" />
+                )}
               </button>
             </div>
             {errors.password && (

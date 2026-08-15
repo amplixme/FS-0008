@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { update } from "../../../services/category.service";
 import { categorySchema } from "../../../schemas/categorySchema";
 import { generateSlug } from "../../../utils/utils";
+import CloseIcon from "~icons/material-symbols/close";
+import ErrorIcon from "~icons/material-symbols/error-outline";
 import { useModalKeyboard } from "../../../hooks/useModalKeyboard";
 
 export function EditCategoryModal({ category, onClose, onSuccess }) {
@@ -48,7 +50,10 @@ export function EditCategoryModal({ category, onClose, onSuccess }) {
       >
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-slate-100">
-          <h2 id="edit-category-modal-title" className="title-md font-bold text-slate-900">
+          <h2
+            id="edit-category-modal-title"
+            className="title-md font-bold text-slate-900"
+          >
             Editar categoría
           </h2>
           <button
@@ -56,7 +61,7 @@ export function EditCategoryModal({ category, onClose, onSuccess }) {
             onClick={onClose}
             className="text-slate-400 hover:text-slate-600 transition-colors"
           >
-            <span className="material-symbols-outlined">close</span>
+            <CloseIcon aria-hidden="true" />
           </button>
         </div>
 
@@ -65,7 +70,7 @@ export function EditCategoryModal({ category, onClose, onSuccess }) {
           <div className="p-8 space-y-6">
             {serverError && (
               <div className="p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm font-medium flex items-center gap-2">
-                <span className="material-symbols-outlined text-lg">error</span>
+                <ErrorIcon className="text-lg" aria-hidden="true" />
                 {serverError}
               </div>
             )}

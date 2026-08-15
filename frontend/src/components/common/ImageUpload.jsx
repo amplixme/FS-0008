@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { uploadImage } from "../../services/upload.service";
+import CloseIcon from "~icons/material-symbols/close";
+import ImageIcon from "~icons/material-symbols/image";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
@@ -21,9 +23,7 @@ function ImageUpload({
   alt = "Vista previa de la imagen",
   aspectRatio = "aspect-[21/9]",
   recommendation = "Recomendado: 1920x1080px",
-
 }) {
-
   const [preview, setPreview] = useState(value || null);
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -118,7 +118,7 @@ function ImageUpload({
                 aria-label="Eliminar imagen"
                 className="absolute top-3 right-3 w-8 h-8 rounded-full bg-on-surface/70 text-surface flex items-center justify-center hover:bg-on-surface transition-colors"
               >
-                <span className="material-symbols-outlined text-lg">close</span>
+                <CloseIcon className="text-lg" aria-hidden="true" />
               </button>
             )}
 
@@ -138,9 +138,10 @@ function ImageUpload({
           </>
         ) : (
           <>
-            <span className="material-symbols-outlined text-4xl text-outline mb-3">
-              image
-            </span>
+            <ImageIcon
+              className="text-4xl text-outline mb-3"
+              aria-hidden="true"
+            />
             <p className="text-on-surface-variant font-medium">
               Arrastra una imagen o haz clic para subir
             </p>

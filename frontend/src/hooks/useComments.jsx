@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getByPostId } from "../services/comment.service";
 
-export function useComments( postId ) {
+export function useComments(postId) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,9 +12,7 @@ export function useComments( postId ) {
   };
 
   useEffect(() => {
-
     if (!postId) return;
-
 
     let isMounted = true;
 
@@ -27,8 +25,7 @@ export function useComments( postId ) {
 
         if (isMounted) setComments(data);
       } catch (err) {
-        if (isMounted)
-          setError(err.message || "Error al obtener comentarios.");
+        if (isMounted) setError(err.message || "Error al obtener comentarios.");
       } finally {
         if (isMounted) setIsLoading(false);
       }
@@ -40,7 +37,6 @@ export function useComments( postId ) {
       isMounted = false;
     };
   }, [postId, retryCount]);
-  
 
   return {
     comments,
@@ -49,4 +45,3 @@ export function useComments( postId ) {
     refreshComments,
   };
 }
-

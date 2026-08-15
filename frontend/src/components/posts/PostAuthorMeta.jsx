@@ -10,9 +10,7 @@ function PostAuthorMeta({ authorId, authorName, date }) {
         {authorName}
       </Link>
 
-      <span className="text-xs text-outline">
-        {date}
-      </span>
+      <span className="text-xs text-outline">{date}</span>
     </div>
   );
 }

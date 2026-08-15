@@ -1,4 +1,6 @@
 import { Link } from "react-router";
+import LanguageIcon from "~icons/material-symbols/language";
+import ShareIcon from "~icons/material-symbols/share";
 
 const date = new Date();
 const currentYear = date.getFullYear();
@@ -8,9 +10,7 @@ function Footer() {
     <footer className="w-full py-12 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="flex flex-col gap-2">
-          <span className="font-bold text-slate-900 dark:text-slate-100 text-xl tight-tracking">
-            TheCanvas
-          </span>
+          <img src="/logo.webp" alt="Logo de TheCanvas" className="h-12" />
           <p className="text-label-md font-inter text-slate-500">
             © {currentYear} TheCanvas.
           </p>
@@ -48,17 +48,19 @@ function Footer() {
             className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group"
             aria-label="Cambiar idioma"
           >
-            <span className="material-symbols-outlined text-sm group-hover:text-white">
-              language
-            </span>
+            <LanguageIcon
+              className="text-sm group-hover:text-white"
+              aria-hidden="true"
+            />
           </button>
           <button
             className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-primary transition-all group"
             aria-label="Compartir enlace"
           >
-            <span className="material-symbols-outlined text-sm group-hover:text-white">
-              share
-            </span>
+            <ShareIcon
+              className="text-sm group-hover:text-white"
+              aria-hidden="true"
+            />
           </button>
         </div>
       </div>

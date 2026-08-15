@@ -2,6 +2,10 @@ import { useSearchParams } from "react-router";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
 import { CATEGORY_ICONS } from "../../constants/categories";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import ErrorIcon from "~icons/material-symbols/error-outline";
+import ExpandMoreIcon from "~icons/material-symbols/expand-more";
+import GridViewIcon from "~icons/material-symbols/grid-view-outline";
 
 function Sidebar({ categories, isLoading, error, onRetry }) {
   const [searchParams, setSearchParams] = useSearchParams({ sort: "newest" });
@@ -33,7 +37,7 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
   if (isLoading) {
     return (
       <div className="w-full md:w-64 shrink-0">
-        <Spinner icon="progress_activity" message="Cargando categorías..." />
+        <Spinner icon={ProgressActivityIcon} message="Cargando categorías..." />
       </div>
     );
   }
@@ -42,7 +46,7 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
     return (
       <div className="w-full md:w-64 shrink-0">
         <ErrorMessage
-          icon="error"
+          icon={ErrorIcon}
           message="Error al cargar categorías"
           onRetry={onRetry}
         />
@@ -71,9 +75,10 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
             <option value="oldest">Más antiguos</option>
             <option value="comments">Más comentados</option>
           </select>
-          <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-            expand_more
-          </span>
+          <ExpandMoreIcon
+            className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+            aria-hidden="true"
+          />
         </div>
       </div>
 
@@ -93,13 +98,13 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
                 : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-200 dark:hover:bg-slate-700"
             }`}
           >
-            <span className="material-symbols-outlined text-sm">grid_view</span>
+            <GridViewIcon className="text-sm" aria-hidden="true" />
             Todas
           </button>
 
           {categories.map((category) => {
             const isSelected = selectedCategory === category.slug;
-            const iconName =
+            const Icon =
               CATEGORY_ICONS[category.slug] || CATEGORY_ICONS.default;
 
             return (
@@ -112,9 +117,7 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
               >
-                <span className="material-symbols-outlined text-sm">
-                  {iconName}
-                </span>
+                <Icon className="text-sm" aria-hidden="true" />
                 {category.name}
               </button>
             );
@@ -132,14 +135,12 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
                   : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
               }`}
             >
-              <span className="material-symbols-outlined text-base">
-                grid_view
-              </span>
+              <GridViewIcon className="text-base" aria-hidden="true" />
               Todas las categorías
             </button>
           </li>
           {categories.map((category) => {
-            const iconName =
+            const Icon =
               CATEGORY_ICONS[category.slug] || CATEGORY_ICONS.default;
             const isSelected = selectedCategory === category.slug;
 
@@ -153,9 +154,7 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
                       : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                   }`}
                 >
-                  <span className="material-symbols-outlined text-base">
-                    {iconName}
-                  </span>
+                  <Icon className="text-base" aria-hidden="true" />
                   {category.name}
                 </button>
               </li>

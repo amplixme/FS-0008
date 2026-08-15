@@ -6,6 +6,9 @@ import HeroSearch from "../components/home/HeroSearch";
 import Spinner from "../components/common/Spinner";
 import ErrorMessage from "../components/common/ErrorMessage";
 import EmptyState from "../components/common/EmptyState";
+import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import ErrorIcon from "~icons/material-symbols/error-outline";
+import InboxIcon from "~icons/material-symbols/inbox-outline";
 import { useCategories } from "../hooks/useCategories";
 import { usePosts } from "../hooks/usePosts";
 
@@ -43,18 +46,18 @@ function Home() {
         <div className="flex-1">
           {isLoadingPosts ? (
             <Spinner
-              icon="progress_activity"
+              icon={ProgressActivityIcon}
               message="Cargando publicaciones..."
             />
           ) : postsError ? (
             <ErrorMessage
-              icon="error"
+              icon={ErrorIcon}
               message="Ha ocurrido un error al cargar los datos"
               onRetry={handleRetryPosts}
             />
           ) : posts.length === 0 ? (
             <EmptyState
-              icon="inbox"
+              icon={InboxIcon}
               message="No hay publicaciones disponibles"
             />
           ) : (

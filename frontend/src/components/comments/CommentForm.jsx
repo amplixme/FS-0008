@@ -4,29 +4,29 @@ import { create } from "../../services/comment.service";
 import { Link } from "react-router";
 
 function CommentForm({ postId, onSuccess }) {
-	const { isAuthenticated } = useAuth();
- 	const [content, setContent] = useState("");
+  const { isAuthenticated } = useAuth();
+  const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const handleSubmit = async () => {
-			if (!content.trim()) return;
-	
-			setIsSubmitting(true);
-	
-			try {
-				await create(postId, { content });
-				setContent("");
-				onSuccess();
-			} catch (error) {
-				console.error(error);
-			} finally {
-				setIsSubmitting(false);
-			}
-		};
+  const handleSubmit = async () => {
+    if (!content.trim()) return;
 
-	return (
-		<>
-			{isAuthenticated ? (
+    setIsSubmitting(true);
+
+    try {
+      await create(postId, { content });
+      setContent("");
+      onSuccess();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <>
+      {isAuthenticated ? (
         // Si está autenticado
         <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm mb-12 border border-outline-variant/10 focus-within:ring-2 ring-primary/20 transition-all">
           <textarea
@@ -56,8 +56,8 @@ function CommentForm({ postId, onSuccess }) {
           Inicia sesión para comentar
         </Link>
       )}
-		</>
-	)
+    </>
+  );
 }
 
 export default CommentForm;

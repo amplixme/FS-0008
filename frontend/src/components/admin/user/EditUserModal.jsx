@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editAdminUserSchema } from "../../../schemas/adminUserSchema";
 import { updateUser } from "../../../services/admin.service";
+import CloseIcon from "~icons/material-symbols/close";
+import ErrorIcon from "~icons/material-symbols/error-outline";
 import { useModalKeyboard } from "../../../hooks/useModalKeyboard";
 
 function EditUserModal({ user, onClose, onSuccess }) {
@@ -46,13 +48,18 @@ function EditUserModal({ user, onClose, onSuccess }) {
       >
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-surface-variant/30">
-          <h2 id="edit-user-modal-title" className="text-xl font-bold text-on-surface">Editar usuario</h2>
+          <h2
+            id="edit-user-modal-title"
+            className="text-xl font-bold text-on-surface"
+          >
+            Editar usuario
+          </h2>
           <button
             type="button"
             onClick={onClose}
             className="text-outline hover:text-on-surface transition-colors"
           >
-            <span className="material-symbols-outlined">close</span>
+            <CloseIcon aria-hidden="true" />
           </button>
         </div>
 
@@ -61,7 +68,7 @@ function EditUserModal({ user, onClose, onSuccess }) {
           <div className="p-8 space-y-6">
             {serverError && (
               <div className="p-4 rounded-xl bg-error-container text-on-error-container text-sm font-medium flex items-center gap-2">
-                <span className="material-symbols-outlined text-lg">error</span>
+                <ErrorIcon className="text-lg" aria-hidden="true" />
                 {serverError}
               </div>
             )}
