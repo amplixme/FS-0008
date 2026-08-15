@@ -16,6 +16,7 @@ const corsOptions = {
 
     if (!isProduction) {
       // En desarrollo permite cualquier puerto de localhost (http://localhost:*)
+      const localhostRegex = /^http:\/\/localhost(:\d+)?$/;
       if (localhostRegex.test(origin)) {
         return callback(null, true);
       }

@@ -1,26 +1,13 @@
-import { useEffect } from "react";
 import { Link } from "react-router";
 import HomeIcon from "~icons/material-symbols/home-outline";
 import EditIcon from "~icons/material-symbols/edit-outline";
 import FolderIcon from "~icons/material-symbols/folder-outline";
 import LogoutIcon from "~icons/material-symbols/logout-outline";
 import { CATEGORIAS, USER } from "../../data/data";
+import { useModalKeyboard } from "../../hooks/useModalKeyboard";
 
 function Drawer({ onClose }) {
-  // para que se cierre con "ESC"
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onClose]);
+  const drawerRef = useModalKeyboard(onClose);
 
   return (
     <>
@@ -29,7 +16,14 @@ function Drawer({ onClose }) {
         className="fixed inset-0 z-40 bg-on-background/60"
         onClick={() => onClose()}
       ></div>
-      <aside className="fixed inset-y-0 left-0 z-50 bg-white dark:bg-slate-900 h-full w-80 rounded-r-2xl shadow-2xl flex flex-col font-inter antialiased overflow-hidden">
+      <aside
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menú de navegación"
+        tabIndex={-1}
+        className="fixed inset-y-0 left-0 z-50 bg-white dark:bg-slate-900 h-full w-80 rounded-r-2xl shadow-2xl flex flex-col font-inter antialiased overflow-hidden"
+      >
         {/* seccion perfil */}
         <header className="flex flex-col p-8 gap-4 bg-surface-container-low/50">
           <div className="relative w-16 h-16">

@@ -1,5 +1,6 @@
 import WarningIcon from "~icons/material-symbols/warning-outline";
 import CloseIcon from "~icons/material-symbols/close";
+import { useModalKeyboard } from "../../hooks/useModalKeyboard";
 
 export default function ConfirmModal({
   isOpen,
@@ -11,14 +12,26 @@ export default function ConfirmModal({
   confirmText = "Confirmar",
   isDestructive = false,
 }) {
+  const modalRef = useModalKeyboard(onClose);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform transition-all animate-in fade-in zoom-in duration-200">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirm-modal-title"
+        tabIndex={-1}
+        className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform transition-all animate-in fade-in zoom-in duration-200"
+      >
         {/* Modal Header */}
         <div className="px-8 py-6 flex justify-between items-center border-b border-slate-100">
-          <h2 className="title-md font-bold text-slate-900 flex items-center gap-2">
+          <h2
+            id="confirm-modal-title"
+            className="title-md font-bold text-slate-900 flex items-center gap-2"
+          >
             {isDestructive && (
               <WarningIcon className="text-red-500" aria-hidden="true" />
             )}

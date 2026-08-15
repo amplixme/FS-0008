@@ -57,11 +57,15 @@ function HeroSearch() {
             Últimas publicaciones
           </h1>
           <div className="relative flex items-center">
+            <label htmlFor="post-search" className="sr-only">
+              Buscar artículos
+            </label>
             <SearchIcon
               className="absolute left-4 text-outline pointer-events-none"
               aria-hidden="true"
             />
             <input
+              id="post-search"
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
