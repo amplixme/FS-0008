@@ -38,7 +38,13 @@ function Header() {
               <img src="/logo.webp" alt="Logo de TheCanvas" className="h-12" />
             </Link>
             <nav className="hidden lg:flex gap-6" aria-label="Menú principal">
-              <Link className="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight">
+              <Link
+                to="/"
+                aria-current={pathname === "/" ? "page" : undefined}
+                className={
+                  pathname === "/" ? activeLinkClass : inactiveLinkClass
+                }
+              >
                 Recientes
               </Link>
               <Link
@@ -109,13 +115,6 @@ function Header() {
               </>
             )}
             <button className="active:scale-95 transition-transform text-primary block lg:hidden">
-              <span
-                className="material-symbols-outlined text-2xl"
-                data-icon="search"
-              >
-                search
-              </span>
-            <button className="active:scale-95 transition-transform text-primary block md:hidden">
               <SearchIcon className="text-2xl" aria-hidden="true" />
             </button>
           </div>
