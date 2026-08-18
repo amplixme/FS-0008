@@ -1,4 +1,4 @@
-const DEFAULT_AVATAR = "https://placehold.co/150x150";
+const DEFAULT_AVATAR = "/default-avatar.svg";
 
 const SIZES = {
   sm: {
