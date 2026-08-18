@@ -88,9 +88,9 @@ function PostForm({ initialValues, onSubmit }) {
         </label>
         <textarea
           id="content"
-          rows={14}
+          rows={6}
           placeholder="Escribe tu artículo aquí..."
-          className="w-full bg-transparent border-none p-0 text-lg leading-relaxed text-on-surface placeholder:text-outline/40 focus:ring-0 resize-y"
+          className="w-full bg-transparent border-none p-4 text-lg leading-relaxed text-on-surface placeholder:text-outline/40 focus:ring-0 resize-y"
           aria-invalid={!!errors.content}
           aria-describedby={errors.content ? "content-error" : undefined}
           {...register("content")}
