@@ -37,8 +37,8 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6 space-y-10 lg:py-14">
-      <header className="lg:mt-20">
+    <div className="w-full max-w-7xl mx-auto p-6 space-y-10 lg:py-14 py-16">
+      <header className="lg:mt-20 mt-10">
         <h1 className="text-3xl font-bold tracking-tight text-on-surface leading-tight">
           Panel de Administración
         </h1>
