@@ -13,6 +13,7 @@ import Alert from "../ui/Alert";
 import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 import ErrorIcon from "~icons/material-symbols/error-outline";
 import ForumIcon from "~icons/material-symbols/forum-outline";
+import Avatar from "../ui/Avatar";
 
 function CommentSection({ postId }) {
   const { user } = useAuth();
@@ -130,10 +131,11 @@ function CommentSection({ postId }) {
         <div className="space-y-6">
           {comments.map((comment) => (
             <div key={comment.id} className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed text-xs font-bold uppercase shrink-0">
-                {comment.author.name?.charAt(0)}
-              </div>
-
+              <Avatar
+                src={comment.author?.avatarUrl || comment.author?.avatar}
+                name={comment.author?.name}
+                size="sm"
+              />
               <div className="flex flex-col flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-sm font-bold text-on-surface">

@@ -43,11 +43,12 @@ const getCommentsByPost = async (postId) => {
       author: {
         select: {
           name: true,
+          avatarUrl: true,
         },
       },
     },
   });
- };
+};
 
 // GET /api/admin/comments
 // Comentarios recientes para el panel de admin (no filtra por post)
@@ -116,7 +117,6 @@ const deleteComment = async (commentData) => {
     where: { id: String(commentId) },
   });
 };
-
 
 export default {
   createComment,

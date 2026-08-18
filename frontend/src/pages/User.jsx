@@ -5,6 +5,7 @@ import Alert from "../components/ui/Alert";
 import useAuth from "../hooks/useAuth";
 import { getProfile } from "../services/user.service";
 import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
+import Avatar from "../components/ui/Avatar";
 
 function User() {
   const { id } = useParams();
@@ -84,11 +85,7 @@ function User() {
       )}
       <section className="bg-surface-container-lowest rounded-2xl p-8 mb-10">
         <div className="flex flex-col sm:flex-row gap-6 items-start">
-          <img
-            src={profile.avatarUrl || "https://placehold.co/160x160"}
-            alt={`Avatar de ${profile.name}`}
-            className="w-32 h-32 rounded-full object-cover bg-surface-container"
-          />
+          <Avatar src={profile.avatarUrl} name={profile.name} size="xl" />
 
           <div className="flex-1">
             <div className="flex flex-wrap items-center justify-between gap-4">

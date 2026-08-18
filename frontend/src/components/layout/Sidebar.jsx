@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
+import MenuItem from "../common/MenuItem";
 import { CATEGORY_ICONS } from "../../constants/categories";
 import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 import ErrorIcon from "~icons/material-symbols/error-outline";
@@ -101,12 +102,10 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
             <GridViewIcon className="text-sm" aria-hidden="true" />
             Todas
           </button>
-
           {categories.map((category) => {
             const isSelected = selectedCategory === category.slug;
             const Icon =
               CATEGORY_ICONS[category.slug] || CATEGORY_ICONS.default;
-
             return (
               <button
                 key={category.id || category.slug}
@@ -127,39 +126,24 @@ function Sidebar({ categories, isLoading, error, onRetry }) {
         {/* Vista Desktop (>= md): Lista vertical */}
         <ul className="hidden md:block space-y-2">
           <li>
-            <button
+            <MenuItem
+              label="Todas las categorías"
+              icon={GridViewIcon}
+              isActive={!selectedCategory}
               onClick={() => handleSelectCategory(null)}
-              className={`flex items-center gap-3 w-full text-left p-3 rounded-xl text-sm font-medium transition-all hover:translate-x-1 ${
-                !selectedCategory
-                  ? "bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm"
-                  : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-              }`}
-            >
-              <GridViewIcon className="text-base" aria-hidden="true" />
-              Todas las categorías
-            </button>
+            />
           </li>
-          {categories.map((category) => {
-            const Icon =
-              CATEGORY_ICONS[category.slug] || CATEGORY_ICONS.default;
-            const isSelected = selectedCategory === category.slug;
-
-            return (
-              <li key={category.id || category.slug}>
-                <button
-                  onClick={() => handleSelectCategory(category.slug)}
-                  className={`flex items-center gap-3 w-full text-left p-3 rounded-xl text-sm font-medium transition-all hover:translate-x-1 ${
-                    isSelected
-                      ? "bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm"
-                      : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                  }`}
-                >
-                  <Icon className="text-base" aria-hidden="true" />
-                  {category.name}
-                </button>
-              </li>
-            );
-          })}
+          {categories.map((category) => (
+            <li key={category.id || category.slug}>
+              <MenuItem
+                label={category.name}
+                icon={CATEGORY_ICONS[category.slug] || CATEGORY_ICONS.default}
+                badge={category.postsCount}
+                isActive={selectedCategory === category.slug}
+                onClick={() => handleSelectCategory(category.slug)}
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </aside>

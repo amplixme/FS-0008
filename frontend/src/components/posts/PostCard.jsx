@@ -3,6 +3,7 @@ import ForumIcon from "~icons/material-symbols/forum-outline";
 import { truncateText } from "../../utils/utils";
 import { CATEGORY_STYLES } from "../../constants/categories";
 import { formatRelativeTime } from "../../utils/formatRelativeTime";
+import Avatar from "../ui/Avatar";
 
 function PostCard({
   post: {
@@ -81,10 +82,10 @@ function PostCard({
         <div className="flex items-center justify-between pt-6 border-t border-surface-container">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-primary-fixed overflow-hidden">
-              <img
-                alt={author.name}
-                className="w-full h-full object-cover"
-                src={author.avatar || "https://placehold.co/32x32"}
+              <Avatar
+                src={author.avatar || author.avatarUrl}
+                name={author.name}
+                size="sm"
               />
             </div>
 
