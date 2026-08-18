@@ -11,10 +11,13 @@ import ErrorIcon from "~icons/material-symbols/error-outline";
 import InboxIcon from "~icons/material-symbols/inbox-outline";
 import { useCategories } from "../hooks/useCategories";
 import { usePosts } from "../hooks/usePosts";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 function Home() {
   const [searchParams] = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams.entries());
+
+  const isDesktop = useMediaQuery("(min-width: 640px)"); // breakpoint sm: 640px
 
   const {
     categories,
@@ -33,8 +36,7 @@ function Home() {
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
-      <HeroSearch />
-
+      {isDesktop && <HeroSearch />}
       <div className="flex flex-col md:flex-row gap-2 md:gap-12">
         <Sidebar
           categories={categories}
