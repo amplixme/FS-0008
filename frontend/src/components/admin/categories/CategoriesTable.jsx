@@ -39,14 +39,14 @@ export function CategoriesTable({
           message="No se encontraron categorías. Crea una para comenzar."
         />
       ) : (
-        <div className="overflow-x-auto">
+        <div className="bg-surface-container-lowest rounded-xl shadow-sm">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
                 <th className="py-4 px-6">ID</th>
                 <th className="py-4 px-6">Nombre</th>
                 <th className="py-4 px-6">Slug</th>
-                <th className="py-4 px-6 text-right">Acciones</th>
+                <th className="py-4 px-6 text-center">Acciones</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
