@@ -14,7 +14,7 @@ import ChangeRoleModal from "../../components/admin/role/ChangeRoleModal";
 import DeleteUserModal from "../../components/admin/user/DeleteUserModal";
 import DeletePostModal from "../../components/admin/posts/DeletePostModal";
 import DeleteCommentModal from "../../components/admin/comments/DeleteCommentModal";
-import { Link } from "react-router";
+import Categories from "./Categories";
 
 function AdminDashboard() {
   const { user } = useAuth();
@@ -47,19 +47,14 @@ function AdminDashboard() {
         </p>
       </header>
 
-      <Link
-        to="/admin/categorias"
-        className="w-fit px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
-      >
-        Administrar categorías
-      </Link>
-
       <StatsCards
         stats={stats.stats}
         isLoading={stats.isLoading}
         error={stats.error}
         onRetry={stats.handleRetry}
       />
+
+      <Categories />
 
       <div className="w-full flex flex-1 flex-col gap-4 lg:flex-row lg:justify-between">
         <UsersTable
