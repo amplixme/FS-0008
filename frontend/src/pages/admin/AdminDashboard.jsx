@@ -37,8 +37,8 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6 pt-24 space-y-10">
-      <header>
+    <div className="w-full max-w-7xl mx-auto p-6 space-y-10 lg:py-14">
+      <header className="lg:mt-20">
         <h1 className="text-3xl font-bold tracking-tight text-on-surface leading-tight">
           Panel de Administración
         </h1>
@@ -54,9 +54,7 @@ function AdminDashboard() {
         onRetry={stats.handleRetry}
       />
 
-      <Categories />
-
-      <div className="w-full flex flex-1 flex-col gap-4 lg:flex-row lg:justify-between">
+      <div className="w-full flex flex-1 flex-col gap-4 lg:flex-row lg:justify-between lg:items-start">
         <UsersTable
           users={users.users}
           isLoading={users.isLoading}
@@ -79,6 +77,8 @@ function AdminDashboard() {
           }
         />
       </div>
+
+      <Categories />
 
       <RecentPostsTable
         posts={posts.posts}
