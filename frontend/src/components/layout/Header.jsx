@@ -6,6 +6,7 @@ import Drawer from "../ui/Drawer";
 import SearchInput from "../common/SearchInput";
 import { useState, useRef, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
+import Avatar from "../ui/Avatar";
 
 const activeLinkClass =
   "text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-inter tracking-tight";
@@ -109,11 +110,7 @@ function Header() {
                   aria-haspopup="true"
                 >
                   <div className="w-9 h-9 rounded-full bg-surface-container overflow-hidden border-2 border-primary/20 shrink-0">
-                    <img
-                      alt={`Avatar de ${user?.name || "Usuario"}`}
-                      className="w-full h-full object-cover"
-                      src={user?.avatarUrl || "https://placehold.co/40x40"}
-                    />
+                    <Avatar src={user?.avatarUrl} name={user?.name} size="md" />
                   </div>
                   <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 font-inter tracking-tight">
                     {user?.name || "Usuario"}
