@@ -63,8 +63,8 @@ function RecentPostsTable({ posts = [], isLoading, error, onRetry, onDelete }) {
                     key={post.id}
                     className="hover:bg-surface-container transition-colors"
                   >
-                    <td className="py-4 px-6 text-sm font-semibold text-on-surface max-w-xs truncate">
-                      {post.title}
+                    <td className="py-4 px-6 text-sm font-semibold text-on-surface max-w-xs">
+                      {post.title}  
                     </td>
                     <td className="py-4 px-6 text-sm text-on-surface-variant">
                       {post.author?.name}
