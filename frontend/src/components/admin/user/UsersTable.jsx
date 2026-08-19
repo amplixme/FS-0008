@@ -37,12 +37,10 @@ function UsersTable({
   return (
     <div className="w-auto lg:w-3/4 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
       {/* Header del bloque */}
-      <div className="flex items-center justify-between p-6 border-b border-surface-variant/30">
-        <div className="flex items-center gap-3">
-          <h2 className="text-xl font-bold tracking-tight text-on-surface">
-            Usuarios
-          </h2>
-          <span className="bg-primary-fixed text-on-primary-fixed py-0.5 px-3 rounded-full text-sm font-semibold">
+      <div className="flex flex-col lg:flex-row items-start lg:justify-between p-6 border-b border-slate-100 gap-2">
+        <div className="flex flex-row items-center gap-3">
+          <h1 className="text-2xl font-bold text-slate-900">Usuarios</h1>
+          <span className="bg-blue-100 text-blue-700 py-0.5 px-3 rounded-full text-sm font-semibold">
             {isLoading ? "..." : users.length}
           </span>
         </div>
@@ -50,9 +48,9 @@ function UsersTable({
           type="button"
           onClick={onCreate}
           disabled={isLoading}
-          className="flex items-center gap-1 bg-primary text-on-primary px-5 py-2.5 rounded-full font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="bg-blue-600 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
         >
-          Crear usuario
+          + Crear usuario
         </button>
       </div>
 
