@@ -50,7 +50,7 @@ function CommentForm({ postId, onSuccess }) {
       ) : (
         // Si no esta autenticado
         <Link
-          className="bg-primary text-on-primary px-6 py-2 rounded-full font-bold hover:shadow-lg  hover:shadow-primary/30 transition-all"
+          className="bg-primary text-on-primary px-6 py-2 rounded-full mb-12 font-bold hover:shadow-lg hover:shadow-primary/30 transition-all block w-fit"
           to="/login"
         >
           Inicia sesión para comentar

@@ -4,7 +4,7 @@ import DeleteIcon from "~icons/material-symbols/delete-outline";
 
 function PostActions({ postId, onDelete }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex justify-end items-center gap-3 py-8 border-t border-outline/10">
       <Link
         to={`/posts/${postId}/edit`}
         className="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant text-sm font-semibold hover:bg-surface-container-low transition-colors"
