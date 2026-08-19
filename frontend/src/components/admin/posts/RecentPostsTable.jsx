@@ -109,7 +109,7 @@ function RecentPostsTable({ posts = [], isLoading, error, onRetry, onDelete }) {
                   )}
                   <div className="flex flex-col justify-center min-w-0 gap-1">
                     <CategoryChips categories={post.categories} />
-                    <h3 className="font-bold text-on-surface leading-tight truncate">
+                    <h3 className="font-bold text-on-surface leading-tight">
                       {post.title}
                     </h3>
                   </div>
