@@ -69,11 +69,11 @@ function StatsCards({ stats, isLoading, error, onRetry }) {
           <h3 className="text-xs font-bold text-outline uppercase tracking-wider mb-4">
             Posts por categoría
           </h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col lg:flex-row lg:flex-wrap gap-2">
             {stats.postsByCategory.map((category) => (
               <span
                 key={category.id}
-                className="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-full text-sm font-medium text-on-surface-variant"
+                className="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-full text-sm font-medium text-on-surface-variant w-fit"
               >
                 {category.name}
                 <span className="bg-primary-fixed text-on-primary-fixed text-xs font-bold px-2 py-0.5 rounded-full">
