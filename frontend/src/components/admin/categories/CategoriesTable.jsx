@@ -13,8 +13,8 @@ export function CategoriesTable({
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden">
       {/* Header del bloque */}
-      <div className="flex items-center justify-between p-6 border-b border-slate-100">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col lg:flex-row items-start lg:justify-between p-6 border-b border-slate-100 gap-2">
+        <div className="flex flex-row items-center gap-3">
           <h1 className="text-2xl font-bold text-slate-900">Categorías</h1>
           <span className="bg-blue-100 text-blue-700 py-0.5 px-3 rounded-full text-sm font-semibold">
             {isLoading ? "..." : data.length}
