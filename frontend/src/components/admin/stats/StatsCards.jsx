@@ -1,6 +1,6 @@
-import GroupIcon from "~icons/material-symbols/group";
-import ArticleIcon from "~icons/material-symbols/article";
-import ChatBubbleIcon from "~icons/material-symbols/chat-bubble";
+import GroupIcon from "~icons/material-symbols/group-outline";
+import ArticleIcon from "~icons/material-symbols/article-outline";
+import ChatBubbleIcon from "~icons/material-symbols/chat-bubble-outline";
 import WarningIcon from "~icons/material-symbols/warning-outline";
 import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 import Spinner from "../../common/Spinner";
@@ -55,7 +55,10 @@ function StatsCards({ stats, isLoading, error, onRetry }) {
               <span className="text-sm lg:text-lg font-medium lg:font-semibold text-outline tracking-wider">
                 {card.label}
               </span>
-              <card.icon className={`${card.iconColor} size-7`} aria-hidden="true" />
+              <card.icon
+                className={`${card.iconColor} size-7`}
+                aria-hidden="true"
+              />
             </div>
             <span className="block text-3xl lg:text-4xl font-extrabold tracking-tight text-on-surface">
               {(stats?.[card.key] ?? 0).toLocaleString("es-AR")}
