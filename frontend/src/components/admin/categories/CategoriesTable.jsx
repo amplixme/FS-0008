@@ -13,8 +13,8 @@ export function CategoriesTable({
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden">
       {/* Header del bloque */}
-      <div className="flex items-center justify-between p-6 border-b border-slate-100">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col lg:flex-row items-start lg:justify-between p-6 border-b border-slate-100 gap-2">
+        <div className="flex flex-row items-center gap-3">
           <h1 className="text-2xl font-bold text-slate-900">Categorías</h1>
           <span className="bg-blue-100 text-blue-700 py-0.5 px-3 rounded-full text-sm font-semibold">
             {isLoading ? "..." : data.length}
@@ -39,14 +39,14 @@ export function CategoriesTable({
           message="No se encontraron categorías. Crea una para comenzar."
         />
       ) : (
-        <div className="overflow-x-auto">
+        <div className="bg-surface-container-lowest rounded-xl shadow-sm overflow-x-scroll lg:overflow-hidden md:overflow-hidden custom-scrollbar">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
                 <th className="py-4 px-6">ID</th>
                 <th className="py-4 px-6">Nombre</th>
                 <th className="py-4 px-6">Slug</th>
-                <th className="py-4 px-6 text-right">Acciones</th>
+                <th className="py-4 px-6 text-center">Acciones</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">

@@ -1,6 +1,6 @@
-import GroupIcon from "~icons/material-symbols/group";
-import ArticleIcon from "~icons/material-symbols/article";
-import ChatBubbleIcon from "~icons/material-symbols/chat-bubble";
+import GroupIcon from "~icons/material-symbols/group-outline";
+import ArticleIcon from "~icons/material-symbols/article-outline";
+import ChatBubbleIcon from "~icons/material-symbols/chat-bubble-outline";
 import WarningIcon from "~icons/material-symbols/warning-outline";
 import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 import Spinner from "../../common/Spinner";
@@ -9,7 +9,7 @@ import ErrorMessage from "../../common/ErrorMessage";
 const STAT_CARDS = [
   {
     key: "totalUsers",
-    label: "Usuarios Totales",
+    label: "Usuarios",
     icon: GroupIcon,
     iconBg: "bg-primary-fixed",
     iconColor: "text-primary",
@@ -45,25 +45,24 @@ function StatsCards({ stats, isLoading, error, onRetry }) {
 
   return (
     <section className="space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {STAT_CARDS.map((card) => (
           <div
             key={card.key}
-            className="bg-surface-container-lowest p-6 rounded-xl flex items-center gap-6 shadow-sm"
+            className="bg-surface-container-lowest p-6 lg:p-10 rounded-xl flex flex-col items-start gap-4 lg:gap-6 shadow-sm"
           >
-            <div
-              className={`w-12 h-12 rounded-full ${card.iconBg} flex items-center justify-center shrink-0`}
-            >
-              <card.icon className={card.iconColor} aria-hidden="true" />
-            </div>
-            <div>
-              <span className="block text-3xl font-extrabold tracking-tight text-on-surface">
-                {(stats?.[card.key] ?? 0).toLocaleString("es-AR")}
-              </span>
-              <span className="text-sm font-medium text-outline uppercase tracking-wider">
+            <div className="w-full flex justify-between ">
+              <span className="text-sm lg:text-lg font-medium lg:font-semibold text-outline tracking-wider">
                 {card.label}
               </span>
+              <card.icon
+                className={`${card.iconColor} size-7`}
+                aria-hidden="true"
+              />
             </div>
+            <span className="block text-3xl lg:text-4xl font-extrabold tracking-tight text-on-surface">
+              {(stats?.[card.key] ?? 0).toLocaleString("es-AR")}
+            </span>
           </div>
         ))}
       </div>
@@ -73,11 +72,11 @@ function StatsCards({ stats, isLoading, error, onRetry }) {
           <h3 className="text-xs font-bold text-outline uppercase tracking-wider mb-4">
             Posts por categoría
           </h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col lg:flex-row lg:flex-wrap gap-2">
             {stats.postsByCategory.map((category) => (
               <span
                 key={category.id}
-                className="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-full text-sm font-medium text-on-surface-variant"
+                className="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-full text-sm font-medium text-on-surface-variant w-fit"
               >
                 {category.name}
                 <span className="bg-primary-fixed text-on-primary-fixed text-xs font-bold px-2 py-0.5 rounded-full">

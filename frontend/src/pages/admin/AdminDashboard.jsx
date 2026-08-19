@@ -14,7 +14,7 @@ import ChangeRoleModal from "../../components/admin/role/ChangeRoleModal";
 import DeleteUserModal from "../../components/admin/user/DeleteUserModal";
 import DeletePostModal from "../../components/admin/posts/DeletePostModal";
 import DeleteCommentModal from "../../components/admin/comments/DeleteCommentModal";
-import { Link } from "react-router";
+import Categories from "./Categories";
 
 function AdminDashboard() {
   const { user } = useAuth();
@@ -37,8 +37,8 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6 pt-24 space-y-10">
-      <header>
+    <div className="w-full max-w-7xl mx-auto p-6 space-y-10 lg:py-14 py-16">
+      <header className="lg:mt-20 mt-10">
         <h1 className="text-3xl font-bold tracking-tight text-on-surface leading-tight">
           Panel de Administración
         </h1>
@@ -47,13 +47,6 @@ function AdminDashboard() {
         </p>
       </header>
 
-      <Link
-        to="/admin/categorias"
-        className="w-fit px-6 py-2 hidden md:block bg-primary text-on-primary font-bold rounded-full hover:shadow-lg transition-transform active:scale-95 duration-200"
-      >
-        Administrar categorías
-      </Link>
-
       <StatsCards
         stats={stats.stats}
         isLoading={stats.isLoading}
@@ -61,7 +54,7 @@ function AdminDashboard() {
         onRetry={stats.handleRetry}
       />
 
-      <div className="w-full flex flex-1 flex-col gap-4 lg:flex-row lg:justify-between">
+      <div className="w-full flex flex-1 flex-col gap-4 lg:flex-row lg:justify-between lg:items-start">
         <UsersTable
           users={users.users}
           isLoading={users.isLoading}
@@ -84,6 +77,8 @@ function AdminDashboard() {
           }
         />
       </div>
+
+      <Categories />
 
       <RecentPostsTable
         posts={posts.posts}
