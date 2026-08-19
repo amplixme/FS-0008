@@ -9,7 +9,7 @@ import ConfirmModal from "../../components/common/ConfirmModal";
 import { CATEGORY_STYLES } from "../../constants/categories";
 import CommentSection from "../../components/comments/CommentSection";
 import Spinner from "../../components/common/Spinner";
-import ArrowBackIcon from "~icons/material-symbols/arrow-back";
+import ChevronRight from "~icons/material-symbols/chevron-right";
 import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 
 function PostDetails() {
@@ -73,15 +73,29 @@ function PostDetails() {
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-6">
       <div className="max-w-3xl mx-auto">
         {!loading && (
-          <div className="flex items-center h-16 mb-4">
-            <Link
-              to="/"
-              className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
-            >
-              <ArrowBackIcon className="text-xl" aria-hidden="true" />
-              Volver a inicio
+          <nav
+            className="flex items-center gap-2 text-sm text-gray-500 mb-6"
+            aria-label="Breadcrumb"
+          >
+            <Link to="/" className="hover:text-gray-900 transition-colors">
+              Inicio
             </Link>
-          </div>
+            <ChevronRight />
+            {post.categories.length > 0 && (
+              <>
+                <Link
+                  to={`/?category=${post.categories[0].slug}`}
+                  className="hover:text-gray-900 transition-colors capitalize"
+                >
+                  {post.categories[0].name}
+                </Link>
+                <ChevronRight />
+              </>
+            )}
+            <span className="text-gray-900 font-medium truncate max-w-xs sm:max-w-md">
+              {post.title}
+            </span>
+          </nav>
         )}
 
         {loading && (
@@ -97,9 +111,6 @@ function PostDetails() {
 
         {!loading && !error && post && (
           <article>
-            <h1 className="text-3xl md:text-[2.75rem] font-extrabold leading-tight tracking-tight text-on-surface mb-6">
-              {post.title}
-            </h1>
             <div className="aspect-[16/9] overflow-hidden relative rounded-xl">
               <div className="absolute top-4 left-4 z-10 gap-2 flex">
                 {/* Si no hay categoria */}
@@ -145,26 +156,23 @@ function PostDetails() {
                 data-alt=""
                 src={post.coverImage || "https://placehold.co/600x400"}
               />
+            </div>{" "}
+            <h1 className="text-3xl md:text-[2.75rem] font-extrabold leading-tight tracking-tight text-on-surface mb-4 mt-4 md:mb-6 md:mt-6">
+              {post.title}
+            </h1>
+            <div className="flex items-center w-full mb-6">
+              <PostAuthorMeta author={post.author} date={formattedDate} />
             </div>
-            <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
-              <PostAuthorMeta
-                authorId={post.author.id}
-                authorName={post.author.name}
-                date={formattedDate}
-              />
-              {isOwner && (
-                <PostActions
-                  postId={post.id}
-                  onDelete={() => setIsDeleteModalOpen(true)}
-                />
-              )}
-            </div>
-            <div className="prose-content text-lg leading-[1.75] text-on-surface-variant whitespace-pre-line">
+            <div className="prose-content text-lg leading-[1.75] text-on-surface-variant whitespace-pre-line pb-12">
               {post.content}
             </div>
-
+            {isOwner && (
+              <PostActions
+                postId={post.id}
+                onDelete={() => setIsDeleteModalOpen(true)}
+              />
+            )}
             <CommentSection postId={post.id} />
-
             <ConfirmModal
               isOpen={isDeleteModalOpen}
               onClose={() => setIsDeleteModalOpen(false)}

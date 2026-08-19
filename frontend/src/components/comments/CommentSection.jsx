@@ -14,6 +14,7 @@ import ProgressActivityIcon from "~icons/material-symbols/progress-activity";
 import ErrorIcon from "~icons/material-symbols/error-outline";
 import ForumIcon from "~icons/material-symbols/forum-outline";
 import Avatar from "../ui/Avatar";
+import { Link } from "react-router";
 
 function CommentSection({ postId }) {
   const { user } = useAuth();
@@ -113,8 +114,12 @@ function CommentSection({ postId }) {
   }
 
   return (
-    <section className="mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-on-surface">Comentarios</h2>
+    <section className="border-t border-outline/10 pt-10 ">
+      <h2 className="text-2xl font-bold mb-6 text-on-surface">
+        Comentarios ({comments.length})
+      </h2>
+
+      <CommentForm postId={postId} onSuccess={refreshComments} />
 
       {actionError && (
         <div className="mb-4">
@@ -131,16 +136,21 @@ function CommentSection({ postId }) {
         <div className="space-y-6">
           {comments.map((comment) => (
             <div key={comment.id} className="flex gap-3">
-              <Avatar
-                src={comment.author?.avatarUrl || comment.author?.avatar}
-                name={comment.author?.name}
-                size="sm"
-              />
+              <Link to={`/perfil/${comment.authorId}`}>
+                <Avatar
+                  src={comment.author?.avatarUrl || comment.author?.avatar}
+                  name={comment.author?.name}
+                  size="sm"
+                />
+              </Link>
               <div className="flex flex-col flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm font-bold text-on-surface">
+                  <Link
+                    to={`/perfil/${comment.authorId}`}
+                    className="text-sm font-bold hover:text-primary text-on-surface"
+                  >
                     {comment.author.name}
-                  </span>
+                  </Link>
 
                   <span className="text-[10px] text-outline">
                     {formatRelativeTime(comment.createdAt)}
@@ -204,8 +214,6 @@ function CommentSection({ postId }) {
           ))}
         </div>
       )}
-
-      <CommentForm postId={postId} onSuccess={refreshComments} />
 
       <ConfirmModal
         isOpen={showConfirmModal}
