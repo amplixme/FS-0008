@@ -33,6 +33,27 @@ FS-0008/
 
 ## Screenshots
 
+### Iniciar sesión
+![Página de inicio de sesión](docs/screenshots/iniciar-sesion.png)
+
+### Registrarse
+![Página de reigstro](docs/screenshots/registrarse.png)
+
+### Inicio
+![Página principal](docs/screenshots/inicio.png)
+
+### Perfil de usuario
+![Página de perfil de usuario](docs/screenshots/perfil-usuario.png)
+
+### Crear publicación
+![Página para crear publicación](docs/screenshots/crear-publicacion.png)
+
+### Detalle de publicación
+![Página de detalle de publicación](docs/screenshots/detalle-publicacion.png)
+
+### Panel de administración
+![Página de panel de administración](docs/screenshots/panel-administracion.png)
+
 ## Instalación del proyecto
 
 Para clonar el repositorio, levantar la base de datos, configurar las variables de entorno y correr el frontend y el backend, consultá la siguiente guía.
@@ -47,10 +68,7 @@ La documentación completa de los endpoints (rutas, parámetros, autenticación 
 
 ---
 
-## URL pública de backend
+## URLs públicas
 
-<https://fs-0008.onrender.com/>
-
-## URL pública de frontend
-
-<https://fs-0008.vercel.app/>
+- 🌐 **Frontend:** [fs-0008.vercel.app](https://fs-0008.vercel.app/)
+- ⚙️ **Backend:** [fs-0008.onrender.com](https://fs-0008.onrender.com/)
