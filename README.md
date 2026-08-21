@@ -1,4 +1,4 @@
-# FS-0008 — The Canvas
+# FS-0008
 
 Aplicación construida como parte del Amplix Acceleration Program (track JavaScript).
 
